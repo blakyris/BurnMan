@@ -1,12 +1,10 @@
 <p align="center">
-  <img src="BurnMan/Assets.xcassets/AppIcon.appiconset/icon_256_1x.png" width="256" height="256" alt="BurnMan icon">
+  <img src="BurnMan/Assets.xcassets/AppIcon.appiconset/icon_256_1x.png" width="128" height="128" alt="BurnMan icon">
   <br>
-  <strong style="font-size: 4em;">BurnMan</strong>
+  <strong style="font-size: 5em;">BurnMan</strong>
   <br>
   <em>Open source burning software for the Mac</em>
 </p>
-
----
 
 ## Why?
 
