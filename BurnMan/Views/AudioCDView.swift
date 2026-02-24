@@ -1,0 +1,532 @@
+import SwiftUI
+import UniformTypeIdentifiers
+
+struct AudioCDView: View {
+    @Environment(AudioCDManager.self) private var audioCDManager
+    @Environment(DeviceManager.self) private var deviceManager
+    @State private var showLog = false
+    @State private var isDragTargeted = false
+    @State private var selection: Set<AudioTrack.ID> = []
+
+    private var canStartBurn: Bool {
+        audioCDManager.canBurn && deviceManager.selectedDevice != nil
+    }
+
+    private var burnHelpString: String {
+        if audioCDManager.tracks.isEmpty {
+            return "Ajoute des pistes audio pour pouvoir graver"
+        }
+        if deviceManager.selectedDevice == nil {
+            return "Aucun graveur sélectionné"
+        }
+        if audioCDManager.isOverCapacity {
+            return "La durée dépasse la capacité du CD"
+        }
+        return ""
+    }
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+                // Tracks
+                tracksSection
+
+                // Capacity
+                if !audioCDManager.tracks.isEmpty {
+                    capacitySection
+                }
+
+                // Métadonnées
+                if !audioCDManager.tracks.isEmpty {
+                    cdTextSection
+                }
+
+                // Options
+                settingsSection
+
+                // Progress
+                if audioCDManager.isRunning || audioCDManager.progress.pipelinePhase != .idle {
+                    progressSection
+                }
+
+                // Actions
+                actionsSection
+            }
+            .padding(24)
+        }
+        .navigationTitle("CD Audio")
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                DevicePickerView()
+            }
+            ToolbarItem(placement: .automatic) {
+                Button {
+                    showLog.toggle()
+                } label: {
+                    Image(systemName: "terminal")
+                }
+                .help("Afficher le log")
+            }
+        }
+        .sheet(isPresented: $showLog) {
+            LogSheetView(title: "Log CD Audio", log: audioCDManager.log)
+        }
+        .focusedSceneValue(\.showLog, $showLog)
+        .focusedSceneValue(\.burnAction, { startPipeline(simulate: false) })
+        .focusedSceneValue(\.simulateAction, { startPipeline(simulate: true) })
+        .focusedSceneValue(\.cancelAction, { audioCDManager.cancel() })
+        .focusedSceneValue(\.addFilesAction, { openFilePicker() })
+        .focusedSceneValue(\.canBurn, canStartBurn)
+        .focusedSceneValue(\.isRunning, audioCDManager.isRunning)
+    }
+
+    // MARK: - Tracks Section
+
+    private var tracksSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Label("Pistes audio", systemImage: "music.note.list")
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundStyle(.secondary)
+
+            if audioCDManager.tracks.isEmpty {
+                // Empty state
+                VStack(spacing: 12) {
+                    Image(systemName: "music.note")
+                        .font(.system(size: 40))
+                        .foregroundStyle(.secondary)
+
+                    Text("Ajoute des fichiers audio")
+                        .font(.headline)
+                        .foregroundStyle(.secondary)
+
+                    Text("MP3, AAC, FLAC, WAV, AIFF — ou glisse-dépose ici")
+                        .font(.caption)
+                        .foregroundStyle(.tertiary)
+
+                    Button("Ajouter des fichiers") {
+                        openFilePicker()
+                    }
+                    .buttonStyle(.glass)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(24)
+                .background(.quaternary.opacity(0.3))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            } else {
+                // Track list + toolbar collés ensemble
+                VStack(spacing: 0) {
+                    List(selection: $selection) {
+                        ForEach(Array(audioCDManager.tracks.enumerated()), id: \.element.id) { index, track in
+                            AudioTrackRowView(
+                                track: track,
+                                onMoveUp: index > 0 ? {
+                                    audioCDManager.moveTrack(from: IndexSet(integer: index), to: index - 1)
+                                } : nil,
+                                onMoveDown: index < audioCDManager.tracks.count - 1 ? {
+                                    audioCDManager.moveTrack(from: IndexSet(integer: index), to: index + 2)
+                                } : nil,
+                                onRemove: {
+                                    audioCDManager.removeTrack(at: IndexSet(integer: index))
+                                }
+                            )
+                        }
+                        .onMove { source, destination in
+                            audioCDManager.moveTrack(from: source, to: destination)
+                        }
+                    }
+                    .listStyle(.bordered(alternatesRowBackgrounds: true))
+                    .scrollContentBackground(.visible)
+                    .frame(height: 10 * 44)
+
+                    // +/- toolbar collée en bas de la liste
+                    HStack(spacing: 0) {
+                        Button {
+                            openFilePicker()
+                        } label: {
+                            Image(systemName: "plus")
+                                .frame(width: 24, height: 20)
+                        }
+                        .buttonStyle(.borderless)
+
+                        Divider()
+                            .frame(height: 16)
+
+                        Button {
+                            let offsets = IndexSet(
+                                audioCDManager.tracks.indices.filter { selection.contains(audioCDManager.tracks[$0].id) }
+                            )
+                            audioCDManager.removeTrack(at: offsets)
+                            selection.removeAll()
+                        } label: {
+                            Image(systemName: "minus")
+                                .frame(width: 24, height: 20)
+                        }
+                        .buttonStyle(.borderless)
+                        .disabled(selection.isEmpty)
+
+                        Spacer()
+                    }
+                    .padding(.horizontal, 4)
+                    .padding(.vertical, 4)
+                    .background(.bar)
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 6)
+                        .strokeBorder(.separator)
+                )
+            }
+        }
+        .onDrop(of: [.fileURL], isTargeted: $isDragTargeted) { providers in
+            handleDrop(providers)
+        }
+        .dropHighlight(isTargeted: isDragTargeted)
+    }
+
+    // MARK: - Capacity Section
+
+    private var capacitySection: some View {
+        SectionContainer(title: "Capacité", systemImage: "chart.bar") {
+            VStack(spacing: 10) {
+                // Duration bar
+                ProgressView(
+                    value: min(audioCDManager.capacityFraction, 1.0),
+                    total: 1.0
+                )
+                .tint(capacityColor)
+
+                HStack {
+                    // Total duration
+                    let totalMin = Int(audioCDManager.totalDurationSeconds) / 60
+                    let totalSec = Int(audioCDManager.totalDurationSeconds) % 60
+                    Text("\(totalMin):\(String(format: "%02d", totalSec))")
+                        .font(.system(.caption, design: .monospaced))
+                        .fontWeight(.medium)
+
+                    Text("/")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
+                    Text("\(audioCDManager.settings.cdType.maxSeconds / 60):00")
+                        .font(.system(.caption, design: .monospaced))
+                        .foregroundStyle(.secondary)
+
+                    Spacer()
+
+                    Text("\(audioCDManager.tracks.count) piste(s)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
+                    if !audioCDManager.tracksNeedingConversion.isEmpty {
+                        Text("·")
+                            .foregroundStyle(.secondary)
+                        Text("\(audioCDManager.tracksNeedingConversion.count) à convertir")
+                            .font(.caption)
+                            .foregroundStyle(.orange)
+                    }
+                }
+
+                if audioCDManager.isOverCapacity {
+                    Label("La durée dépasse la capacité du CD", systemImage: "exclamationmark.triangle.fill")
+                        .font(.caption)
+                        .foregroundStyle(.red)
+                }
+            }
+        }
+    }
+
+    private var capacityColor: Color {
+        if audioCDManager.capacityFraction > 1.0 { return .red }
+        if audioCDManager.capacityFraction > 0.9 { return .orange }
+        return .green
+    }
+
+    // MARK: - CD-Text Section
+
+    private var cdTextSection: some View {
+        @Bindable var audioCDManager = audioCDManager
+
+        return SectionContainer(title: "Métadonnées", systemImage: "text.quote") {
+            VStack(spacing: 16) {
+                // Action buttons
+                HStack(spacing: 12) {
+                    Button {
+                        Task { await audioCDManager.fillMetadataFromFiles() }
+                    } label: {
+                        Label("Remplir automatiquement", systemImage: "arrow.down.doc")
+                            .font(.caption)
+                    }
+                    .buttonStyle(.glass)
+
+                    Button {
+                        // TODO: Implement metadata lookup
+                    } label: {
+                        Label("Rechercher des métadonnées", systemImage: "magnifyingglass")
+                            .font(.caption)
+                    }
+                    .buttonStyle(.glass)
+
+                    Spacer()
+                }
+
+                // Editable metadata in a collapsible section
+                DisclosureGroup("Éditer les métadonnées") {
+                    VStack(spacing: 16) {
+                        // Disc-level fields
+                        VStack(spacing: 10) {
+                            Text("Disque")
+                                .font(.caption)
+                                .fontWeight(.medium)
+                                .foregroundStyle(.secondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                            HStack(spacing: 12) {
+                                cdTextField("Titre de l'album", text: $audioCDManager.cdText.albumTitle)
+                                cdTextField("Artiste", text: $audioCDManager.cdText.albumArtist)
+                            }
+
+                            HStack(spacing: 12) {
+                                cdTextField("Auteur/Compositeur", text: $audioCDManager.cdText.albumSongwriter)
+                                cdTextField("Message", text: $audioCDManager.cdText.albumMessage)
+                            }
+
+                            HStack(spacing: 12) {
+                                cdTextField("UPC/EAN", text: $audioCDManager.cdText.upcEan)
+                                Spacer()
+                            }
+                        }
+
+                        Divider()
+
+                        // Per-track fields
+                        VStack(spacing: 10) {
+                            Text("Pistes")
+                                .font(.caption)
+                                .fontWeight(.medium)
+                                .foregroundStyle(.secondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                            ForEach($audioCDManager.tracks) { $track in
+                                DisclosureGroup {
+                                    VStack(spacing: 8) {
+                                        HStack(spacing: 12) {
+                                            cdTextField("Titre", text: $track.title)
+                                            cdTextField("Artiste", text: $track.artist)
+                                        }
+                                        HStack(spacing: 12) {
+                                            cdTextField("Auteur/Compositeur", text: $track.songwriter)
+                                            cdTextField("ISRC", text: $track.isrc)
+                                        }
+                                        cdTextField("Message", text: $track.message)
+                                    }
+                                    .padding(.top, 4)
+                                } label: {
+                                    HStack(spacing: 8) {
+                                        Text(String(format: "%02d", track.order))
+                                            .font(.system(.caption, design: .monospaced))
+                                            .fontWeight(.medium)
+                                            .foregroundStyle(.secondary)
+                                            .frame(width: 20)
+                                        Text(track.title)
+                                            .font(.caption)
+                                            .lineLimit(1)
+                                        if !track.artist.isEmpty {
+                                            Text("—")
+                                                .font(.caption)
+                                                .foregroundStyle(.tertiary)
+                                            Text(track.artist)
+                                                .font(.caption)
+                                                .foregroundStyle(.secondary)
+                                                .lineLimit(1)
+                                        }
+                                    }
+                                }
+                                .font(.caption)
+                            }
+                        }
+                    }
+                    .padding(.top, 8)
+                }
+                .font(.subheadline)
+            }
+        }
+    }
+
+    private func cdTextField(_ label: String, text: Binding<String>) -> some View {
+        VStack(alignment: .leading, spacing: 3) {
+            Text(label)
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
+            TextField(label, text: text)
+                .textFieldStyle(.roundedBorder)
+                .font(.caption)
+        }
+    }
+
+    // MARK: - Settings Section
+
+    private var settingsSection: some View {
+        @Bindable var audioCDManager = audioCDManager
+
+        return SectionContainer(title: "Options", systemImage: "gearshape") {
+            VStack(spacing: 16) {
+                SettingRow(
+                    title: "Vitesse",
+                    systemImage: "speedometer",
+                    description: "Une vitesse basse réduit le risque d'erreurs et améliore la qualité de la gravure."
+                ) {
+                    Picker("", selection: $audioCDManager.settings.speed) {
+                        ForEach(AudioCDSettings.availableSpeeds, id: \.self) { speed in
+                            Text("\(speed)x").tag(speed)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .fixedSize()
+                }
+
+                SettingRow(
+                    title: "Type de CD",
+                    systemImage: "opticaldisc",
+                    description: "Choisissez le type de disque vierge que vous utilisez : 80 min ou 74 min."
+                ) {
+                    Picker("", selection: $audioCDManager.settings.cdType) {
+                        ForEach(CDType.allCases) { type in
+                            Text(type.rawValue).tag(type)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .fixedSize()
+                }
+
+                SettingRow(
+                    title: "Éjecter après la gravure",
+                    systemImage: "eject",
+                    description: "Le disque est automatiquement éjecté une fois la gravure terminée."
+                ) {
+                    Toggle("", isOn: $audioCDManager.settings.eject)
+                        .labelsHidden()
+                        .toggleStyle(.switch)
+                        .controlSize(.small)
+                }
+
+                SettingRow(
+                    title: "Overburn",
+                    systemImage: "exclamationmark.triangle",
+                    description: "Permet de graver au-delà de la durée prévue du disque. Ne fonctionne pas avec tous les graveurs."
+                ) {
+                    Toggle("", isOn: $audioCDManager.settings.overburn)
+                        .labelsHidden()
+                        .toggleStyle(.switch)
+                        .controlSize(.small)
+                }
+            }
+            .disabled(audioCDManager.isRunning)
+        }
+    }
+
+    // MARK: - Progress Section
+
+    private var progressSection: some View {
+        SectionContainer(title: "Progression", systemImage: "waveform.path") {
+            AudioCDProgressView(
+                progress: audioCDManager.progress,
+                tracks: audioCDManager.tracks,
+                onDismiss: {
+                    audioCDManager.progress = AudioCDProgress()
+                },
+                onRetry: {
+                    startPipeline(simulate: audioCDManager.settings.simulate)
+                }
+            )
+        }
+    }
+
+    // MARK: - Actions Section
+
+    private var actionsSection: some View {
+        GlassEffectContainer(spacing: 12) {
+            HStack(spacing: 12) {
+                if audioCDManager.isRunning {
+                    Button(role: .destructive) {
+                        audioCDManager.cancel()
+                    } label: {
+                        Label("Annuler", systemImage: "xmark.circle")
+                    }
+                    .buttonStyle(.glass)
+                } else {
+                    Button {
+                        startPipeline(simulate: false)
+                    } label: {
+                        Label("Graver le CD audio", systemImage: "flame")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.glassProminent)
+                    .disabled(!canStartBurn)
+                    .controlSize(.large)
+                    .help(burnHelpString)
+
+                    Button {
+                        startPipeline(simulate: true)
+                    } label: {
+                        Label("Simuler", systemImage: "play.slash")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.glass)
+                    .disabled(!canStartBurn)
+                    .controlSize(.large)
+                    .help(burnHelpString)
+                }
+            }
+        }
+    }
+
+    // MARK: - Actions
+
+    private func startPipeline(simulate: Bool) {
+        guard let device = deviceManager.selectedDevice else { return }
+        audioCDManager.settings.simulate = simulate
+        Task {
+            await audioCDManager.startPipeline(device: device)
+        }
+    }
+
+    private func openFilePicker() {
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = true
+        panel.canChooseDirectories = false
+
+        var types: [UTType] = [.audio, .mp3, .wav, .aiff]
+        if let flac = UTType(filenameExtension: "flac") {
+            types.append(flac)
+        }
+        panel.allowedContentTypes = types
+
+        panel.begin { response in
+            if response == .OK {
+                let urls = panel.urls
+                Task { @MainActor in
+                    await audioCDManager.addFiles(urls: urls)
+                }
+            }
+        }
+    }
+
+    private func handleDrop(_ providers: [NSItemProvider]) -> Bool {
+        var handled = false
+        let audioExtensions = Set(["mp3", "m4a", "aac", "flac", "wav", "aiff", "aif"])
+
+        for provider in providers {
+            provider.loadItem(forTypeIdentifier: "public.file-url", options: nil) { item, _ in
+                guard let data = item as? Data,
+                      let url = URL(dataRepresentation: data, relativeTo: nil),
+                      audioExtensions.contains(url.pathExtension.lowercased()) else { return }
+                Task { @MainActor in
+                    await audioCDManager.addFiles(urls: [url])
+                }
+            }
+            handled = true
+        }
+        return handled
+    }
+}

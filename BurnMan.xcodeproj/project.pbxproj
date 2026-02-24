@@ -1,0 +1,853 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 73;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		07416A4FD460019C885AA68C /* BurnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6F78585BC8BA4D870D4181 /* BurnManager.swift */; };
+		2200C1503E76DFB7ABDF9DD4 /* CueGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A17587E346AA19BD69EB9FC /* CueGeneratorView.swift */; };
+		42EAE11C7B3910398744028A /* TrackInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7C25EA6172B64A2A52D83 /* TrackInfo.swift */; };
+		4755C0C57DB065EE72C46E61 /* CueGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652560F91AEF803309C2D415 /* CueGenerator.swift */; };
+		656B279AE0D078CC2F3E3BDD /* BurnProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F899C9F702E4D885FF66F5 /* BurnProgressView.swift */; };
+		6DFE22B1FE720BDD72B959D4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C546D6684E81440554504DF1 /* SettingsView.swift */; };
+		8A612C85E036B05F3740A0F3 /* BurnSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63ADEB2293F5EB7A9FD5F50 /* BurnSettings.swift */; };
+		9189BA6F3F92EC552DFF8948 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FB34039A02CF01C8AA74A /* main.swift */; };
+		94EABC8E3B4F188AC99A4E60 /* BurnManApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B478953EB6039ABF4E2DB6B /* BurnManApp.swift */; };
+		A1B2C3D4E5F60718293A4B5C /* org.burnman.helper.plist in Copy Helper LaunchDaemon plist */ = {isa = PBXBuildFile; fileRef = F1A2B3C4D5E6F7890A1B2C3D /* org.burnman.helper.plist */; };
+		AA1BC2A3D7E8F1234ABCD301 /* AudioCDModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD201 /* AudioCDModels.swift */; };
+		AA1BC2A3D7E8F1234ABCD302 /* AudioCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD202 /* AudioCDManager.swift */; };
+		AA1BC2A3D7E8F1234ABCD303 /* AudioTrackRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD203 /* AudioTrackRowView.swift */; };
+		AA1BC2A3D7E8F1234ABCD304 /* AudioCDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD204 /* AudioCDProgressView.swift */; };
+		AA1BC2A3D7E8F1234ABCD305 /* AudioCDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD205 /* AudioCDView.swift */; };
+		B2AE436837DDF44ED469AC97 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963F83B8A7FE984E1CA8F916 /* DeviceManager.swift */; };
+		BB67759C283969A20A8D15EC /* BurnManHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA957ACA1AFAE5F32D6931 /* BurnManHelperProtocol.swift */; };
+		BE58022D2F4D03C3008B3C66 /* CdrdaoOutputParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE58022C2F4D03C3008B3C66 /* CdrdaoOutputParser.swift */; };
+		BE58022F2F4D0E51008B3C66 /* ToolRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE58022E2F4D0E51008B3C66 /* ToolRunner.swift */; };
+		BE5802312F4D0E51008B3C66 /* FfmpegConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5802302F4D0E51008B3C66 /* FfmpegConfig.swift */; };
+		BE5802332F4D0E52008B3C66 /* FfmpegOutputParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5802322F4D0E52008B3C66 /* FfmpegOutputParser.swift */; };
+		BE58023D2F4D3B70008B3C66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE58023C2F4D3B70008B3C66 /* Assets.xcassets */; };
+		BE58023F2F4D454D008B3C66 /* AudioPreviewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE58023E2F4D454D008B3C66 /* AudioPreviewPlayer.swift */; };
+		BEF805562F4DD32400509E59 /* BurnManHelper in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6A79634F977874AFC393286A /* BurnManHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		BEF805582F4DFCAE00509E59 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BEF805572F4DFCAE00509E59 /* Credits.rtf */; };
+		BF4FB28985C554614625A8EF /* HelperClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E65B67EEF0E46083D4E379 /* HelperClient.swift */; };
+		E45F76E37D128E266D0A35B2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FC3717BDB89BFDF09B47A /* ContentView.swift */; };
+		F9DB5AB3032E1FEA22A0D800 /* BurnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E88C451E6C57814928EEB5 /* BurnView.swift */; };
+		FA1BC2A3D7E8F1234ABCD001 /* CdrdaoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD101 /* CdrdaoConfig.swift */; };
+		FA1BC2A3D7E8F1234ABCD002 /* TrackRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD102 /* TrackRowView.swift */; };
+		FA1BC2A3D7E8F1234ABCD003 /* GlassModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD103 /* GlassModifiers.swift */; };
+		FA1BC2A3D7E8F1234ABCD004 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD104 /* PlaceholderView.swift */; };
+		FA1BC2A3D7E8F1234ABCD005 /* DevicePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD105 /* DevicePickerView.swift */; };
+		FA1BC2A3D7E8F1234ABCD006 /* LogSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD106 /* LogSheetView.swift */; };
+		FC7DB3D5DBB505089C70776A /* BurnManHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA957ACA1AFAE5F32D6931 /* BurnManHelperProtocol.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7E17B27760B92A1CBD2AB3D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 754D79DD4B71B70925C9D5EE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB03FD967A73617FD1DAE9C4;
+			remoteInfo = BurnManHelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BE5801EA2F4CF432008B3C66 /* Copy cdrdao */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Copy cdrdao";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE5802082F4CFA8E008B3C66 /* Copy ffmpeg */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Copy ffmpeg";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE58021C2F4CFB5B008B3C66 /* Copy dvdrwtools */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Copy dvdrwtools";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BEF805552F4DD2E500509E59 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				BEF805562F4DD32400509E59 /* BurnManHelper in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDA461BDA4901F638EC757A2 /* Copy Helper LaunchDaemon plist */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchDaemons;
+			dstSubfolderSpec = 1;
+			files = (
+				A1B2C3D4E5F60718293A4B5C /* org.burnman.helper.plist in Copy Helper LaunchDaemon plist */,
+			);
+			name = "Copy Helper LaunchDaemon plist";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		AABB0001AABB0001AABB0001 /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
+		0A3FB34039A02CF01C8AA74A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		2A17587E346AA19BD69EB9FC /* CueGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueGeneratorView.swift; sourceTree = "<group>"; };
+		3B9FC3717BDB89BFDF09B47A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3DF3BF8AC9DE3286A6C48293 /* BurnMan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BurnMan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DFA957ACA1AFAE5F32D6931 /* BurnManHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnManHelperProtocol.swift; sourceTree = "<group>"; };
+		53F7C25EA6172B64A2A52D83 /* TrackInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfo.swift; sourceTree = "<group>"; };
+		5B478953EB6039ABF4E2DB6B /* BurnManApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnManApp.swift; sourceTree = "<group>"; };
+		652560F91AEF803309C2D415 /* CueGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueGenerator.swift; sourceTree = "<group>"; };
+		6A79634F977874AFC393286A /* BurnManHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BurnManHelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F6F78585BC8BA4D870D4181 /* BurnManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnManager.swift; sourceTree = "<group>"; };
+		963F83B8A7FE984E1CA8F916 /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
+		99E88C451E6C57814928EEB5 /* BurnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnView.swift; sourceTree = "<group>"; };
+		AA1BC2A3D7E8F1234ABCD201 /* AudioCDModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDModels.swift; sourceTree = "<group>"; };
+		AA1BC2A3D7E8F1234ABCD202 /* AudioCDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDManager.swift; sourceTree = "<group>"; };
+		AA1BC2A3D7E8F1234ABCD203 /* AudioTrackRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrackRowView.swift; sourceTree = "<group>"; };
+		AA1BC2A3D7E8F1234ABCD204 /* AudioCDProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDProgressView.swift; sourceTree = "<group>"; };
+		AA1BC2A3D7E8F1234ABCD205 /* AudioCDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDView.swift; sourceTree = "<group>"; };
+		B63ADEB2293F5EB7A9FD5F50 /* BurnSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnSettings.swift; sourceTree = "<group>"; };
+		B7E65B67EEF0E46083D4E379 /* HelperClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperClient.swift; sourceTree = "<group>"; };
+		BE58022C2F4D03C3008B3C66 /* CdrdaoOutputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdrdaoOutputParser.swift; sourceTree = "<group>"; };
+		BE58022E2F4D0E51008B3C66 /* ToolRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolRunner.swift; sourceTree = "<group>"; };
+		BE5802302F4D0E51008B3C66 /* FfmpegConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FfmpegConfig.swift; sourceTree = "<group>"; };
+		BE5802322F4D0E52008B3C66 /* FfmpegOutputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FfmpegOutputParser.swift; sourceTree = "<group>"; };
+		BE58023C2F4D3B70008B3C66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BE58023E2F4D454D008B3C66 /* AudioPreviewPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreviewPlayer.swift; sourceTree = "<group>"; };
+		BEF805572F4DFCAE00509E59 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		C546D6684E81440554504DF1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E0F899C9F702E4D885FF66F5 /* BurnProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnProgressView.swift; sourceTree = "<group>"; };
+		F1A2B3C4D5E6F7890A1B2C3D /* org.burnman.helper.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = org.burnman.helper.plist; sourceTree = "<group>"; };
+		FA1BC2A3D7E8F1234ABCD101 /* CdrdaoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdrdaoConfig.swift; sourceTree = "<group>"; };
+		FA1BC2A3D7E8F1234ABCD102 /* TrackRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRowView.swift; sourceTree = "<group>"; };
+		FA1BC2A3D7E8F1234ABCD103 /* GlassModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassModifiers.swift; sourceTree = "<group>"; };
+		FA1BC2A3D7E8F1234ABCD104 /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
+		FA1BC2A3D7E8F1234ABCD105 /* DevicePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicePickerView.swift; sourceTree = "<group>"; };
+		FA1BC2A3D7E8F1234ABCD106 /* LogSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogSheetView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BE5801F22F4CF4DE008B3C66 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				cdrdao,
+			);
+			target = 341F60379F353726252BFECF /* BurnMan */;
+		};
+		BE58021B2F4CFAE1008B3C66 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ffmpeg,
+				ffplay,
+				ffprobe,
+			);
+			target = 341F60379F353726252BFECF /* BurnMan */;
+		};
+		BE5802262F4CFBD9008B3C66 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"dvd+rw-booktype",
+				"dvd+rw-format",
+				"dvd+rw-mediainfo",
+				growisofs,
+			);
+			target = 341F60379F353726252BFECF /* BurnMan */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		BE5801F12F4CF473008B3C66 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			attributesByRelativePath = {
+				cdrdao = (
+					CodeSignOnCopy,
+				);
+				libao.4.dylib = (
+					CodeSignOnCopy,
+				);
+				libmad.0.dylib = (
+					CodeSignOnCopy,
+				);
+				libogg.0.dylib = (
+					CodeSignOnCopy,
+				);
+				libvorbis.0.dylib = (
+					CodeSignOnCopy,
+				);
+				libvorbisfile.3.dylib = (
+					CodeSignOnCopy,
+				);
+			};
+			buildPhase = BE5801EA2F4CF432008B3C66 /* Copy cdrdao */;
+			membershipExceptions = (
+				cdrdao,
+				libao.4.dylib,
+				libmad.0.dylib,
+				libogg.0.dylib,
+				libvorbis.0.dylib,
+				libvorbisfile.3.dylib,
+			);
+		};
+		BE58021A2F4CFAA8008B3C66 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			attributesByRelativePath = {
+				ffmpeg = (
+					CodeSignOnCopy,
+				);
+				ffplay = (
+					CodeSignOnCopy,
+				);
+				ffprobe = (
+					CodeSignOnCopy,
+				);
+				"libSDL2-2.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				libSvtAv1Enc.4.dylib = (
+					CodeSignOnCopy,
+				);
+				libavcodec.62.dylib = (
+					CodeSignOnCopy,
+				);
+				libavdevice.62.dylib = (
+					CodeSignOnCopy,
+				);
+				libavfilter.11.dylib = (
+					CodeSignOnCopy,
+				);
+				libavformat.62.dylib = (
+					CodeSignOnCopy,
+				);
+				libavutil.60.dylib = (
+					CodeSignOnCopy,
+				);
+				libcrypto.3.dylib = (
+					CodeSignOnCopy,
+				);
+				libdav1d.7.dylib = (
+					CodeSignOnCopy,
+				);
+				libmp3lame.0.dylib = (
+					CodeSignOnCopy,
+				);
+				libopus.0.dylib = (
+					CodeSignOnCopy,
+				);
+				libssl.3.dylib = (
+					CodeSignOnCopy,
+				);
+				libswresample.6.dylib = (
+					CodeSignOnCopy,
+				);
+				libswscale.9.dylib = (
+					CodeSignOnCopy,
+				);
+				libvpx.12.dylib = (
+					CodeSignOnCopy,
+				);
+				libx264.165.dylib = (
+					CodeSignOnCopy,
+				);
+				libx265.215.dylib = (
+					CodeSignOnCopy,
+				);
+			};
+			buildPhase = BE5802082F4CFA8E008B3C66 /* Copy ffmpeg */;
+			membershipExceptions = (
+				ffmpeg,
+				ffplay,
+				ffprobe,
+				libavcodec.62.dylib,
+				libavdevice.62.dylib,
+				libavfilter.11.dylib,
+				libavformat.62.dylib,
+				libavutil.60.dylib,
+				libcrypto.3.dylib,
+				libdav1d.7.dylib,
+				libmp3lame.0.dylib,
+				libopus.0.dylib,
+				"libSDL2-2.0.0.dylib",
+				libssl.3.dylib,
+				libSvtAv1Enc.4.dylib,
+				libswresample.6.dylib,
+				libswscale.9.dylib,
+				libvpx.12.dylib,
+				libx264.165.dylib,
+				libx265.215.dylib,
+			);
+		};
+		BE58022B2F4CFBEC008B3C66 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			attributesByRelativePath = {
+				"dvd+rw-booktype" = (
+					CodeSignOnCopy,
+				);
+				"dvd+rw-format" = (
+					CodeSignOnCopy,
+				);
+				"dvd+rw-mediainfo" = (
+					CodeSignOnCopy,
+				);
+				growisofs = (
+					CodeSignOnCopy,
+				);
+			};
+			buildPhase = BE58021C2F4CFB5B008B3C66 /* Copy dvdrwtools */;
+			membershipExceptions = (
+				"dvd+rw-booktype",
+				"dvd+rw-format",
+				"dvd+rw-mediainfo",
+				growisofs,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		BE5801E82F4CF243008B3C66 /* cdrdao-bundle */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (BE5801F22F4CF4DE008B3C66 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, BE5801F12F4CF473008B3C66 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); name = "cdrdao-bundle"; path = "Resources/cdrdao-bundle"; sourceTree = "<group>"; };
+		BE5802062F4CFA7F008B3C66 /* ffmpeg-bundle */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (BE58021B2F4CFAE1008B3C66 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, BE58021A2F4CFAA8008B3C66 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); name = "ffmpeg-bundle"; path = "Resources/ffmpeg-bundle"; sourceTree = "<group>"; };
+		BE5802212F4CFBD2008B3C66 /* dvdrwtools-bundle */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (BE5802262F4CFBD9008B3C66 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, BE58022B2F4CFBEC008B3C66 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); name = "dvdrwtools-bundle"; path = "Resources/dvdrwtools-bundle"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXGroup section */
+		276A430DF6E20921633564F8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AA1BC2A3D7E8F1234ABCD201 /* AudioCDModels.swift */,
+				B63ADEB2293F5EB7A9FD5F50 /* BurnSettings.swift */,
+				53F7C25EA6172B64A2A52D83 /* TrackInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		528BF59E406F18F4326C2F52 /* BurnMan */ = {
+			isa = PBXGroup;
+			children = (
+				BE5802212F4CFBD2008B3C66 /* dvdrwtools-bundle */,
+				BE5802062F4CFA7F008B3C66 /* ffmpeg-bundle */,
+				BE5801E82F4CF243008B3C66 /* cdrdao-bundle */,
+				5B478953EB6039ABF4E2DB6B /* BurnManApp.swift */,
+				276A430DF6E20921633564F8 /* Models */,
+				F8EFAAD9C8757B9F4826AA18 /* Services */,
+				CC4CB299119194A0CD080DBF /* Views */,
+				BE58023C2F4D3B70008B3C66 /* Assets.xcassets */,
+				BEF805572F4DFCAE00509E59 /* Credits.rtf */,
+			);
+			path = BurnMan;
+			sourceTree = "<group>";
+		};
+		936EEADEAC72B2488A834929 = {
+			isa = PBXGroup;
+			children = (
+				AABB0001AABB0001AABB0001 /* Local.xcconfig */,
+				528BF59E406F18F4326C2F52 /* BurnMan */,
+				C40FC2A9FA1A8E29F19374D8 /* BurnManHelper */,
+				9A6298D3B07670404972D367 /* Shared */,
+				98911039BB04C211DDB511C3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		98911039BB04C211DDB511C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3DF3BF8AC9DE3286A6C48293 /* BurnMan.app */,
+				6A79634F977874AFC393286A /* BurnManHelper */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9A6298D3B07670404972D367 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3DFA957ACA1AFAE5F32D6931 /* BurnManHelperProtocol.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		C40FC2A9FA1A8E29F19374D8 /* BurnManHelper */ = {
+			isa = PBXGroup;
+			children = (
+				F1A2B3C4D5E6F7890A1B2C3D /* org.burnman.helper.plist */,
+				0A3FB34039A02CF01C8AA74A /* main.swift */,
+			);
+			path = BurnManHelper;
+			sourceTree = "<group>";
+		};
+		CC4CB299119194A0CD080DBF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AA1BC2A3D7E8F1234ABCD204 /* AudioCDProgressView.swift */,
+				AA1BC2A3D7E8F1234ABCD205 /* AudioCDView.swift */,
+				AA1BC2A3D7E8F1234ABCD203 /* AudioTrackRowView.swift */,
+				E0F899C9F702E4D885FF66F5 /* BurnProgressView.swift */,
+				99E88C451E6C57814928EEB5 /* BurnView.swift */,
+				3B9FC3717BDB89BFDF09B47A /* ContentView.swift */,
+				2A17587E346AA19BD69EB9FC /* CueGeneratorView.swift */,
+				FA1BC2A3D7E8F1234ABCD105 /* DevicePickerView.swift */,
+				FA1BC2A3D7E8F1234ABCD103 /* GlassModifiers.swift */,
+				FA1BC2A3D7E8F1234ABCD106 /* LogSheetView.swift */,
+				FA1BC2A3D7E8F1234ABCD104 /* PlaceholderView.swift */,
+				C546D6684E81440554504DF1 /* SettingsView.swift */,
+				FA1BC2A3D7E8F1234ABCD102 /* TrackRowView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F8EFAAD9C8757B9F4826AA18 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AA1BC2A3D7E8F1234ABCD202 /* AudioCDManager.swift */,
+				8F6F78585BC8BA4D870D4181 /* BurnManager.swift */,
+				FA1BC2A3D7E8F1234ABCD101 /* CdrdaoConfig.swift */,
+				652560F91AEF803309C2D415 /* CueGenerator.swift */,
+				963F83B8A7FE984E1CA8F916 /* DeviceManager.swift */,
+				B7E65B67EEF0E46083D4E379 /* HelperClient.swift */,
+				BE58022C2F4D03C3008B3C66 /* CdrdaoOutputParser.swift */,
+				BE58022E2F4D0E51008B3C66 /* ToolRunner.swift */,
+				BE5802302F4D0E51008B3C66 /* FfmpegConfig.swift */,
+				BE5802322F4D0E52008B3C66 /* FfmpegOutputParser.swift */,
+				BE58023E2F4D454D008B3C66 /* AudioPreviewPlayer.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		341F60379F353726252BFECF /* BurnMan */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98F2645A9ED004B27A4ECB1D /* Build configuration list for PBXNativeTarget "BurnMan" */;
+			buildPhases = (
+				9B7D1852EEAE50B0B44CBE66 /* Sources */,
+				042F76450663D6E16F932A5A /* Resources */,
+				BEF805552F4DD2E500509E59 /* CopyFiles */,
+				BE5801EA2F4CF432008B3C66 /* Copy cdrdao */,
+				BE58021C2F4CFB5B008B3C66 /* Copy dvdrwtools */,
+				BE5802082F4CFA8E008B3C66 /* Copy ffmpeg */,
+				BE5802402F4E0A01008B3C66 /* Sign Bundled Tools */,
+				FDA461BDA4901F638EC757A2 /* Copy Helper LaunchDaemon plist */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E69C7E9753EC6BACE94A0976 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				BE5801E82F4CF243008B3C66 /* cdrdao-bundle */,
+				BE5802062F4CFA7F008B3C66 /* ffmpeg-bundle */,
+				BE5802212F4CFBD2008B3C66 /* dvdrwtools-bundle */,
+			);
+			name = BurnMan;
+			packageProductDependencies = (
+			);
+			productName = BurnMan;
+			productReference = 3DF3BF8AC9DE3286A6C48293 /* BurnMan.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FB03FD967A73617FD1DAE9C4 /* BurnManHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BFAE1C4230952C1803864F56 /* Build configuration list for PBXNativeTarget "BurnManHelper" */;
+			buildPhases = (
+				2511DBD97DA09E1F8BC01C8D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BurnManHelper;
+			packageProductDependencies = (
+			);
+			productName = BurnManHelper;
+			productReference = 6A79634F977874AFC393286A /* BurnManHelper */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		754D79DD4B71B70925C9D5EE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2630;
+			};
+			buildConfigurationList = 0F4455D148671D2603DADA7B /* Build configuration list for PBXProject "BurnMan" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 936EEADEAC72B2488A834929;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 56;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				341F60379F353726252BFECF /* BurnMan */,
+				FB03FD967A73617FD1DAE9C4 /* BurnManHelper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		042F76450663D6E16F932A5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE58023D2F4D3B70008B3C66 /* Assets.xcassets in Resources */,
+				BEF805582F4DFCAE00509E59 /* Credits.rtf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BE5802402F4E0A01008B3C66 /* Sign Bundled Tools */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Sign Bundled Tools";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FRAMEWORKS_DIR=\"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}\"\nif [ -d \"$FRAMEWORKS_DIR\" ]; then\n    find \"$FRAMEWORKS_DIR\" -type f | while read -r f; do\n        if file \"$f\" | grep -q \"Mach-O\"; then\n            /usr/bin/codesign --force --sign \"${EXPANDED_CODE_SIGN_IDENTITY}\" \\\n                --timestamp=none --generate-entitlement-der \"$f\"\n        fi\n    done\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2511DBD97DA09E1F8BC01C8D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC7DB3D5DBB505089C70776A /* BurnManHelperProtocol.swift in Sources */,
+				9189BA6F3F92EC552DFF8948 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B7D1852EEAE50B0B44CBE66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA1BC2A3D7E8F1234ABCD301 /* AudioCDModels.swift in Sources */,
+				BE58022D2F4D03C3008B3C66 /* CdrdaoOutputParser.swift in Sources */,
+				AA1BC2A3D7E8F1234ABCD302 /* AudioCDManager.swift in Sources */,
+				AA1BC2A3D7E8F1234ABCD303 /* AudioTrackRowView.swift in Sources */,
+				BE5802332F4D0E52008B3C66 /* FfmpegOutputParser.swift in Sources */,
+				AA1BC2A3D7E8F1234ABCD304 /* AudioCDProgressView.swift in Sources */,
+				AA1BC2A3D7E8F1234ABCD305 /* AudioCDView.swift in Sources */,
+				07416A4FD460019C885AA68C /* BurnManager.swift in Sources */,
+				656B279AE0D078CC2F3E3BDD /* BurnProgressView.swift in Sources */,
+				8A612C85E036B05F3740A0F3 /* BurnSettings.swift in Sources */,
+				F9DB5AB3032E1FEA22A0D800 /* BurnView.swift in Sources */,
+				94EABC8E3B4F188AC99A4E60 /* BurnManApp.swift in Sources */,
+				BB67759C283969A20A8D15EC /* BurnManHelperProtocol.swift in Sources */,
+				FA1BC2A3D7E8F1234ABCD001 /* CdrdaoConfig.swift in Sources */,
+				E45F76E37D128E266D0A35B2 /* ContentView.swift in Sources */,
+				4755C0C57DB065EE72C46E61 /* CueGenerator.swift in Sources */,
+				2200C1503E76DFB7ABDF9DD4 /* CueGeneratorView.swift in Sources */,
+				B2AE436837DDF44ED469AC97 /* DeviceManager.swift in Sources */,
+				BF4FB28985C554614625A8EF /* HelperClient.swift in Sources */,
+				BE5802312F4D0E51008B3C66 /* FfmpegConfig.swift in Sources */,
+				6DFE22B1FE720BDD72B959D4 /* SettingsView.swift in Sources */,
+				BE58022F2F4D0E51008B3C66 /* ToolRunner.swift in Sources */,
+				42EAE11C7B3910398744028A /* TrackInfo.swift in Sources */,
+				FA1BC2A3D7E8F1234ABCD002 /* TrackRowView.swift in Sources */,
+				BE58023F2F4D454D008B3C66 /* AudioPreviewPlayer.swift in Sources */,
+				FA1BC2A3D7E8F1234ABCD003 /* GlassModifiers.swift in Sources */,
+				FA1BC2A3D7E8F1234ABCD004 /* PlaceholderView.swift in Sources */,
+				FA1BC2A3D7E8F1234ABCD005 /* DevicePickerView.swift in Sources */,
+				FA1BC2A3D7E8F1234ABCD006 /* LogSheetView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E69C7E9753EC6BACE94A0976 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB03FD967A73617FD1DAE9C4 /* BurnManHelper */;
+			targetProxy = 7E17B27760B92A1CBD2AB3D7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		44A308273606BC0B1BFD9B34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AABB0001AABB0001AABB0001 /* Local.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		6EB022379000050B08FB48A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "$(inherited)";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = BurnManHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.burnman.helper;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7693A8848537E93E15DA1E06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "$(inherited)";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = BurnManHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.burnman.helper;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		919FD575B1251BC263E19405 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AABB0001AABB0001AABB0001 /* Local.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		AF1E63E06EE6F238078AEE4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = "BurnMan/BurnMan-Dev.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "$(inherited)";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = BurnMan;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.burnman.app;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B7D96DC6C55B429C536F04DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = "BurnMan/BurnMan-Dev.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "$(inherited)";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = BurnMan;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.burnman.app;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0F4455D148671D2603DADA7B /* Build configuration list for PBXProject "BurnMan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44A308273606BC0B1BFD9B34 /* Debug */,
+				919FD575B1251BC263E19405 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		98F2645A9ED004B27A4ECB1D /* Build configuration list for PBXNativeTarget "BurnMan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF1E63E06EE6F238078AEE4D /* Debug */,
+				B7D96DC6C55B429C536F04DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BFAE1C4230952C1803864F56 /* Build configuration list for PBXNativeTarget "BurnManHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EB022379000050B08FB48A2 /* Debug */,
+				7693A8848537E93E15DA1E06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 754D79DD4B71B70925C9D5EE /* Project object */;
+}

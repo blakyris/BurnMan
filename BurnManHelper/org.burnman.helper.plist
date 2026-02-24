@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>org.burnman.helper</string>
+    <key>MachServices</key>
+    <dict>
+        <key>org.burnman.helper</key>
+        <true/>
+    </dict>
+    <key>BundleProgram</key>
+    <string>Contents/MacOS/BurnManHelper</string>
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+</dict>
+</plist>

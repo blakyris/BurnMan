@@ -1,0 +1,28 @@
+# Xcode
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+build/
+*.moved-aside
+*.pbxuser
+*.perspectivev3
+!default.pbxuser
+!default.perspectivev3
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+Packages/
+
+# Local config (contains developer Team ID)
+Local.xcconfig
+
+# macOS
+.DS_Store
+*.swp
+*~
