@@ -1,56 +1,59 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct VideoDiscView: View {
+struct DVDVideoSection: View {
     @Environment(VideoDiscManager.self) private var videoDiscManager
     @Environment(DeviceManager.self) private var deviceManager
+    @Environment(ActiveTaskContext.self) private var taskContext
     @State private var isDragTargeted = false
 
-    private var canStartBurn: Bool {
-        !videoDiscManager.files.isEmpty && deviceManager.selectedDevice != nil
+    var body: some View {
+        VStack(spacing: 20) {
+            filesSection
+
+            if videoDiscManager.state != .idle {
+                statusSection
+            }
+        }
+        .onAppear { updateTaskContext() }
+        .onChange(of: videoDiscManager.files.count) { updateTaskContext() }
+        .onChange(of: videoDiscManager.isRunning) { updateTaskContext() }
     }
 
-    var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                filesSection
-                settingsSection
-
-                if videoDiscManager.state != .idle {
-                    statusSection
-                }
-
-                actionsSection
-            }
-            .padding(24)
-        }
-        .navigationTitle("Disque vidéo")
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                DevicePickerView()
-            }
-        }
+    private func updateTaskContext() {
+        let canStart = !videoDiscManager.files.isEmpty && deviceManager.selectedDevice != nil
+        taskContext.actionLabel = "Burn"
+        taskContext.actionIcon = "flame"
+        taskContext.canExecute = canStart
+        taskContext.isRunning = videoDiscManager.isRunning
+        taskContext.onExecute = { startBurn() }
+        taskContext.onSimulate = nil
+        taskContext.onCancel = { videoDiscManager.cancel() }
+        taskContext.onAddFiles = { openFilePicker() }
+        taskContext.onOpenCue = nil
+        taskContext.onSaveCue = nil
+        taskContext.statusText = videoDiscManager.isRunning ? "Burning DVD video…" : ""
     }
 
     // MARK: - Files
 
     private var filesSection: some View {
-        SectionContainer(title: "Fichiers vidéo", systemImage: "play.rectangle") {
+        SectionContainer(title: "Video Files", systemImage: "play.rectangle") {
             if videoDiscManager.files.isEmpty {
                 VStack(spacing: 12) {
                     Image(systemName: "play.rectangle")
                         .font(.system(size: 40))
                         .foregroundStyle(.secondary)
 
-                    Text("Ajoute des fichiers vidéo")
+                    Text("Add video files")
                         .font(.headline)
                         .foregroundStyle(.secondary)
 
-                    Text("MKV, MP4, AVI, MOV — ou glisse-dépose ici")
+                    Text("MKV, MP4, AVI, MOV — or drag and drop here")
                         .font(.caption)
                         .foregroundStyle(.tertiary)
 
-                    Button("Ajouter des fichiers") {
+                    Button("Add Files") {
                         openFilePicker()
                     }
                     .buttonStyle(.glass)
@@ -79,7 +82,7 @@ struct VideoDiscView: View {
                                 .font(.system(.caption, design: .monospaced))
                                 .foregroundStyle(.secondary)
 
-                            Text(String(format: "%.1f Mo", file.fileSizeMB))
+                            Text(String(format: "%.1f MB", file.fileSizeMB))
                                 .font(.caption)
                                 .foregroundStyle(.tertiary)
                         }
@@ -96,14 +99,14 @@ struct VideoDiscView: View {
                     Button {
                         openFilePicker()
                     } label: {
-                        Label("Ajouter", systemImage: "plus")
+                        Label("Add", systemImage: "plus")
                             .font(.caption)
                     }
                     .buttonStyle(.glass)
 
                     Spacer()
 
-                    Text("\(videoDiscManager.files.count) fichier(s)")
+                    Text("\(videoDiscManager.files.count) file(s)")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -116,46 +119,25 @@ struct VideoDiscView: View {
         .dropHighlight(isTargeted: isDragTargeted)
     }
 
-    // MARK: - Settings
-
-    private var settingsSection: some View {
-        @Bindable var videoDiscManager = videoDiscManager
-
-        return SectionContainer(title: "Options", systemImage: "gearshape") {
-            SettingRow(
-                title: "Type de disque",
-                systemImage: "opticaldisc",
-                description: "DVD pour la compatibilité, Blu-ray pour la haute définition."
-            ) {
-                Picker("", selection: $videoDiscManager.discType) {
-                    Text("DVD").tag(VideoDiscType.dvd)
-                    Text("Blu-ray").tag(VideoDiscType.bluray)
-                }
-                .pickerStyle(.segmented)
-                .fixedSize()
-            }
-        }
-    }
-
     // MARK: - Status
 
     private var statusSection: some View {
-        SectionContainer(title: "Progression", systemImage: "waveform.path") {
+        SectionContainer(title: "Progress", systemImage: "waveform.path") {
             VStack(spacing: 8) {
                 switch videoDiscManager.state {
                 case .converting(let current, let total):
                     ProgressView(value: Double(current), total: Double(total))
-                    Text("Transcodage \(current)/\(total)...")
+                    Text("Transcoding \(current)/\(total)…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 case .burning:
                     ProgressView()
                         .controlSize(.small)
-                    Text("Gravure en cours...")
+                    Text("Burning…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 case .finished:
-                    CompletionBadge(message: "Gravure terminée")
+                    CompletionBadge(message: "Burn complete")
                 case .failed:
                     if let error = videoDiscManager.error {
                         ErrorBadge(message: error)
@@ -163,36 +145,9 @@ struct VideoDiscView: View {
                 default:
                     ProgressView()
                         .controlSize(.small)
-                    Text("Préparation...")
+                    Text("Preparing…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
-                }
-            }
-        }
-    }
-
-    // MARK: - Actions
-
-    private var actionsSection: some View {
-        GlassEffectContainer(spacing: 12) {
-            HStack(spacing: 12) {
-                if videoDiscManager.isRunning {
-                    Button(role: .destructive) {
-                        videoDiscManager.cancel()
-                    } label: {
-                        Label("Annuler", systemImage: "xmark.circle")
-                    }
-                    .buttonStyle(.glass)
-                } else {
-                    Button {
-                        startBurn()
-                    } label: {
-                        Label("Graver", systemImage: "flame")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.glassProminent)
-                    .disabled(!canStartBurn)
-                    .controlSize(.large)
                 }
             }
         }
@@ -202,6 +157,7 @@ struct VideoDiscView: View {
 
     private func startBurn() {
         guard let device = deviceManager.selectedDevice else { return }
+        videoDiscManager.discType = .dvd
         Task {
             await videoDiscManager.startBurn(device: device.path)
         }

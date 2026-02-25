@@ -1,10 +1,10 @@
 import SwiftUI
 
-struct EraseDiscView: View {
+struct EraseDiscSection: View {
     @Environment(EraseDiscManager.self) private var eraseDiscManager
     @Environment(DeviceManager.self) private var deviceManager
+    @Environment(ActiveTaskContext.self) private var taskContext
 
-    /// Detected media type for the selected device (simplified: user picks manually).
     @State private var selectedMediaType: MediaType = .cdRW
 
     private var canErase: Bool {
@@ -12,25 +12,28 @@ struct EraseDiscView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                infoSection
-                settingsSection
+        VStack(spacing: 20) {
+            infoSection
+            settingsSection
 
-                if eraseDiscManager.state != .idle {
-                    statusSection
-                }
-
-                actionsSection
-            }
-            .padding(24)
-        }
-        .navigationTitle("Effacer un disque")
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                DevicePickerView()
+            if eraseDiscManager.state != .idle {
+                statusSection
             }
         }
+        .onAppear { updateTaskContext() }
+        .onChange(of: eraseDiscManager.isRunning) { updateTaskContext() }
+    }
+
+    private func updateTaskContext() {
+        taskContext.actionLabel = "Erase"
+        taskContext.actionIcon = "eraser"
+        taskContext.canExecute = canErase
+        taskContext.isRunning = eraseDiscManager.isRunning
+        taskContext.onExecute = { startErase() }
+        taskContext.onSimulate = nil
+        taskContext.onCancel = { eraseDiscManager.cancel() }
+        taskContext.onAddFiles = nil
+        taskContext.statusText = eraseDiscManager.isRunning ? "Erasing disc…" : ""
     }
 
     // MARK: - Info
@@ -39,14 +42,14 @@ struct EraseDiscView: View {
         SectionContainer(title: "Information", systemImage: "info.circle") {
             VStack(alignment: .leading, spacing: 8) {
                 Label {
-                    Text("Cette opération efface toutes les données du disque.")
+                    Text("This operation erases all data on the disc.")
                 } icon: {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundStyle(.orange)
                 }
                 .font(.subheadline)
 
-                Text("Seuls les disques réinscriptibles (CD-RW, DVD±RW, BD-RE) peuvent être effacés.")
+                Text("Only rewritable discs (CD-RW, DVD±RW, BD-RE) can be erased.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -61,9 +64,9 @@ struct EraseDiscView: View {
         return SectionContainer(title: "Options", systemImage: "gearshape") {
             VStack(spacing: 16) {
                 SettingRow(
-                    title: "Type de disque",
+                    title: "Disc Type",
                     systemImage: "opticaldisc",
-                    description: "Sélectionnez le type du disque inséré."
+                    description: "Select the type of disc inserted."
                 ) {
                     Picker("", selection: $selectedMediaType) {
                         Text("CD-RW").tag(MediaType.cdRW)
@@ -77,13 +80,13 @@ struct EraseDiscView: View {
 
                 if selectedMediaType == .cdRW {
                     SettingRow(
-                        title: "Mode d'effacement",
+                        title: "Erase Mode",
                         systemImage: "eraser",
-                        description: "Complet : efface tout. Rapide : efface le TOC uniquement."
+                        description: "Full: erases everything. Fast: erases TOC only."
                     ) {
                         Picker("", selection: $eraseDiscManager.blankMode) {
-                            Text("Complet").tag(BlankMode.full)
-                            Text("Rapide").tag(BlankMode.minimal)
+                            Text("Full").tag(BlankMode.full)
+                            Text("Fast").tag(BlankMode.minimal)
                         }
                         .pickerStyle(.segmented)
                         .fixedSize()
@@ -96,17 +99,17 @@ struct EraseDiscView: View {
     // MARK: - Status
 
     private var statusSection: some View {
-        SectionContainer(title: "Progression", systemImage: "waveform.path") {
+        SectionContainer(title: "Progress", systemImage: "waveform.path") {
             VStack(spacing: 8) {
                 switch eraseDiscManager.state {
                 case .erasing:
                     ProgressView()
                         .controlSize(.small)
-                    Text("Effacement en cours...")
+                    Text("Erasing…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 case .finished:
-                    CompletionBadge(message: "Disque effacé avec succès")
+                    CompletionBadge(message: "Disc erased successfully")
                 case .failed:
                     if let error = eraseDiscManager.error {
                         ErrorBadge(message: error)
@@ -117,33 +120,6 @@ struct EraseDiscView: View {
                     Text(eraseDiscManager.state.displayName)
                         .font(.caption)
                         .foregroundStyle(.secondary)
-                }
-            }
-        }
-    }
-
-    // MARK: - Actions
-
-    private var actionsSection: some View {
-        GlassEffectContainer(spacing: 12) {
-            HStack(spacing: 12) {
-                if eraseDiscManager.isRunning {
-                    Button(role: .destructive) {
-                        eraseDiscManager.cancel()
-                    } label: {
-                        Label("Annuler", systemImage: "xmark.circle")
-                    }
-                    .buttonStyle(.glass)
-                } else {
-                    Button {
-                        startErase()
-                    } label: {
-                        Label("Effacer le disque", systemImage: "eraser")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.glassProminent)
-                    .disabled(!canErase)
-                    .controlSize(.large)
                 }
             }
         }

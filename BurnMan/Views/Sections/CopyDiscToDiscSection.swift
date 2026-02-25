@@ -1,46 +1,44 @@
 import SwiftUI
 
-struct CopyDiscView: View {
+struct CopyDiscToDiscSection: View {
     @Environment(CopyDiscManager.self) private var copyDiscManager
     @Environment(DeviceManager.self) private var deviceManager
+    @Environment(ActiveTaskContext.self) private var taskContext
 
     @State private var mediaCategory: TargetMedia = .cd
     @State private var isEncrypted = false
 
-    /// For CD disc-to-disc copy with two drives, user picks a destination device.
-    @State private var destDeviceIndex: Int = 0
+    var body: some View {
+        VStack(spacing: 20) {
+            settingsSection
 
-    private var canCopy: Bool {
-        deviceManager.selectedDevice != nil && !copyDiscManager.isRunning
+            if mediaCategory == .cd {
+                cdOptionsSection
+            }
+
+            if mediaCategory == .dvd {
+                encryptionSection
+            }
+
+            if copyDiscManager.state != .idle {
+                statusSection
+            }
+        }
+        .onAppear { updateTaskContext() }
+        .onChange(of: copyDiscManager.isRunning) { updateTaskContext() }
     }
 
-    var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                settingsSection
-
-                if mediaCategory == .cd {
-                    cdOptionsSection
-                }
-
-                if mediaCategory == .dvd {
-                    encryptionSection
-                }
-
-                if copyDiscManager.state != .idle {
-                    statusSection
-                }
-
-                actionsSection
-            }
-            .padding(24)
-        }
-        .navigationTitle("Copier un disque")
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                DevicePickerView()
-            }
-        }
+    private func updateTaskContext() {
+        let canStart = deviceManager.selectedDevice != nil && !copyDiscManager.isRunning
+        taskContext.actionLabel = "Copy"
+        taskContext.actionIcon = "doc.on.doc"
+        taskContext.canExecute = canStart
+        taskContext.isRunning = copyDiscManager.isRunning
+        taskContext.onExecute = { startCopy() }
+        taskContext.onSimulate = nil
+        taskContext.onCancel = { copyDiscManager.cancel() }
+        taskContext.onAddFiles = nil
+        taskContext.statusText = copyDiscManager.isRunning ? "Copying disc…" : ""
     }
 
     // MARK: - Settings
@@ -51,9 +49,9 @@ struct CopyDiscView: View {
         return SectionContainer(title: "Configuration", systemImage: "doc.on.doc") {
             VStack(spacing: 16) {
                 SettingRow(
-                    title: "Type de disque",
+                    title: "Disc Type",
                     systemImage: "opticaldisc",
-                    description: "Le type du disque source à copier."
+                    description: "The type of disc to copy."
                 ) {
                     Picker("", selection: $mediaCategory) {
                         Text("CD").tag(TargetMedia.cd)
@@ -67,7 +65,7 @@ struct CopyDiscView: View {
                 if mediaCategory != .cd {
                     HStack {
                         Label {
-                            Text("Le disque sera lu vers une image ISO temporaire, puis gravé sur le disque vierge.")
+                            Text("The disc will be read to a temporary ISO image, then burned to the blank disc.")
                         } icon: {
                             Image(systemName: "info.circle")
                                 .foregroundStyle(.blue)
@@ -87,12 +85,12 @@ struct CopyDiscView: View {
     private var cdOptionsSection: some View {
         @Bindable var copyDiscManager = copyDiscManager
 
-        return SectionContainer(title: "Options CD", systemImage: "opticaldisc") {
+        return SectionContainer(title: "CD Options", systemImage: "opticaldisc") {
             VStack(spacing: 16) {
                 SettingRow(
-                    title: "Copie à la volée",
+                    title: "On-the-fly copy",
                     systemImage: "bolt",
-                    description: "Copie directe sans image intermédiaire (nécessite deux lecteurs)."
+                    description: "Direct copy without intermediate image (requires two drives)."
                 ) {
                     Toggle("", isOn: $copyDiscManager.onTheFly)
                         .toggleStyle(.switch)
@@ -101,7 +99,7 @@ struct CopyDiscView: View {
                 if deviceManager.devices.count < 2 {
                     HStack {
                         Label {
-                            Text("La copie de CD nécessite deux lecteurs optiques. Un seul détecté.")
+                            Text("CD copying requires two optical drives. Only one detected.")
                         } icon: {
                             Image(systemName: "exclamationmark.triangle.fill")
                                 .foregroundStyle(.orange)
@@ -120,53 +118,51 @@ struct CopyDiscView: View {
 
     private var encryptionSection: some View {
         SectionContainer(title: "Protection", systemImage: "lock.shield") {
-            VStack(spacing: 12) {
-                SettingRow(
-                    title: "Disque chiffré (CSS)",
-                    systemImage: "lock",
-                    description: decryptionStatusDescription
-                ) {
-                    Toggle("", isOn: $isEncrypted)
-                        .toggleStyle(.switch)
-                }
+            SettingRow(
+                title: "Encrypted disc (CSS)",
+                systemImage: "lock",
+                description: decryptionStatusDescription
+            ) {
+                Toggle("", isOn: $isEncrypted)
+                    .toggleStyle(.switch)
             }
         }
     }
 
     private var decryptionStatusDescription: String {
         if copyDiscManager.decryptionService.isDvdCssAvailable {
-            return "libdvdcss détecté. La copie de DVD protégés est possible."
+            return "libdvdcss detected. Copying encrypted DVDs is possible."
         } else {
-            return "libdvdcss non trouvé. Installez-le : brew install libdvdcss"
+            return "libdvdcss not found. Install it: brew install libdvdcss"
         }
     }
 
     // MARK: - Status
 
     private var statusSection: some View {
-        SectionContainer(title: "Progression", systemImage: "waveform.path") {
+        SectionContainer(title: "Progress", systemImage: "waveform.path") {
             VStack(spacing: 8) {
                 switch copyDiscManager.state {
                 case .reading:
                     ProgressView()
                         .controlSize(.small)
-                    Text("Lecture du disque source...")
+                    Text("Reading source disc…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 case .copying:
                     ProgressView()
                         .controlSize(.small)
-                    Text("Copie en cours...")
+                    Text("Copying…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 case .burning:
                     ProgressView()
                         .controlSize(.small)
-                    Text("Gravure en cours...")
+                    Text("Burning…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 case .finished:
-                    CompletionBadge(message: "Copie terminée")
+                    CompletionBadge(message: "Copy complete")
                 case .failed:
                     if let error = copyDiscManager.error {
                         ErrorBadge(message: error)
@@ -184,40 +180,12 @@ struct CopyDiscView: View {
 
     // MARK: - Actions
 
-    private var actionsSection: some View {
-        GlassEffectContainer(spacing: 12) {
-            HStack(spacing: 12) {
-                if copyDiscManager.isRunning {
-                    Button(role: .destructive) {
-                        copyDiscManager.cancel()
-                    } label: {
-                        Label("Annuler", systemImage: "xmark.circle")
-                    }
-                    .buttonStyle(.glass)
-                } else {
-                    Button {
-                        startCopy()
-                    } label: {
-                        Label("Copier", systemImage: "doc.on.doc")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.glassProminent)
-                    .disabled(!canCopy)
-                    .controlSize(.large)
-                }
-            }
-        }
-    }
-
-    // MARK: - Actions
-
     private func startCopy() {
         guard let sourceDevice = deviceManager.selectedDevice else { return }
 
         Task {
             switch mediaCategory {
             case .cd:
-                // For CD, use cdrdao copy (needs two drives)
                 let destDevice = deviceManager.devices.count > 1
                     ? deviceManager.devices[1].path
                     : sourceDevice.path

@@ -1,8 +1,9 @@
 import SwiftUI
 
-struct BurnView: View {
+struct DiscImageBurnSection: View {
     @Environment(BurnManager.self) private var burnManager
     @Environment(DeviceManager.self) private var deviceManager
+    @Environment(ActiveTaskContext.self) private var taskContext
     @State private var showFilePicker = false
     @State private var showLog = false
     @State private var isDragTargeted = false
@@ -11,55 +12,18 @@ struct BurnView: View {
         burnManager.cueFile != nil && deviceManager.selectedDevice != nil && burnManager.missingFiles.isEmpty
     }
 
-    private var burnHelpString: String {
-        if burnManager.cueFile == nil {
-            return "Sélectionne un fichier .cue pour pouvoir graver"
-        }
-        if deviceManager.selectedDevice == nil {
-            return "Aucun graveur sélectionné"
-        }
-        if !burnManager.missingFiles.isEmpty {
-            return "Des fichiers référencés par le CUE sont manquants"
-        }
-        return ""
-    }
-
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                // File Selection
-                fileSelectionSection
+        VStack(spacing: 20) {
+            fileSelectionSection
 
-                // Track Info
-                if let cueFile = burnManager.cueFile {
-                    trackInfoSection(cueFile)
-                }
-
-                // Burn Settings
-                settingsSection
-
-                // Progress
-                if burnManager.isRunning || !burnManager.progress.phase.isActive && burnManager.progress.phase != .idle {
-                    progressSection
-                }
-
-                // Actions
-                actionsSection
+            if let cueFile = burnManager.cueFile {
+                trackInfoSection(cueFile)
             }
-            .padding(24)
-        }
-        .navigationTitle("Gravure")
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                DevicePickerView()
-            }
-            ToolbarItem(placement: .automatic) {
-                Button {
-                    showLog.toggle()
-                } label: {
-                    Image(systemName: "terminal")
-                }
-                .help("Afficher le log")
+
+            settingsSection
+
+            if burnManager.isRunning || !burnManager.progress.phase.isActive && burnManager.progress.phase != .idle {
+                progressSection
             }
         }
         .fileImporter(
@@ -72,24 +36,33 @@ struct BurnView: View {
             }
         }
         .sheet(isPresented: $showLog) {
-            LogSheetView(title: "Log cdrdao", log: burnManager.log)
+            LogSheetView(title: "cdrdao Log", log: burnManager.log)
         }
-        .focusedSceneValue(\.showLog, $showLog)
-        .focusedSceneValue(\.burnAction, { startBurn(simulate: false) })
-        .focusedSceneValue(\.simulateAction, { startBurn(simulate: true) })
-        .focusedSceneValue(\.cancelAction, { burnManager.cancel() })
-        .focusedSceneValue(\.openCueAction, { showFilePicker = true })
-        .focusedSceneValue(\.canBurn, canStartBurn)
-        .focusedSceneValue(\.isRunning, burnManager.isRunning)
+        .onAppear { updateTaskContext() }
+        .onChange(of: canStartBurn) { updateTaskContext() }
+        .onChange(of: burnManager.isRunning) { updateTaskContext() }
+    }
+
+    private func updateTaskContext() {
+        taskContext.actionLabel = "Burn"
+        taskContext.actionIcon = "flame"
+        taskContext.canExecute = canStartBurn
+        taskContext.isRunning = burnManager.isRunning
+        taskContext.onExecute = { startBurn(simulate: false) }
+        taskContext.onSimulate = { startBurn(simulate: true) }
+        taskContext.onCancel = { burnManager.cancel() }
+        taskContext.onAddFiles = nil
+        taskContext.onOpenCue = { showFilePicker = true }
+        taskContext.onSaveCue = nil
+        taskContext.statusText = burnManager.isRunning ? "Burning disc image…" : ""
     }
 
     // MARK: - File Selection
 
     private var fileSelectionSection: some View {
-        SectionContainer(title: "Fichier source", systemImage: "doc.badge.gearshape") {
+        SectionContainer(title: "Source File", systemImage: "doc.badge.gearshape") {
             VStack(spacing: 16) {
                 if let cueFile = burnManager.cueFile {
-                    // Fichier sélectionné
                     HStack(spacing: 12) {
                         Image(systemName: "doc.fill")
                             .font(.title2)
@@ -98,14 +71,14 @@ struct BurnView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(cueFile.name)
                                 .font(.headline)
-                            Text("\(cueFile.trackCount) piste(s) — \(String(format: "%.1f", cueFile.totalSizeMB)) Mo")
+                            Text("\(cueFile.trackCount) track(s) — \(String(format: "%.1f", cueFile.totalSizeMB)) MB")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
 
                         Spacer()
 
-                        Button("Changer") {
+                        Button("Change") {
                             showFilePicker = true
                         }
                     }
@@ -113,7 +86,7 @@ struct BurnView: View {
 
                     if !burnManager.missingFiles.isEmpty {
                         VStack(alignment: .leading, spacing: 4) {
-                            Label("Fichiers manquants", systemImage: "exclamationmark.triangle.fill")
+                            Label("Missing Files", systemImage: "exclamationmark.triangle.fill")
                                 .font(.subheadline.bold())
                                 .foregroundStyle(.red)
                             ForEach(burnManager.missingFiles, id: \.self) { file in
@@ -125,21 +98,20 @@ struct BurnView: View {
                         .padding(8)
                     }
                 } else {
-                    // Aucun fichier
                     VStack(spacing: 12) {
                         Image(systemName: "opticaldisc")
                             .font(.system(size: 40))
                             .foregroundStyle(.secondary)
 
-                        Text("Sélectionne un fichier .cue")
+                        Text("Select a .cue file")
                             .font(.headline)
                             .foregroundStyle(.secondary)
 
-                        Text("Ou glisse-dépose un fichier ici")
+                        Text("Or drag and drop a file here")
                             .font(.caption)
                             .foregroundStyle(.tertiary)
 
-                        Button("Ouvrir un fichier .cue") {
+                        Button("Open .cue File") {
                             showFilePicker = true
                         }
                         .buttonStyle(.glass)
@@ -158,7 +130,7 @@ struct BurnView: View {
     // MARK: - Track Info
 
     private func trackInfoSection(_ cueFile: CueFile) -> some View {
-        SectionContainer(title: "Pistes (\(cueFile.dataTrackCount) data, \(cueFile.audioTrackCount) audio)", systemImage: "music.note.list") {
+        SectionContainer(title: "Tracks (\(cueFile.dataTrackCount) data, \(cueFile.audioTrackCount) audio)", systemImage: "music.note.list") {
             VStack(spacing: 0) {
                 ForEach(cueFile.tracks) { track in
                     TrackRowView(track: track, showFileName: true)
@@ -179,9 +151,9 @@ struct BurnView: View {
         return SectionContainer(title: "Options", systemImage: "gearshape") {
             VStack(spacing: 16) {
                 SettingRow(
-                    title: "Vitesse",
+                    title: "Speed",
                     systemImage: "speedometer",
-                    description: "Une vitesse basse réduit le risque d'erreurs et améliore la qualité de la gravure."
+                    description: "Lower speeds reduce errors and improve burn quality."
                 ) {
                     Picker("", selection: $burnManager.settings.speed) {
                         ForEach(BurnSettings.availableSpeeds, id: \.self) { speed in
@@ -193,9 +165,9 @@ struct BurnView: View {
                 }
 
                 SettingRow(
-                    title: "Mode RAW",
+                    title: "RAW Mode",
                     systemImage: "waveform",
-                    description: "Nécessaire pour graver certains disques de jeux vidéo. Copie les données telles quelles, sans modification."
+                    description: "Required for burning some game discs. Copies data as-is."
                 ) {
                     Toggle("", isOn: $burnManager.settings.rawMode)
                         .labelsHidden()
@@ -204,9 +176,9 @@ struct BurnView: View {
                 }
 
                 SettingRow(
-                    title: "Inverser les données audio",
+                    title: "Swap Audio Bytes",
                     systemImage: "arrow.left.arrow.right",
-                    description: "À activer si le son est déformé ou inaudible après la gravure."
+                    description: "Enable if audio sounds distorted after burning."
                 ) {
                     Toggle("", isOn: $burnManager.settings.swapAudio)
                         .labelsHidden()
@@ -215,9 +187,9 @@ struct BurnView: View {
                 }
 
                 SettingRow(
-                    title: "Éjecter après la gravure",
+                    title: "Eject after burning",
                     systemImage: "eject",
-                    description: "Le disque est automatiquement éjecté une fois la gravure terminée."
+                    description: "Automatically eject disc when burning is complete."
                 ) {
                     Toggle("", isOn: $burnManager.settings.eject)
                         .labelsHidden()
@@ -228,7 +200,7 @@ struct BurnView: View {
                 SettingRow(
                     title: "Overburn",
                     systemImage: "exclamationmark.triangle",
-                    description: "Permet de graver au-delà de la capacité prévue du disque. Ne fonctionne pas avec tous les graveurs."
+                    description: "Burn beyond the rated disc capacity. Not supported by all drives."
                 ) {
                     Toggle("", isOn: $burnManager.settings.overburn)
                         .labelsHidden()
@@ -243,7 +215,7 @@ struct BurnView: View {
     // MARK: - Progress
 
     private var progressSection: some View {
-        SectionContainer(title: "Progression", systemImage: "flame") {
+        SectionContainer(title: "Progress", systemImage: "flame") {
             BurnProgressView(
                 progress: burnManager.progress,
                 tracks: burnManager.cueFile?.tracks ?? [],
@@ -258,45 +230,6 @@ struct BurnView: View {
     }
 
     // MARK: - Actions
-
-    private var actionsSection: some View {
-        GlassEffectContainer(spacing: 12) {
-            HStack(spacing: 12) {
-                if burnManager.isRunning {
-                    Button(role: .destructive) {
-                        burnManager.cancel()
-                    } label: {
-                        Label("Annuler", systemImage: "xmark.circle")
-                    }
-                    .buttonStyle(.glass)
-                } else {
-                    Button {
-                        startBurn(simulate: false)
-                    } label: {
-                        Label("Graver", systemImage: "flame")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.glassProminent)
-                    .disabled(!canStartBurn)
-                    .controlSize(.large)
-                    .help(burnHelpString)
-
-                    Button {
-                        startBurn(simulate: true)
-                    } label: {
-                        Label("Simuler", systemImage: "play.slash")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.glass)
-                    .disabled(!canStartBurn)
-                    .controlSize(.large)
-                    .help(burnHelpString)
-                }
-            }
-        }
-    }
-
-    // MARK: - Burn Actions
 
     private func startBurn(simulate: Bool) {
         guard let device = deviceManager.selectedDevice else { return }

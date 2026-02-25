@@ -1,48 +1,53 @@
 import SwiftUI
 
-struct ExtractAudioView: View {
+struct ExtractMusicSection: View {
     @Environment(ExtractAudioManager.self) private var extractAudioManager
     @Environment(DeviceManager.self) private var deviceManager
+    @Environment(ActiveTaskContext.self) private var taskContext
 
     private var canReadTOC: Bool {
         deviceManager.selectedDevice != nil && !extractAudioManager.isRunning
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                tocSection
+        VStack(spacing: 20) {
+            tocSection
 
-                if !extractAudioManager.tracks.isEmpty {
-                    trackListSection
-                    outputSection
-                }
-
-                if extractAudioManager.state != .idle {
-                    statusSection
-                }
-
-                actionsSection
+            if !extractAudioManager.tracks.isEmpty {
+                trackListSection
+                outputSection
             }
-            .padding(24)
-        }
-        .navigationTitle("Extraire les pistes audio")
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                DevicePickerView()
+
+            if extractAudioManager.state != .idle {
+                statusSection
             }
         }
+        .onAppear { updateTaskContext() }
+        .onChange(of: extractAudioManager.isRunning) { updateTaskContext() }
+        .onChange(of: extractAudioManager.tracks.count) { updateTaskContext() }
+    }
+
+    private func updateTaskContext() {
+        taskContext.actionLabel = "Extract"
+        taskContext.actionIcon = "arrow.down.circle"
+        taskContext.canExecute = extractAudioManager.canExtract
+        taskContext.isRunning = extractAudioManager.isRunning
+        taskContext.onExecute = { startExtraction() }
+        taskContext.onSimulate = nil
+        taskContext.onCancel = { extractAudioManager.cancel() }
+        taskContext.onAddFiles = nil
+        taskContext.statusText = extractAudioManager.isRunning ? "Extracting audio…" : ""
     }
 
     // MARK: - TOC
 
     private var tocSection: some View {
-        SectionContainer(title: "Table des matières", systemImage: "list.number") {
+        SectionContainer(title: "Table of Contents", systemImage: "list.number") {
             VStack(spacing: 12) {
                 if extractAudioManager.tracks.isEmpty {
                     HStack {
                         Label {
-                            Text("Insérez un CD audio puis lisez la table des matières pour voir les pistes.")
+                            Text("Insert an audio CD then read the table of contents to see the tracks.")
                         } icon: {
                             Image(systemName: "info.circle")
                                 .foregroundStyle(.blue)
@@ -54,10 +59,10 @@ struct ExtractAudioView: View {
                     }
                 } else {
                     HStack {
-                        Text("\(extractAudioManager.tracks.count) piste(s) détectée(s)")
+                        Text("\(extractAudioManager.tracks.count) track(s) detected")
                             .font(.subheadline)
                         Spacer()
-                        Text("\(extractAudioManager.selectedTracks.count) sélectionnée(s)")
+                        Text("\(extractAudioManager.selectedTracks.count) selected")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -67,7 +72,7 @@ struct ExtractAudioView: View {
                     readTOC()
                 } label: {
                     Label(
-                        extractAudioManager.tracks.isEmpty ? "Lire la table des matières" : "Relire",
+                        extractAudioManager.tracks.isEmpty ? "Read Table of Contents" : "Re-read",
                         systemImage: "arrow.clockwise"
                     )
                     .font(.caption)
@@ -81,10 +86,10 @@ struct ExtractAudioView: View {
     // MARK: - Track List
 
     private var trackListSection: some View {
-        SectionContainer(title: "Pistes", systemImage: "music.note.list") {
+        SectionContainer(title: "Tracks", systemImage: "music.note.list") {
             VStack(spacing: 8) {
                 HStack {
-                    Button("Tout sélectionner") {
+                    Button("Select All") {
                         extractAudioManager.selectAll()
                     }
                     .font(.caption)
@@ -94,7 +99,7 @@ struct ExtractAudioView: View {
                     Text("·")
                         .foregroundStyle(.tertiary)
 
-                    Button("Tout désélectionner") {
+                    Button("Deselect All") {
                         extractAudioManager.deselectAll()
                     }
                     .font(.caption)
@@ -112,35 +117,33 @@ struct ExtractAudioView: View {
     }
 
     private func trackRow(_ track: CDTrackEntry) -> some View {
-        HStack {
-            Button {
-                extractAudioManager.toggleTrack(track.id)
-            } label: {
-                HStack(spacing: 10) {
-                    Image(systemName: track.selected ? "checkmark.circle.fill" : "circle")
-                        .foregroundStyle(track.selected ? Color.accentColor : .secondary)
-                        .imageScale(.medium)
+        Button {
+            extractAudioManager.toggleTrack(track.id)
+        } label: {
+            HStack(spacing: 10) {
+                Image(systemName: track.selected ? "checkmark.circle.fill" : "circle")
+                    .foregroundStyle(track.selected ? Color.accentColor : .secondary)
+                    .imageScale(.medium)
 
-                    Text("\(track.id)")
+                Text("\(track.id)")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .frame(width: 24, alignment: .trailing)
+
+                Text(track.title)
+                    .font(.subheadline)
+
+                Spacer()
+
+                if track.durationSeconds > 0 {
+                    Text(track.durationFormatted)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .frame(width: 24, alignment: .trailing)
-
-                    Text(track.title)
-                        .font(.subheadline)
-
-                    Spacer()
-
-                    if track.durationSeconds > 0 {
-                        Text(track.durationFormatted)
-                            .font(.caption)
-                            .foregroundStyle(.tertiary)
-                    }
+                        .foregroundStyle(.tertiary)
                 }
-                .contentShape(Rectangle())
             }
-            .buttonStyle(.plain)
+            .contentShape(Rectangle())
         }
+        .buttonStyle(.plain)
         .padding(.vertical, 2)
     }
 
@@ -149,12 +152,12 @@ struct ExtractAudioView: View {
     private var outputSection: some View {
         @Bindable var extractAudioManager = extractAudioManager
 
-        return SectionContainer(title: "Sortie", systemImage: "square.and.arrow.down") {
+        return SectionContainer(title: "Output", systemImage: "square.and.arrow.down") {
             VStack(spacing: 16) {
                 SettingRow(
                     title: "Format",
                     systemImage: "waveform",
-                    description: "Le format audio de sortie pour les pistes extraites."
+                    description: "Output audio format for extracted tracks."
                 ) {
                     Picker("", selection: $extractAudioManager.outputFormat) {
                         Text("FLAC").tag(AudioOutputFormat.flac)
@@ -168,9 +171,9 @@ struct ExtractAudioView: View {
 
                 if extractAudioManager.outputFormat == .mp3 {
                     SettingRow(
-                        title: "Débit MP3",
+                        title: "MP3 Bitrate",
                         systemImage: "speedometer",
-                        description: "Débit binaire pour l'encodage MP3 (kbps)."
+                        description: "Bitrate for MP3 encoding (kbps)."
                     ) {
                         Picker("", selection: $extractAudioManager.mp3Bitrate) {
                             Text("128").tag(128)
@@ -183,9 +186,8 @@ struct ExtractAudioView: View {
                     }
                 }
 
-                // Output directory
-                HStack {
-                    if let url = extractAudioManager.outputDirectory {
+                if let url = extractAudioManager.outputDirectory {
+                    HStack {
                         Image(systemName: "folder")
                             .foregroundStyle(.secondary)
                         Text(url.lastPathComponent)
@@ -203,7 +205,7 @@ struct ExtractAudioView: View {
                     chooseOutputDirectory()
                 } label: {
                     Label(
-                        extractAudioManager.outputDirectory == nil ? "Choisir le dossier de sortie" : "Modifier",
+                        extractAudioManager.outputDirectory == nil ? "Choose Output Folder" : "Change",
                         systemImage: "folder"
                     )
                     .font(.caption)
@@ -216,22 +218,22 @@ struct ExtractAudioView: View {
     // MARK: - Status
 
     private var statusSection: some View {
-        SectionContainer(title: "Progression", systemImage: "waveform.path") {
+        SectionContainer(title: "Progress", systemImage: "waveform.path") {
             VStack(spacing: 8) {
                 switch extractAudioManager.state {
                 case .reading:
                     ProgressView()
                         .controlSize(.small)
-                    Text("Lecture du disque...")
+                    Text("Reading disc…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 case .extracting(let current, let total):
                     ProgressView(value: Double(current), total: Double(total))
-                    Text("Extraction piste \(current)/\(total)...")
+                    Text("Extracting track \(current)/\(total)…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 case .finished:
-                    CompletionBadge(message: "Extraction terminée")
+                    CompletionBadge(message: "Extraction complete")
                 case .failed:
                     if let error = extractAudioManager.error {
                         ErrorBadge(message: error)
@@ -242,33 +244,6 @@ struct ExtractAudioView: View {
                     Text(extractAudioManager.state.displayName)
                         .font(.caption)
                         .foregroundStyle(.secondary)
-                }
-            }
-        }
-    }
-
-    // MARK: - Actions
-
-    private var actionsSection: some View {
-        GlassEffectContainer(spacing: 12) {
-            HStack(spacing: 12) {
-                if extractAudioManager.isRunning {
-                    Button(role: .destructive) {
-                        extractAudioManager.cancel()
-                    } label: {
-                        Label("Annuler", systemImage: "xmark.circle")
-                    }
-                    .buttonStyle(.glass)
-                } else {
-                    Button {
-                        startExtraction()
-                    } label: {
-                        Label("Extraire", systemImage: "arrow.down.circle")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.glassProminent)
-                    .disabled(!extractAudioManager.canExtract)
-                    .controlSize(.large)
                 }
             }
         }
@@ -292,7 +267,7 @@ struct ExtractAudioView: View {
 
     private func chooseOutputDirectory() {
         let panel = NSOpenPanel()
-        panel.title = "Dossier de sortie"
+        panel.title = "Output Folder"
         panel.canChooseFiles = false
         panel.canChooseDirectories = true
         panel.canCreateDirectories = true

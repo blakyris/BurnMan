@@ -1,52 +1,64 @@
 import SwiftUI
 
-struct ExtractVideoView: View {
+struct ExtractVideoSection: View {
     @Environment(ExtractVideoManager.self) private var extractVideoManager
     @Environment(DeviceManager.self) private var deviceManager
+    @Environment(ActiveTaskContext.self) private var taskContext
 
     private var canProbe: Bool {
         deviceManager.selectedDevice != nil && !extractVideoManager.isRunning
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                probeSection
+        VStack(spacing: 20) {
+            probeSection
 
-                if !extractVideoManager.titles.isEmpty {
-                    titleListSection
-                    outputSection
-                }
-
-                if !extractVideoManager.decryptionService.isDvdCssAvailable {
-                    decryptionWarningSection
-                }
-
-                if extractVideoManager.state != .idle {
-                    statusSection
-                }
-
-                actionsSection
+            if !extractVideoManager.titles.isEmpty {
+                titleListSection
+                outputSection
             }
-            .padding(24)
+
+            if !extractVideoManager.decryptionService.isDvdCssAvailable {
+                decryptionWarningSection
+            }
+
+            if extractVideoManager.state != .idle {
+                statusSection
+            }
         }
-        .navigationTitle("Extraire un film")
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                DevicePickerView()
-            }
+        .onAppear { updateTaskContext() }
+        .onChange(of: extractVideoManager.isRunning) { updateTaskContext() }
+        .onChange(of: extractVideoManager.titles.count) { updateTaskContext() }
+    }
+
+    private func updateTaskContext() {
+        taskContext.actionLabel = "Extract"
+        taskContext.actionIcon = "arrow.down.circle"
+        taskContext.canExecute = extractVideoManager.canExtract
+        taskContext.isRunning = extractVideoManager.isRunning
+        taskContext.onExecute = { startExtraction() }
+        taskContext.onSimulate = nil
+        taskContext.onCancel = { extractVideoManager.cancel() }
+        taskContext.onAddFiles = nil
+
+        if extractVideoManager.isRunning {
+            taskContext.progress = extractVideoManager.progress
+            taskContext.statusText = "Extracting video…"
+        } else {
+            taskContext.progress = nil
+            taskContext.statusText = ""
         }
     }
 
     // MARK: - Probe
 
     private var probeSection: some View {
-        SectionContainer(title: "Analyse du disque", systemImage: "magnifyingglass") {
+        SectionContainer(title: "Disc Analysis", systemImage: "magnifyingglass") {
             VStack(spacing: 12) {
                 if extractVideoManager.titles.isEmpty {
                     HStack {
                         Label {
-                            Text("Insérez un DVD ou Blu-ray puis analysez le disque pour détecter les titres.")
+                            Text("Insert a DVD or Blu-ray then analyze the disc to detect titles.")
                         } icon: {
                             Image(systemName: "info.circle")
                                 .foregroundStyle(.blue)
@@ -58,7 +70,7 @@ struct ExtractVideoView: View {
                     }
                 } else {
                     HStack {
-                        Text("\(extractVideoManager.titles.count) titre(s) détecté(s)")
+                        Text("\(extractVideoManager.titles.count) title(s) detected")
                             .font(.subheadline)
                         Spacer()
                     }
@@ -68,7 +80,7 @@ struct ExtractVideoView: View {
                     probeTitles()
                 } label: {
                     Label(
-                        extractVideoManager.titles.isEmpty ? "Analyser le disque" : "Relancer l'analyse",
+                        extractVideoManager.titles.isEmpty ? "Analyze Disc" : "Re-analyze",
                         systemImage: "arrow.clockwise"
                     )
                     .font(.caption)
@@ -82,9 +94,7 @@ struct ExtractVideoView: View {
     // MARK: - Title List
 
     private var titleListSection: some View {
-        @Bindable var extractVideoManager = extractVideoManager
-
-        return SectionContainer(title: "Titres", systemImage: "film") {
+        SectionContainer(title: "Titles", systemImage: "film") {
             VStack(spacing: 8) {
                 ForEach(extractVideoManager.titles) { title in
                     titleRow(title)
@@ -108,14 +118,14 @@ struct ExtractVideoView: View {
                 .imageScale(.medium)
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Titre \(title.id)")
+                    Text("Title \(title.id)")
                         .font(.subheadline)
 
                     HStack(spacing: 8) {
                         Text(title.durationFormatted)
 
                         if title.chapters > 0 {
-                            Text("\(title.chapters) chapitres")
+                            Text("\(title.chapters) chapters")
                         }
 
                         if !title.audioStreams.isEmpty {
@@ -123,7 +133,7 @@ struct ExtractVideoView: View {
                         }
 
                         if !title.subtitleStreams.isEmpty {
-                            Text("\(title.subtitleStreams.count) sous-titres")
+                            Text("\(title.subtitleStreams.count) subtitles")
                         }
                     }
                     .font(.caption)
@@ -143,12 +153,12 @@ struct ExtractVideoView: View {
     private var outputSection: some View {
         @Bindable var extractVideoManager = extractVideoManager
 
-        return SectionContainer(title: "Sortie", systemImage: "square.and.arrow.down") {
+        return SectionContainer(title: "Output", systemImage: "square.and.arrow.down") {
             VStack(spacing: 16) {
                 SettingRow(
                     title: "Format",
                     systemImage: "film",
-                    description: "MKV copie les flux sans transcodage. MP4 transcode en H.264."
+                    description: "MKV copies streams without transcoding. MP4 transcodes to H.264."
                 ) {
                     Picker("", selection: $extractVideoManager.outputFormat) {
                         Text("MKV").tag(VideoOutputFormat.mkv)
@@ -158,7 +168,6 @@ struct ExtractVideoView: View {
                     .fixedSize()
                 }
 
-                // Output file
                 if let url = extractVideoManager.outputURL {
                     HStack {
                         Image(systemName: "doc")
@@ -178,7 +187,7 @@ struct ExtractVideoView: View {
                     chooseOutputLocation()
                 } label: {
                     Label(
-                        extractVideoManager.outputURL == nil ? "Choisir l'emplacement" : "Modifier",
+                        extractVideoManager.outputURL == nil ? "Choose Location" : "Change",
                         systemImage: "folder"
                     )
                     .font(.caption)
@@ -195,7 +204,7 @@ struct ExtractVideoView: View {
             HStack {
                 Label {
                     Text(
-                        "libdvdcss non trouvé. L'extraction de DVD protégés nécessite libdvdcss. Installez-le : brew install libdvdcss"
+                        "libdvdcss not found. Extracting encrypted DVDs requires libdvdcss. Install it: brew install libdvdcss"
                     )
                 } icon: {
                     Image(systemName: "exclamationmark.triangle.fill")
@@ -212,22 +221,22 @@ struct ExtractVideoView: View {
     // MARK: - Status
 
     private var statusSection: some View {
-        SectionContainer(title: "Progression", systemImage: "waveform.path") {
+        SectionContainer(title: "Progress", systemImage: "waveform.path") {
             VStack(spacing: 8) {
                 switch extractVideoManager.state {
                 case .preparing:
                     ProgressView()
                         .controlSize(.small)
-                    Text("Analyse en cours...")
+                    Text("Analyzing…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 case .extracting:
                     ProgressView(value: extractVideoManager.progress)
-                    Text("Extraction en cours...")
+                    Text("Extracting…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 case .finished:
-                    CompletionBadge(message: "Extraction terminée")
+                    CompletionBadge(message: "Extraction complete")
                 case .failed:
                     if let error = extractVideoManager.error {
                         ErrorBadge(message: error)
@@ -238,33 +247,6 @@ struct ExtractVideoView: View {
                     Text(extractVideoManager.state.displayName)
                         .font(.caption)
                         .foregroundStyle(.secondary)
-                }
-            }
-        }
-    }
-
-    // MARK: - Actions
-
-    private var actionsSection: some View {
-        GlassEffectContainer(spacing: 12) {
-            HStack(spacing: 12) {
-                if extractVideoManager.isRunning {
-                    Button(role: .destructive) {
-                        extractVideoManager.cancel()
-                    } label: {
-                        Label("Annuler", systemImage: "xmark.circle")
-                    }
-                    .buttonStyle(.glass)
-                } else {
-                    Button {
-                        startExtraction()
-                    } label: {
-                        Label("Extraire", systemImage: "arrow.down.circle")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.glassProminent)
-                    .disabled(!extractVideoManager.canExtract)
-                    .controlSize(.large)
                 }
             }
         }
@@ -288,8 +270,8 @@ struct ExtractVideoView: View {
 
     private func chooseOutputLocation() {
         let panel = NSSavePanel()
-        panel.title = "Enregistrer le film"
-        panel.nameFieldStringValue = "film.\(extractVideoManager.outputFormat.fileExtension)"
+        panel.title = "Save Movie"
+        panel.nameFieldStringValue = "movie.\(extractVideoManager.outputFormat.fileExtension)"
 
         panel.allowedContentTypes = [
             .init(filenameExtension: extractVideoManager.outputFormat.fileExtension)!

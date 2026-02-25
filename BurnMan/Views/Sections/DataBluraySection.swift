@@ -1,61 +1,63 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct DataDiscView: View {
+struct DataBluraySection: View {
     @Environment(DataDiscManager.self) private var dataDiscManager
     @Environment(DeviceManager.self) private var deviceManager
+    @Environment(ActiveTaskContext.self) private var taskContext
     @State private var isDragTargeted = false
 
-    private var canStartBurn: Bool {
-        !dataDiscManager.files.isEmpty && deviceManager.selectedDevice != nil
+    var body: some View {
+        VStack(spacing: 20) {
+            filesSection
+
+            if !dataDiscManager.files.isEmpty {
+                sizeSection
+            }
+
+            settingsSection
+
+            if dataDiscManager.state != .idle {
+                statusSection
+            }
+        }
+        .onAppear { updateTaskContext() }
+        .onChange(of: dataDiscManager.files.count) { updateTaskContext() }
+        .onChange(of: dataDiscManager.isRunning) { updateTaskContext() }
     }
 
-    var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                filesSection
-
-                if !dataDiscManager.files.isEmpty {
-                    sizeSection
-                }
-
-                settingsSection
-
-                if dataDiscManager.state != .idle {
-                    statusSection
-                }
-
-                actionsSection
-            }
-            .padding(24)
-        }
-        .navigationTitle("Disque de données")
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                DevicePickerView()
-            }
-        }
+    private func updateTaskContext() {
+        let canStart = !dataDiscManager.files.isEmpty && deviceManager.selectedDevice != nil
+        taskContext.actionLabel = "Burn"
+        taskContext.actionIcon = "flame"
+        taskContext.canExecute = canStart
+        taskContext.isRunning = dataDiscManager.isRunning
+        taskContext.onExecute = { startBurn() }
+        taskContext.onSimulate = nil
+        taskContext.onCancel = { dataDiscManager.cancel() }
+        taskContext.onAddFiles = { openFilePicker() }
+        taskContext.statusText = dataDiscManager.isRunning ? "Burning data Blu-ray…" : ""
     }
 
     // MARK: - Files
 
     private var filesSection: some View {
-        SectionContainer(title: "Fichiers", systemImage: "folder.fill") {
+        SectionContainer(title: "Files", systemImage: "folder.fill") {
             if dataDiscManager.files.isEmpty {
                 VStack(spacing: 12) {
                     Image(systemName: "folder.badge.plus")
                         .font(.system(size: 40))
                         .foregroundStyle(.secondary)
 
-                    Text("Ajoute des fichiers ou dossiers")
+                    Text("Add files or folders")
                         .font(.headline)
                         .foregroundStyle(.secondary)
 
-                    Text("Glisse-dépose des fichiers ici")
+                    Text("Drag and drop files here")
                         .font(.caption)
                         .foregroundStyle(.tertiary)
 
-                    Button("Ajouter des fichiers") {
+                    Button("Add Files") {
                         openFilePicker()
                     }
                     .buttonStyle(.glass)
@@ -75,7 +77,7 @@ struct DataDiscView: View {
 
                             Spacer()
 
-                            Text(String(format: "%.1f Mo", file.fileSizeMB))
+                            Text(String(format: "%.1f MB", file.fileSizeMB))
                                 .font(.system(.caption, design: .monospaced))
                                 .foregroundStyle(.secondary)
                         }
@@ -92,14 +94,14 @@ struct DataDiscView: View {
                     Button {
                         openFilePicker()
                     } label: {
-                        Label("Ajouter", systemImage: "plus")
+                        Label("Add", systemImage: "plus")
                             .font(.caption)
                     }
                     .buttonStyle(.glass)
 
                     Spacer()
 
-                    Text("\(dataDiscManager.files.count) fichier(s)")
+                    Text("\(dataDiscManager.files.count) file(s)")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -115,15 +117,15 @@ struct DataDiscView: View {
     // MARK: - Size
 
     private var sizeSection: some View {
-        SectionContainer(title: "Espace", systemImage: "chart.bar") {
+        SectionContainer(title: "Space", systemImage: "chart.bar") {
             HStack {
-                Text(String(format: "%.1f Mo", dataDiscManager.totalSizeMB))
+                Text(String(format: "%.1f MB", dataDiscManager.totalSizeMB))
                     .font(.system(.caption, design: .monospaced))
                     .fontWeight(.medium)
 
                 Spacer()
 
-                Text("\(dataDiscManager.files.count) fichier(s)")
+                Text("\(dataDiscManager.files.count) file(s)")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -136,30 +138,14 @@ struct DataDiscView: View {
         @Bindable var dataDiscManager = dataDiscManager
 
         return SectionContainer(title: "Options", systemImage: "gearshape") {
-            VStack(spacing: 16) {
-                SettingRow(
-                    title: "Nom du disque",
-                    systemImage: "textformat",
-                    description: "Le nom qui apparaitra sur le disque."
-                ) {
-                    TextField("", text: $dataDiscManager.discLabel)
-                        .textFieldStyle(.roundedBorder)
-                        .frame(width: 160)
-                }
-
-                SettingRow(
-                    title: "Support cible",
-                    systemImage: "opticaldisc",
-                    description: "Choisissez le type de disque vierge."
-                ) {
-                    Picker("", selection: $dataDiscManager.targetMedia) {
-                        Text("CD").tag(TargetMedia.cd)
-                        Text("DVD").tag(TargetMedia.dvd)
-                        Text("Blu-ray").tag(TargetMedia.bluray)
-                    }
-                    .pickerStyle(.segmented)
-                    .fixedSize()
-                }
+            SettingRow(
+                title: "Disc Label",
+                systemImage: "textformat",
+                description: "The label that will appear on the disc."
+            ) {
+                TextField("", text: $dataDiscManager.discLabel)
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 160)
             }
         }
     }
@@ -167,17 +153,17 @@ struct DataDiscView: View {
     // MARK: - Status
 
     private var statusSection: some View {
-        SectionContainer(title: "Progression", systemImage: "waveform.path") {
+        SectionContainer(title: "Progress", systemImage: "waveform.path") {
             VStack(spacing: 8) {
                 switch dataDiscManager.state {
                 case .burning:
                     ProgressView()
                         .controlSize(.small)
-                    Text("Gravure en cours...")
+                    Text("Burning…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 case .finished:
-                    CompletionBadge(message: "Gravure terminée")
+                    CompletionBadge(message: "Burn complete")
                 case .failed:
                     if let error = dataDiscManager.error {
                         ErrorBadge(message: error)
@@ -185,36 +171,9 @@ struct DataDiscView: View {
                 default:
                     ProgressView()
                         .controlSize(.small)
-                    Text("Préparation...")
+                    Text("Preparing…")
                         .font(.caption)
                         .foregroundStyle(.secondary)
-                }
-            }
-        }
-    }
-
-    // MARK: - Actions
-
-    private var actionsSection: some View {
-        GlassEffectContainer(spacing: 12) {
-            HStack(spacing: 12) {
-                if dataDiscManager.isRunning {
-                    Button(role: .destructive) {
-                        dataDiscManager.cancel()
-                    } label: {
-                        Label("Annuler", systemImage: "xmark.circle")
-                    }
-                    .buttonStyle(.glass)
-                } else {
-                    Button {
-                        startBurn()
-                    } label: {
-                        Label("Graver", systemImage: "flame")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.glassProminent)
-                    .disabled(!canStartBurn)
-                    .controlSize(.large)
                 }
             }
         }
@@ -224,6 +183,7 @@ struct DataDiscView: View {
 
     private func startBurn() {
         guard let device = deviceManager.selectedDevice else { return }
+        dataDiscManager.targetMedia = .bluray
         Task {
             await dataDiscManager.startBurn(device: device.path)
         }

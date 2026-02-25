@@ -106,19 +106,19 @@ struct BurnCommands: Commands {
         CommandGroup(after: .newItem) {
             Divider()
 
-            Button("Ouvrir un fichier CUE…") {
+            Button("Open CUE File…") {
                 openCueAction?()
             }
             .keyboardShortcut("o")
             .disabled(openCueAction == nil)
 
-            Button("Ajouter des fichiers audio…") {
+            Button("Add Audio Files…") {
                 addFilesAction?()
             }
             .keyboardShortcut("o", modifiers: [.command, .shift])
             .disabled(addFilesAction == nil)
 
-            Button("Enregistrer le CUE…") {
+            Button("Save CUE…") {
                 saveCueAction?()
             }
             .keyboardShortcut("s")
@@ -126,20 +126,20 @@ struct BurnCommands: Commands {
         }
 
         // Burn menu
-        CommandMenu("Gravure") {
-            Button("Graver") {
+        CommandMenu("Burn") {
+            Button("Burn") {
                 burnAction?()
             }
             .keyboardShortcut("b")
             .disabled(burnAction == nil || canBurn != true || isRunning == true)
 
-            Button("Simuler") {
+            Button("Simulate") {
                 simulateAction?()
             }
             .keyboardShortcut("b", modifiers: [.command, .shift])
             .disabled(simulateAction == nil || canBurn != true || isRunning == true)
 
-            Button("Annuler") {
+            Button("Cancel") {
                 cancelAction?()
             }
             .keyboardShortcut(".", modifiers: .command)
@@ -147,7 +147,7 @@ struct BurnCommands: Commands {
 
             Divider()
 
-            Button("Actualiser les graveurs") {
+            Button("Refresh Drives") {
                 refreshDevicesAction?()
             }
             .keyboardShortcut("r")
@@ -156,7 +156,7 @@ struct BurnCommands: Commands {
 
         // View menu additions
         CommandGroup(after: .toolbar) {
-            Button("Afficher le log") {
+            Button("Show Log") {
                 showLog?.wrappedValue.toggle()
             }
             .keyboardShortcut("l")
@@ -170,6 +170,9 @@ struct BurnCommands: Commands {
 @main
 struct BurnManApp: App {
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
+
+    // Shared context for bottom toolbar / menu commands
+    @State private var activeTaskContext = ActiveTaskContext()
 
     // Old managers (kept until views are fully migrated)
     @State private var burnManager = BurnManager()
@@ -252,6 +255,8 @@ struct BurnManApp: App {
         WindowGroup {
             GlassEffectContainer(spacing: 20) {
                 ContentView()
+                    // Shared context
+                    .environment(activeTaskContext)
                     // Old managers (existing views)
                     .environment(burnManager)
                     .environment(deviceManager)
@@ -285,6 +290,7 @@ struct BurnManApp: App {
         }
     }
 }
+
 // MARK: - App Delegate
 
 class AppDelegate: NSObject, NSApplicationDelegate {

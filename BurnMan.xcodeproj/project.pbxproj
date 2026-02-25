@@ -25,20 +25,17 @@
 		656B279AE0D078CC2F3E3BDD /* BurnProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F899C9F702E4D885FF66F5 /* BurnProgressView.swift */; };
 		6DFE22B1FE720BDD72B959D4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C546D6684E81440554504DF1 /* SettingsView.swift */; };
 		6EEA06F49F829B75ABC37C48 /* ImageDiscManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A62200201EB92A517EA6A1 /* ImageDiscManager.swift */; };
-		70C378F294384A43926BEDED /* VideoDiscView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D8819EBBC43E09D2FBF80 /* VideoDiscView.swift */; };
 		852BE1CE0A71697F561CFCE5 /* DataDiscManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F1ACB0C44650C04D8A25E /* DataDiscManager.swift */; };
 		8A612C85E036B05F3740A0F3 /* BurnSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63ADEB2293F5EB7A9FD5F50 /* BurnSettings.swift */; };
 		9189BA6F3F92EC552DFF8948 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FB34039A02CF01C8AA74A /* main.swift */; };
 		92BAD2A2E66B48C58A54770E /* CompactDiscService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074CA607FC11C6C9925E979 /* CompactDiscService.swift */; };
 		94EABC8E3B4F188AC99A4E60 /* BurnManApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B478953EB6039ABF4E2DB6B /* BurnManApp.swift */; };
-		958DC8025C744A11A3951D9A /* DataDiscView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085BD02854DF47979CE46CAE /* DataDiscView.swift */; };
 		A1B2C3D4E5F60718293A4B5C /* org.burnman.helper.plist in Copy Helper LaunchDaemon plist */ = {isa = PBXBuildFile; fileRef = F1A2B3C4D5E6F7890A1B2C3D /* org.burnman.helper.plist */; };
 		A75B1B07A148A0ABF5E399E3 /* DiscTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F583C5623022A02A7C353340 /* DiscTypes.swift */; };
 		AA1BC2A3D7E8F1234ABCD301 /* AudioCDModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD201 /* AudioCDModels.swift */; };
 		AA1BC2A3D7E8F1234ABCD302 /* AudioCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD202 /* AudioCDManager.swift */; };
 		AA1BC2A3D7E8F1234ABCD303 /* AudioTrackRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD203 /* AudioTrackRowView.swift */; };
 		AA1BC2A3D7E8F1234ABCD304 /* AudioCDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD204 /* AudioCDProgressView.swift */; };
-		AA1BC2A3D7E8F1234ABCD305 /* AudioCDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD205 /* AudioCDView.swift */; };
 		AAED005F80D295C656783E5E /* ToolPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8C3AA98C0D5DC26FCE169 /* ToolPaths.swift */; };
 		B2AE436837DDF44ED469AC97 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963F83B8A7FE984E1CA8F916 /* DeviceManager.swift */; };
 		B9D956B322F5D7F8023A9A0E /* VideoDiscManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2300699A81C383A12A0619D0 /* VideoDiscManager.swift */; };
@@ -61,23 +58,41 @@
 		CC07BB07CC07BB07CC07BB07 /* EraseDiscManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07AA07BB07AA07BB07AA07 /* EraseDiscManager.swift */; };
 		CC08BB08CC08BB08CC08BB08 /* ExtractAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB08AA08BB08AA08BB08AA08 /* ExtractAudioManager.swift */; };
 		CC09BB09CC09BB09CC09BB09 /* ExtractVideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09AA09BB09AA09BB09AA09 /* ExtractVideoManager.swift */; };
-		CC10BB10CC10BB10CC10BB10 /* CopyDiscView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB10AA10BB10AA10BB10AA10 /* CopyDiscView.swift */; };
-		CC11BB11CC11BB11CC11BB11 /* DiskImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB11AA11BB11AA11BB11AA11 /* DiskImageView.swift */; };
-		CC12BB12CC12BB12CC12BB12 /* EraseDiscView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB12AA12BB12AA12BB12AA12 /* EraseDiscView.swift */; };
-		CC13BB13CC13BB13CC13BB13 /* ExtractAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB13AA13BB13AA13BB13AA13 /* ExtractAudioView.swift */; };
-		CC14BB14CC14BB14CC14BB14 /* ExtractVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB14AA14BB14AA14BB14AA14 /* ExtractVideoView.swift */; };
 		DFB50DCF345CCABB89AD2532 /* ToolError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AAFCC4BB57A9E5E1C70113 /* ToolError.swift */; };
 		E45F76E37D128E266D0A35B2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FC3717BDB89BFDF09B47A /* ContentView.swift */; };
 		F5825620B1F96D467D7603B5 /* MediaProbeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DB4BBBFDFC3677FF2EB50B /* MediaProbeService.swift */; };
-		F9DB5AB3032E1FEA22A0D800 /* BurnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E88C451E6C57814928EEB5 /* BurnView.swift */; };
 		FA1BC2A3D7E8F1234ABCD001 /* CdrdaoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD101 /* CdrdaoConfig.swift */; };
 		FA1BC2A3D7E8F1234ABCD002 /* TrackRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD102 /* TrackRowView.swift */; };
 		FA1BC2A3D7E8F1234ABCD003 /* GlassModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD103 /* GlassModifiers.swift */; };
-		FA1BC2A3D7E8F1234ABCD004 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD104 /* PlaceholderView.swift */; };
 		FA1BC2A3D7E8F1234ABCD005 /* DevicePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD105 /* DevicePickerView.swift */; };
 		FA1BC2A3D7E8F1234ABCD006 /* LogSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD106 /* LogSheetView.swift */; };
 		FC06FF917E8A964FFA323CC6 /* OpticalDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA941471163FD163A19FF9A8 /* OpticalDevice.swift */; };
 		FC7DB3D5DBB505089C70776A /* BurnManHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA957ACA1AFAE5F32D6931 /* BurnManHelperProtocol.swift */; };
+		D10200A1B2C3D4E5F6A7B8C9 /* ActiveTaskContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10100A1B2C3D4E5F6A7B8C9 /* ActiveTaskContext.swift */; };
+		D10400A1B2C3D4E5F6A7B8C9 /* BottomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10300A1B2C3D4E5F6A7B8C9 /* BottomToolbar.swift */; };
+		D10600A1B2C3D4E5F6A7B8C9 /* BurnTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10500A1B2C3D4E5F6A7B8C9 /* BurnTabView.swift */; };
+		D10800A1B2C3D4E5F6A7B8C9 /* CopyTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10700A1B2C3D4E5F6A7B8C9 /* CopyTabView.swift */; };
+		D10A00A1B2C3D4E5F6A7B8C9 /* ExtractTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10900A1B2C3D4E5F6A7B8C9 /* ExtractTabView.swift */; };
+		D10C00A1B2C3D4E5F6A7B8C9 /* ConvertTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B00A1B2C3D4E5F6A7B8C9 /* ConvertTabView.swift */; };
+		D10E00A1B2C3D4E5F6A7B8C9 /* ToolsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D00A1B2C3D4E5F6A7B8C9 /* ToolsTabView.swift */; };
+		D11100A1B2C3D4E5F6A7B8C9 /* AudioCDSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11000A1B2C3D4E5F6A7B8C9 /* AudioCDSection.swift */; };
+		D11300A1B2C3D4E5F6A7B8C9 /* DataCDSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11200A1B2C3D4E5F6A7B8C9 /* DataCDSection.swift */; };
+		D11500A1B2C3D4E5F6A7B8C9 /* DiscImageBurnSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11400A1B2C3D4E5F6A7B8C9 /* DiscImageBurnSection.swift */; };
+		D11700A1B2C3D4E5F6A7B8C9 /* DVDVideoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11600A1B2C3D4E5F6A7B8C9 /* DVDVideoSection.swift */; };
+		D11900A1B2C3D4E5F6A7B8C9 /* DVDAudioSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11800A1B2C3D4E5F6A7B8C9 /* DVDAudioSection.swift */; };
+		D11B00A1B2C3D4E5F6A7B8C9 /* DataDVDSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11A00A1B2C3D4E5F6A7B8C9 /* DataDVDSection.swift */; };
+		D11D00A1B2C3D4E5F6A7B8C9 /* BlurayVideoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11C00A1B2C3D4E5F6A7B8C9 /* BlurayVideoSection.swift */; };
+		D11F00A1B2C3D4E5F6A7B8C9 /* DataBluraySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11E00A1B2C3D4E5F6A7B8C9 /* DataBluraySection.swift */; };
+		D12100A1B2C3D4E5F6A7B8C9 /* CopyDiscToDiscSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12000A1B2C3D4E5F6A7B8C9 /* CopyDiscToDiscSection.swift */; };
+		D12300A1B2C3D4E5F6A7B8C9 /* CopyDiscImageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12200A1B2C3D4E5F6A7B8C9 /* CopyDiscImageSection.swift */; };
+		D12500A1B2C3D4E5F6A7B8C9 /* ExtractMusicSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12400A1B2C3D4E5F6A7B8C9 /* ExtractMusicSection.swift */; };
+		D12700A1B2C3D4E5F6A7B8C9 /* ExtractVideoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12600A1B2C3D4E5F6A7B8C9 /* ExtractVideoSection.swift */; };
+		D12900A1B2C3D4E5F6A7B8C9 /* ConvertFileSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12800A1B2C3D4E5F6A7B8C9 /* ConvertFileSection.swift */; };
+		D12B00A1B2C3D4E5F6A7B8C9 /* ConvertAudioSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12A00A1B2C3D4E5F6A7B8C9 /* ConvertAudioSection.swift */; };
+		D12D00A1B2C3D4E5F6A7B8C9 /* ConvertVideoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12C00A1B2C3D4E5F6A7B8C9 /* ConvertVideoSection.swift */; };
+		D12F00A1B2C3D4E5F6A7B8C9 /* ConvertDiscImageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12E00A1B2C3D4E5F6A7B8C9 /* ConvertDiscImageSection.swift */; };
+		D13100A1B2C3D4E5F6A7B8C9 /* EraseDiscSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13000A1B2C3D4E5F6A7B8C9 /* EraseDiscSection.swift */; };
+		D13300A1B2C3D4E5F6A7B8C9 /* MetadataEditorSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13200A1B2C3D4E5F6A7B8C9 /* MetadataEditorSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,7 +161,6 @@
 
 /* Begin PBXFileReference section */
 		03A62200201EB92A517EA6A1 /* ImageDiscManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDiscManager.swift; sourceTree = "<group>"; };
-		085BD02854DF47979CE46CAE /* DataDiscView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDiscView.swift; sourceTree = "<group>"; };
 		0A3FB34039A02CF01C8AA74A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		10DDD994F5D8E5784A23B3F9 /* MediaInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaInfo.swift; sourceTree = "<group>"; };
 		17AAFCC4BB57A9E5E1C70113 /* ToolError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolError.swift; sourceTree = "<group>"; };
@@ -154,7 +168,6 @@
 		2A17587E346AA19BD69EB9FC /* CueGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueGeneratorView.swift; sourceTree = "<group>"; };
 		3224B57641A61C81BDDAC307 /* MediaPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerService.swift; sourceTree = "<group>"; };
 		3B9FC3717BDB89BFDF09B47A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		3C1D8819EBBC43E09D2FBF80 /* VideoDiscView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDiscView.swift; sourceTree = "<group>"; };
 		3DF3BF8AC9DE3286A6C48293 /* BurnMan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BurnMan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DFA957ACA1AFAE5F32D6931 /* BurnManHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnManHelperProtocol.swift; sourceTree = "<group>"; };
 		3E0F1ACB0C44650C04D8A25E /* DataDiscManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDiscManager.swift; sourceTree = "<group>"; };
@@ -170,14 +183,12 @@
 		89DB4BBBFDFC3677FF2EB50B /* MediaProbeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaProbeService.swift; sourceTree = "<group>"; };
 		8F6F78585BC8BA4D870D4181 /* BurnManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnManager.swift; sourceTree = "<group>"; };
 		963F83B8A7FE984E1CA8F916 /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
-		99E88C451E6C57814928EEB5 /* BurnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnView.swift; sourceTree = "<group>"; };
 		A4141982FBEF0854EC3915C4 /* BlurayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurayService.swift; sourceTree = "<group>"; };
 		A428D4C620F09057A9AF9F09 /* DvdRwError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvdRwError.swift; sourceTree = "<group>"; };
 		AA1BC2A3D7E8F1234ABCD201 /* AudioCDModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDModels.swift; sourceTree = "<group>"; };
 		AA1BC2A3D7E8F1234ABCD202 /* AudioCDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDManager.swift; sourceTree = "<group>"; };
 		AA1BC2A3D7E8F1234ABCD203 /* AudioTrackRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrackRowView.swift; sourceTree = "<group>"; };
 		AA1BC2A3D7E8F1234ABCD204 /* AudioCDProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDProgressView.swift; sourceTree = "<group>"; };
-		AA1BC2A3D7E8F1234ABCD205 /* AudioCDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDView.swift; sourceTree = "<group>"; };
 		AA941471163FD163A19FF9A8 /* OpticalDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpticalDevice.swift; sourceTree = "<group>"; };
 		AABB0001AABB0001AABB0001 /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 		AB3847B09170F74B46E7CD3E /* FfmpegError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FfmpegError.swift; sourceTree = "<group>"; };
@@ -193,11 +204,6 @@
 		BB07AA07BB07AA07BB07AA07 /* EraseDiscManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseDiscManager.swift; sourceTree = "<group>"; };
 		BB08AA08BB08AA08BB08AA08 /* ExtractAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractAudioManager.swift; sourceTree = "<group>"; };
 		BB09AA09BB09AA09BB09AA09 /* ExtractVideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractVideoManager.swift; sourceTree = "<group>"; };
-		BB10AA10BB10AA10BB10AA10 /* CopyDiscView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyDiscView.swift; sourceTree = "<group>"; };
-		BB11AA11BB11AA11BB11AA11 /* DiskImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskImageView.swift; sourceTree = "<group>"; };
-		BB12AA12BB12AA12BB12AA12 /* EraseDiscView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseDiscView.swift; sourceTree = "<group>"; };
-		BB13AA13BB13AA13BB13AA13 /* ExtractAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractAudioView.swift; sourceTree = "<group>"; };
-		BB14AA14BB14AA14BB14AA14 /* ExtractVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractVideoView.swift; sourceTree = "<group>"; };
 		BE58022C2F4D03C3008B3C66 /* CdrdaoOutputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdrdaoOutputParser.swift; sourceTree = "<group>"; };
 		BE58022E2F4D0E51008B3C66 /* ToolRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolRunner.swift; sourceTree = "<group>"; };
 		BE5802302F4D0E51008B3C66 /* FfmpegConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FfmpegConfig.swift; sourceTree = "<group>"; };
@@ -214,9 +220,33 @@
 		FA1BC2A3D7E8F1234ABCD101 /* CdrdaoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdrdaoConfig.swift; sourceTree = "<group>"; };
 		FA1BC2A3D7E8F1234ABCD102 /* TrackRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRowView.swift; sourceTree = "<group>"; };
 		FA1BC2A3D7E8F1234ABCD103 /* GlassModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassModifiers.swift; sourceTree = "<group>"; };
-		FA1BC2A3D7E8F1234ABCD104 /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		FA1BC2A3D7E8F1234ABCD105 /* DevicePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicePickerView.swift; sourceTree = "<group>"; };
 		FA1BC2A3D7E8F1234ABCD106 /* LogSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogSheetView.swift; sourceTree = "<group>"; };
+		D10100A1B2C3D4E5F6A7B8C9 /* ActiveTaskContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTaskContext.swift; sourceTree = "<group>"; };
+		D10300A1B2C3D4E5F6A7B8C9 /* BottomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomToolbar.swift; sourceTree = "<group>"; };
+		D10500A1B2C3D4E5F6A7B8C9 /* BurnTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnTabView.swift; sourceTree = "<group>"; };
+		D10700A1B2C3D4E5F6A7B8C9 /* CopyTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyTabView.swift; sourceTree = "<group>"; };
+		D10900A1B2C3D4E5F6A7B8C9 /* ExtractTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractTabView.swift; sourceTree = "<group>"; };
+		D10B00A1B2C3D4E5F6A7B8C9 /* ConvertTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertTabView.swift; sourceTree = "<group>"; };
+		D10D00A1B2C3D4E5F6A7B8C9 /* ToolsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsTabView.swift; sourceTree = "<group>"; };
+		D11000A1B2C3D4E5F6A7B8C9 /* AudioCDSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDSection.swift; sourceTree = "<group>"; };
+		D11200A1B2C3D4E5F6A7B8C9 /* DataCDSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCDSection.swift; sourceTree = "<group>"; };
+		D11400A1B2C3D4E5F6A7B8C9 /* DiscImageBurnSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscImageBurnSection.swift; sourceTree = "<group>"; };
+		D11600A1B2C3D4E5F6A7B8C9 /* DVDVideoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDVideoSection.swift; sourceTree = "<group>"; };
+		D11800A1B2C3D4E5F6A7B8C9 /* DVDAudioSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDAudioSection.swift; sourceTree = "<group>"; };
+		D11A00A1B2C3D4E5F6A7B8C9 /* DataDVDSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDVDSection.swift; sourceTree = "<group>"; };
+		D11C00A1B2C3D4E5F6A7B8C9 /* BlurayVideoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurayVideoSection.swift; sourceTree = "<group>"; };
+		D11E00A1B2C3D4E5F6A7B8C9 /* DataBluraySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBluraySection.swift; sourceTree = "<group>"; };
+		D12000A1B2C3D4E5F6A7B8C9 /* CopyDiscToDiscSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyDiscToDiscSection.swift; sourceTree = "<group>"; };
+		D12200A1B2C3D4E5F6A7B8C9 /* CopyDiscImageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyDiscImageSection.swift; sourceTree = "<group>"; };
+		D12400A1B2C3D4E5F6A7B8C9 /* ExtractMusicSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractMusicSection.swift; sourceTree = "<group>"; };
+		D12600A1B2C3D4E5F6A7B8C9 /* ExtractVideoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractVideoSection.swift; sourceTree = "<group>"; };
+		D12800A1B2C3D4E5F6A7B8C9 /* ConvertFileSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertFileSection.swift; sourceTree = "<group>"; };
+		D12A00A1B2C3D4E5F6A7B8C9 /* ConvertAudioSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertAudioSection.swift; sourceTree = "<group>"; };
+		D12C00A1B2C3D4E5F6A7B8C9 /* ConvertVideoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertVideoSection.swift; sourceTree = "<group>"; };
+		D12E00A1B2C3D4E5F6A7B8C9 /* ConvertDiscImageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertDiscImageSection.swift; sourceTree = "<group>"; };
+		D13000A1B2C3D4E5F6A7B8C9 /* EraseDiscSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseDiscSection.swift; sourceTree = "<group>"; };
+		D13200A1B2C3D4E5F6A7B8C9 /* MetadataEditorSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataEditorSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -790,6 +820,7 @@
 				53F7C25EA6172B64A2A52D83 /* TrackInfo.swift */,
 				BB01AA01BB01AA01BB01AA01 /* ExtractModels.swift */,
 				BB02AA02BB02AA02BB02AA02 /* CopyModels.swift */,
+				D10100A1B2C3D4E5F6A7B8C9 /* ActiveTaskContext.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -877,26 +908,19 @@
 		CC4CB299119194A0CD080DBF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D14000A1B2C3D4E5F6A7B8C9 /* Components */,
+				D14100A1B2C3D4E5F6A7B8C9 /* Tabs */,
+				D14200A1B2C3D4E5F6A7B8C9 /* Sections */,
 				AA1BC2A3D7E8F1234ABCD204 /* AudioCDProgressView.swift */,
-				AA1BC2A3D7E8F1234ABCD205 /* AudioCDView.swift */,
 				AA1BC2A3D7E8F1234ABCD203 /* AudioTrackRowView.swift */,
 				E0F899C9F702E4D885FF66F5 /* BurnProgressView.swift */,
-				99E88C451E6C57814928EEB5 /* BurnView.swift */,
 				3B9FC3717BDB89BFDF09B47A /* ContentView.swift */,
 				2A17587E346AA19BD69EB9FC /* CueGeneratorView.swift */,
 				FA1BC2A3D7E8F1234ABCD105 /* DevicePickerView.swift */,
 				FA1BC2A3D7E8F1234ABCD103 /* GlassModifiers.swift */,
 				FA1BC2A3D7E8F1234ABCD106 /* LogSheetView.swift */,
-				FA1BC2A3D7E8F1234ABCD104 /* PlaceholderView.swift */,
 				C546D6684E81440554504DF1 /* SettingsView.swift */,
 				FA1BC2A3D7E8F1234ABCD102 /* TrackRowView.swift */,
-				3C1D8819EBBC43E09D2FBF80 /* VideoDiscView.swift */,
-				085BD02854DF47979CE46CAE /* DataDiscView.swift */,
-				BB10AA10BB10AA10BB10AA10 /* CopyDiscView.swift */,
-				BB11AA11BB11AA11BB11AA11 /* DiskImageView.swift */,
-				BB12AA12BB12AA12BB12AA12 /* EraseDiscView.swift */,
-				BB13AA13BB13AA13BB13AA13 /* ExtractAudioView.swift */,
-				BB14AA14BB14AA14BB14AA14 /* ExtractVideoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -937,6 +961,51 @@
 				BB04AA04BB04AA04BB04AA04 /* DiscImageService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		D14000A1B2C3D4E5F6A7B8C9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D10300A1B2C3D4E5F6A7B8C9 /* BottomToolbar.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		D14100A1B2C3D4E5F6A7B8C9 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				D10500A1B2C3D4E5F6A7B8C9 /* BurnTabView.swift */,
+				D10700A1B2C3D4E5F6A7B8C9 /* CopyTabView.swift */,
+				D10900A1B2C3D4E5F6A7B8C9 /* ExtractTabView.swift */,
+				D10B00A1B2C3D4E5F6A7B8C9 /* ConvertTabView.swift */,
+				D10D00A1B2C3D4E5F6A7B8C9 /* ToolsTabView.swift */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		D14200A1B2C3D4E5F6A7B8C9 /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				D11000A1B2C3D4E5F6A7B8C9 /* AudioCDSection.swift */,
+				D11200A1B2C3D4E5F6A7B8C9 /* DataCDSection.swift */,
+				D11400A1B2C3D4E5F6A7B8C9 /* DiscImageBurnSection.swift */,
+				D11600A1B2C3D4E5F6A7B8C9 /* DVDVideoSection.swift */,
+				D11800A1B2C3D4E5F6A7B8C9 /* DVDAudioSection.swift */,
+				D11A00A1B2C3D4E5F6A7B8C9 /* DataDVDSection.swift */,
+				D11C00A1B2C3D4E5F6A7B8C9 /* BlurayVideoSection.swift */,
+				D11E00A1B2C3D4E5F6A7B8C9 /* DataBluraySection.swift */,
+				D12000A1B2C3D4E5F6A7B8C9 /* CopyDiscToDiscSection.swift */,
+				D12200A1B2C3D4E5F6A7B8C9 /* CopyDiscImageSection.swift */,
+				D12400A1B2C3D4E5F6A7B8C9 /* ExtractMusicSection.swift */,
+				D12600A1B2C3D4E5F6A7B8C9 /* ExtractVideoSection.swift */,
+				D12800A1B2C3D4E5F6A7B8C9 /* ConvertFileSection.swift */,
+				D12A00A1B2C3D4E5F6A7B8C9 /* ConvertAudioSection.swift */,
+				D12C00A1B2C3D4E5F6A7B8C9 /* ConvertVideoSection.swift */,
+				D12E00A1B2C3D4E5F6A7B8C9 /* ConvertDiscImageSection.swift */,
+				D13000A1B2C3D4E5F6A7B8C9 /* EraseDiscSection.swift */,
+				D13200A1B2C3D4E5F6A7B8C9 /* MetadataEditorSection.swift */,
+			);
+			path = Sections;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1087,11 +1156,9 @@
 				AA1BC2A3D7E8F1234ABCD303 /* AudioTrackRowView.swift in Sources */,
 				BE5802332F4D0E52008B3C66 /* FfmpegOutputParser.swift in Sources */,
 				AA1BC2A3D7E8F1234ABCD304 /* AudioCDProgressView.swift in Sources */,
-				AA1BC2A3D7E8F1234ABCD305 /* AudioCDView.swift in Sources */,
 				07416A4FD460019C885AA68C /* BurnManager.swift in Sources */,
 				656B279AE0D078CC2F3E3BDD /* BurnProgressView.swift in Sources */,
 				8A612C85E036B05F3740A0F3 /* BurnSettings.swift in Sources */,
-				F9DB5AB3032E1FEA22A0D800 /* BurnView.swift in Sources */,
 				94EABC8E3B4F188AC99A4E60 /* BurnManApp.swift in Sources */,
 				BB67759C283969A20A8D15EC /* BurnManHelperProtocol.swift in Sources */,
 				FA1BC2A3D7E8F1234ABCD001 /* CdrdaoConfig.swift in Sources */,
@@ -1107,11 +1174,8 @@
 				FA1BC2A3D7E8F1234ABCD002 /* TrackRowView.swift in Sources */,
 				BE58023F2F4D454D008B3C66 /* AudioPreviewPlayer.swift in Sources */,
 				FA1BC2A3D7E8F1234ABCD003 /* GlassModifiers.swift in Sources */,
-				FA1BC2A3D7E8F1234ABCD004 /* PlaceholderView.swift in Sources */,
 				FA1BC2A3D7E8F1234ABCD005 /* DevicePickerView.swift in Sources */,
 				FA1BC2A3D7E8F1234ABCD006 /* LogSheetView.swift in Sources */,
-				70C378F294384A43926BEDED /* VideoDiscView.swift in Sources */,
-				958DC8025C744A11A3951D9A /* DataDiscView.swift in Sources */,
 				CC01BB01CC01BB01CC01BB01 /* ExtractModels.swift in Sources */,
 				CC02BB02CC02BB02CC02BB02 /* CopyModels.swift in Sources */,
 				CC03BB03CC03BB03CC03BB03 /* DecryptionService.swift in Sources */,
@@ -1121,11 +1185,31 @@
 				CC07BB07CC07BB07CC07BB07 /* EraseDiscManager.swift in Sources */,
 				CC08BB08CC08BB08CC08BB08 /* ExtractAudioManager.swift in Sources */,
 				CC09BB09CC09BB09CC09BB09 /* ExtractVideoManager.swift in Sources */,
-				CC10BB10CC10BB10CC10BB10 /* CopyDiscView.swift in Sources */,
-				CC11BB11CC11BB11CC11BB11 /* DiskImageView.swift in Sources */,
-				CC12BB12CC12BB12CC12BB12 /* EraseDiscView.swift in Sources */,
-				CC13BB13CC13BB13CC13BB13 /* ExtractAudioView.swift in Sources */,
-				CC14BB14CC14BB14CC14BB14 /* ExtractVideoView.swift in Sources */,
+				D10200A1B2C3D4E5F6A7B8C9 /* ActiveTaskContext.swift in Sources */,
+				D10400A1B2C3D4E5F6A7B8C9 /* BottomToolbar.swift in Sources */,
+				D10600A1B2C3D4E5F6A7B8C9 /* BurnTabView.swift in Sources */,
+				D10800A1B2C3D4E5F6A7B8C9 /* CopyTabView.swift in Sources */,
+				D10A00A1B2C3D4E5F6A7B8C9 /* ExtractTabView.swift in Sources */,
+				D10C00A1B2C3D4E5F6A7B8C9 /* ConvertTabView.swift in Sources */,
+				D10E00A1B2C3D4E5F6A7B8C9 /* ToolsTabView.swift in Sources */,
+				D11100A1B2C3D4E5F6A7B8C9 /* AudioCDSection.swift in Sources */,
+				D11300A1B2C3D4E5F6A7B8C9 /* DataCDSection.swift in Sources */,
+				D11500A1B2C3D4E5F6A7B8C9 /* DiscImageBurnSection.swift in Sources */,
+				D11700A1B2C3D4E5F6A7B8C9 /* DVDVideoSection.swift in Sources */,
+				D11900A1B2C3D4E5F6A7B8C9 /* DVDAudioSection.swift in Sources */,
+				D11B00A1B2C3D4E5F6A7B8C9 /* DataDVDSection.swift in Sources */,
+				D11D00A1B2C3D4E5F6A7B8C9 /* BlurayVideoSection.swift in Sources */,
+				D11F00A1B2C3D4E5F6A7B8C9 /* DataBluraySection.swift in Sources */,
+				D12100A1B2C3D4E5F6A7B8C9 /* CopyDiscToDiscSection.swift in Sources */,
+				D12300A1B2C3D4E5F6A7B8C9 /* CopyDiscImageSection.swift in Sources */,
+				D12500A1B2C3D4E5F6A7B8C9 /* ExtractMusicSection.swift in Sources */,
+				D12700A1B2C3D4E5F6A7B8C9 /* ExtractVideoSection.swift in Sources */,
+				D12900A1B2C3D4E5F6A7B8C9 /* ConvertFileSection.swift in Sources */,
+				D12B00A1B2C3D4E5F6A7B8C9 /* ConvertAudioSection.swift in Sources */,
+				D12D00A1B2C3D4E5F6A7B8C9 /* ConvertVideoSection.swift in Sources */,
+				D12F00A1B2C3D4E5F6A7B8C9 /* ConvertDiscImageSection.swift in Sources */,
+				D13100A1B2C3D4E5F6A7B8C9 /* EraseDiscSection.swift in Sources */,
+				D13300A1B2C3D4E5F6A7B8C9 /* MetadataEditorSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
