@@ -12,12 +12,7 @@ enum CdrdaoConfig {
     static let cd74MaxSeconds = 4440             // 74 min
     static let cd80MaxSeconds = 4800             // 80 min
 
-    static var resolvedPath: String {
-        guard let frameworksPath = Bundle.main.privateFrameworksPath else {
-            fatalError("cdrdao non trouvé dans le bundle")
-        }
-        return (frameworksPath as NSString).appendingPathComponent("cdrdao")
-    }
+    static var resolvedPath: String { ToolPaths.cdrdao }
 
     // Valid cdrdao subcommands (from man page)
     static let validCommands: Set<String> = [

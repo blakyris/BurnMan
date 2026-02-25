@@ -126,7 +126,7 @@ class BurnManager {
     func cancel() {
         toolRunner?.cancel()
         Task {
-            _ = await helperClient.cancelCdrdao()
+            _ = await helperClient.cancelCurrentProcess()
         }
         progress.phase = .failed("Annulé par l'utilisateur")
         stopTimers()
@@ -193,8 +193,8 @@ class BurnManager {
         progress.phase = .writingTrack(1)
         appendLog("Exécution via helper (root)...")
 
-        let (exitCode, errorMessage) = await helperClient.runCdrdaoWithProgress(
-            cdrdaoPath: CdrdaoConfig.resolvedPath,
+        let (exitCode, errorMessage) = await helperClient.runToolWithProgress(
+            toolPath: CdrdaoConfig.resolvedPath,
             arguments: arguments,
             workingDirectory: stagingDir,
             logPath: logPath

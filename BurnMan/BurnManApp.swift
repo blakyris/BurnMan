@@ -170,19 +170,102 @@ struct BurnCommands: Commands {
 @main
 struct BurnManApp: App {
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
+
+    // Old managers (kept until views are fully migrated)
     @State private var burnManager = BurnManager()
     @State private var deviceManager = DeviceManager()
     @State private var audioCDManager = AudioCDManager()
     @State private var previewPlayer = AudioPreviewPlayer()
 
+    // New architecture: shared services + managers
+    @State private var mediaPlayerService = MediaPlayerService()
+    @State private var videoDiscManager: VideoDiscManager
+    @State private var dataDiscManager: DataDiscManager
+    @State private var copyDiscManager: CopyDiscManager
+    @State private var diskImageManager: DiskImageManager
+    @State private var eraseDiscManager: EraseDiscManager
+    @State private var extractAudioManager: ExtractAudioManager
+    @State private var extractVideoManager: ExtractVideoManager
+
+    init() {
+        // Shared infrastructure
+        let helperClient = HelperClient()
+        let toolRunner = ToolRunner()
+
+        // Services
+        let compactDiscService = CompactDiscService(helperClient: helperClient)
+        let dvdService = DVDService(helperClient: helperClient)
+        let blurayService = BlurayService(dvdService: dvdService)
+        let mediaProbeService = MediaProbeService(toolRunner: toolRunner)
+        let mediaConversionService = MediaConversionService(toolRunner: toolRunner)
+        let mediaPlayerService = MediaPlayerService()
+        let discImageService = DiscImageService(
+            helperClient: helperClient,
+            toolRunner: toolRunner,
+            decryptionService: DecryptionService()
+        )
+        let decryptionService = discImageService.decryptionService
+
+        // New managers (for new tabs)
+        _mediaPlayerService = State(initialValue: mediaPlayerService)
+        _videoDiscManager = State(initialValue: VideoDiscManager(
+            mediaProbeService: mediaProbeService,
+            mediaConversionService: mediaConversionService,
+            dvdService: dvdService,
+            blurayService: blurayService,
+            mediaPlayerService: mediaPlayerService
+        ))
+        _dataDiscManager = State(initialValue: DataDiscManager(
+            compactDiscService: compactDiscService,
+            dvdService: dvdService,
+            blurayService: blurayService
+        ))
+        _copyDiscManager = State(initialValue: CopyDiscManager(
+            compactDiscService: compactDiscService,
+            discImageService: discImageService,
+            dvdService: dvdService,
+            blurayService: blurayService,
+            decryptionService: decryptionService
+        ))
+        _diskImageManager = State(initialValue: DiskImageManager(
+            compactDiscService: compactDiscService,
+            discImageService: discImageService,
+            decryptionService: decryptionService
+        ))
+        _eraseDiscManager = State(initialValue: EraseDiscManager(
+            compactDiscService: compactDiscService,
+            dvdService: dvdService,
+            blurayService: blurayService
+        ))
+        _extractAudioManager = State(initialValue: ExtractAudioManager(
+            compactDiscService: compactDiscService,
+            mediaConversionService: mediaConversionService
+        ))
+        _extractVideoManager = State(initialValue: ExtractVideoManager(
+            mediaConversionService: mediaConversionService,
+            mediaProbeService: mediaProbeService,
+            decryptionService: decryptionService
+        ))
+    }
+
     var body: some Scene {
         WindowGroup {
             GlassEffectContainer(spacing: 20) {
                 ContentView()
+                    // Old managers (existing views)
                     .environment(burnManager)
                     .environment(deviceManager)
                     .environment(audioCDManager)
                     .environment(previewPlayer)
+                    // New managers (new tabs)
+                    .environment(videoDiscManager)
+                    .environment(dataDiscManager)
+                    .environment(mediaPlayerService)
+                    .environment(copyDiscManager)
+                    .environment(diskImageManager)
+                    .environment(eraseDiscManager)
+                    .environment(extractAudioManager)
+                    .environment(extractVideoManager)
                     .frame(minWidth: 720, minHeight: 520)
                     .onAppear {
                         appDelegate.burnManager = burnManager

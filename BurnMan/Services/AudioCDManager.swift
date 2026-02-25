@@ -293,7 +293,7 @@ class AudioCDManager {
         cancelled = true
         toolRunner?.cancel()
         Task {
-            _ = await helperClient.cancelCdrdao()
+            _ = await helperClient.cancelCurrentProcess()
             // Wait briefly for cdrdao to terminate, then unlock the drive
             try? await Task.sleep(for: .seconds(1))
             await unlockDevice()
@@ -568,8 +568,8 @@ class AudioCDManager {
         startLogPolling(logPath: logPath)
         appendLog("Exécution via helper (root)...")
 
-        let (exitCode, errorMessage) = await helperClient.runCdrdaoWithProgress(
-            cdrdaoPath: CdrdaoConfig.resolvedPath,
+        let (exitCode, errorMessage) = await helperClient.runToolWithProgress(
+            toolPath: CdrdaoConfig.resolvedPath,
             arguments: args,
             workingDirectory: workingDirectory,
             logPath: logPath
@@ -695,8 +695,8 @@ class AudioCDManager {
         guard let device = currentDevice else { return }
         let args = ["unlock", "--device", device.path]
         appendLog("Déverrouillage du lecteur...")
-        let (exitCode, _) = await helperClient.runCdrdaoWithProgress(
-            cdrdaoPath: CdrdaoConfig.resolvedPath,
+        let (exitCode, _) = await helperClient.runToolWithProgress(
+            toolPath: CdrdaoConfig.resolvedPath,
             arguments: args,
             workingDirectory: FileManager.default.temporaryDirectory.path,
             logPath: "/tmp/cdrburn_unlock.log"

@@ -127,9 +127,21 @@ struct ContentView: View {
             BurnView()
         case .generateCue:
             CueGeneratorView()
-        case .dataCD, .videoDisc, .copyCD,
-             .createImage, .extractAudio, .extractVideo,
-             .convertImage, .convertFile, .eraseCDRW:
+        case .videoDisc:
+            VideoDiscView()
+        case .dataCD:
+            DataDiscView()
+        case .copyCD:
+            CopyDiscView()
+        case .createImage:
+            DiskImageView()
+        case .extractAudio:
+            ExtractAudioView()
+        case .extractVideo:
+            ExtractVideoView()
+        case .eraseCDRW:
+            EraseDiscView()
+        case .convertImage, .convertFile:
             PlaceholderView(item: selectedItem!)
         case .none:
             VStack(spacing: 12) {

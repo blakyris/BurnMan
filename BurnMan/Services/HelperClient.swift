@@ -151,26 +151,26 @@ class HelperClient {
         }
     }
 
-    // MARK: - Run cdrdao
+    // MARK: - Run Tool
 
-    func runCdrdao(
-        cdrdaoPath: String,
+    func runTool(
+        toolPath: String,
         arguments: [String],
         workingDirectory: String
     ) async -> (output: String, exitCode: Int32) {
         await withCheckedContinuation { continuation in
             let safe = OnceContinuation(continuation)
             guard let proxy = getProxy(safe: safe, fallback: ("Helper non connecté", -1)) else { return }
-            proxy.runCdrdao(cdrdaoPath: cdrdaoPath, arguments: arguments, workingDirectory: workingDirectory) { @Sendable output, exitCode in
+            proxy.runTool(toolPath: toolPath, arguments: arguments, workingDirectory: workingDirectory) { @Sendable output, exitCode in
                 safe.resume(returning: (output, exitCode))
             }
         }
     }
 
-    /// Lance cdrdao avec progression via fichier log.
+    /// Lance un outil avec progression via fichier log.
     /// L'app poll le fichier log pour afficher la progression.
-    func runCdrdaoWithProgress(
-        cdrdaoPath: String,
+    func runToolWithProgress(
+        toolPath: String,
         arguments: [String],
         workingDirectory: String,
         logPath: String
@@ -178,8 +178,8 @@ class HelperClient {
         await withCheckedContinuation { continuation in
             let safe = OnceContinuation(continuation)
             guard let proxy = getProxy(safe: safe, fallback: (-1, "Helper non connecté")) else { return }
-            proxy.runCdrdaoWithProgress(
-                cdrdaoPath: cdrdaoPath,
+            proxy.runToolWithProgress(
+                toolPath: toolPath,
                 arguments: arguments,
                 workingDirectory: workingDirectory,
                 logPath: logPath
@@ -191,11 +191,11 @@ class HelperClient {
 
     // MARK: - Cancel
 
-    func cancelCdrdao() async -> Bool {
+    func cancelCurrentProcess() async -> Bool {
         await withCheckedContinuation { continuation in
             let safe = OnceContinuation(continuation)
             guard let proxy = getProxy(safe: safe, fallback: false) else { return }
-            proxy.cancelCdrdao { @Sendable success in
+            proxy.cancelCurrentProcess { @Sendable success in
                 safe.resume(returning: success)
             }
         }

@@ -22,7 +22,7 @@ class HelperDelegate: NSObject, NSXPCListenerDelegate {
     }
 }
 
-// MARK: - Helper Tool (exécute cdrdao en root)
+// MARK: - Helper Tool (executes CLI tools as root)
 
 class HelperTool: NSObject, BurnManHelperProtocol {
 
@@ -32,18 +32,18 @@ class HelperTool: NSObject, BurnManHelperProtocol {
         reply(BurnManHelperConstants.helperVersion)
     }
 
-    func runCdrdao(
-        cdrdaoPath: String,
+    func runTool(
+        toolPath: String,
         arguments: [String],
         workingDirectory: String,
         reply: @escaping (String, Int32) -> Void
     ) {
-        guard validateCdrdaoPath(cdrdaoPath) else {
-            reply("Chemin cdrdao non autorisé : \(cdrdaoPath)", -1)
+        guard validateToolPath(toolPath) else {
+            reply("Chemin outil non autorisé : \(toolPath)", -1)
             return
         }
 
-        guard validateArguments(arguments) else {
+        guard validateArguments(arguments, toolPath: toolPath) else {
             reply("Arguments invalides ou caractères interdits", -2)
             return
         }
@@ -56,12 +56,12 @@ class HelperTool: NSObject, BurnManHelperProtocol {
         let process = Process()
         let pipe = Pipe()
 
-        process.executableURL = URL(fileURLWithPath: cdrdaoPath)
+        process.executableURL = URL(fileURLWithPath: toolPath)
         process.arguments = arguments
         process.currentDirectoryURL = URL(fileURLWithPath: workingDirectory)
         process.standardOutput = pipe
         process.standardError = pipe
-        process.environment = buildEnvironment(forCdrdaoAt: cdrdaoPath)
+        process.environment = buildEnvironment(forToolAt: toolPath)
 
         let outputData = Mutex(Data())
 
@@ -89,24 +89,24 @@ class HelperTool: NSObject, BurnManHelperProtocol {
         } catch {
             currentProcess.withLock { $0 = nil }
             pipe.fileHandleForReading.readabilityHandler = nil
-            reply("Impossible de lancer cdrdao : \(error.localizedDescription)", -5)
+            reply("Impossible de lancer l'outil : \(error.localizedDescription)", -5)
         }
     }
 
-    func runCdrdaoWithProgress(
-        cdrdaoPath: String,
+    func runToolWithProgress(
+        toolPath: String,
         arguments: [String],
         workingDirectory: String,
         logPath: String,
         reply: @escaping (Int32, String) -> Void
     ) {
-        guard validateCdrdaoPath(cdrdaoPath) else {
-            let msg = "Chemin cdrdao non autorisé : \(cdrdaoPath)"
+        guard validateToolPath(toolPath) else {
+            let msg = "Chemin outil non autorisé : \(toolPath)"
             reply(-1, msg)
             return
         }
 
-        guard validateArguments(arguments) else {
+        guard validateArguments(arguments, toolPath: toolPath) else {
             let msg = "Arguments invalides ou caractères interdits"
             writeToLog(logPath: logPath, message: "HELPER_ERROR: \(msg)")
             reply(-2, msg)
@@ -130,12 +130,12 @@ class HelperTool: NSObject, BurnManHelperProtocol {
         let process = Process()
         let pipe = Pipe()
 
-        process.executableURL = URL(fileURLWithPath: cdrdaoPath)
+        process.executableURL = URL(fileURLWithPath: toolPath)
         process.arguments = arguments
         process.currentDirectoryURL = URL(fileURLWithPath: workingDirectory)
         process.standardOutput = pipe
         process.standardError = pipe
-        process.environment = buildEnvironment(forCdrdaoAt: cdrdaoPath)
+        process.environment = buildEnvironment(forToolAt: toolPath)
 
         // Écrire la sortie dans le fichier log en temps réel
         // en convertissant \r en \n pour le parsing
@@ -179,13 +179,13 @@ class HelperTool: NSObject, BurnManHelperProtocol {
             currentProcess.withLock { $0 = nil }
             pipe.fileHandleForReading.readabilityHandler = nil
             logHandle.closeFile()
-            let msg = "Impossible de lancer cdrdao : \(error.localizedDescription)"
+            let msg = "Impossible de lancer l'outil : \(error.localizedDescription)"
             writeToLog(logPath: logPath, message: "HELPER_ERROR: \(msg)")
             reply(-5, msg)
         }
     }
 
-    func cancelCdrdao(reply: @escaping (Bool) -> Void) {
+    func cancelCurrentProcess(reply: @escaping (Bool) -> Void) {
         let process = currentProcess.withLock { $0 }
         if let process, process.isRunning {
             process.interrupt()
@@ -209,18 +209,18 @@ class HelperTool: NSObject, BurnManHelperProtocol {
 
     // MARK: - Environment
 
-    private func buildEnvironment(forCdrdaoAt cdrdaoPath: String) -> [String: String] {
+    private func buildEnvironment(forToolAt toolPath: String) -> [String: String] {
         var env = ProcessInfo.processInfo.environment
-        if let frameworksDir = frameworksDirectory(forCdrdaoAt: cdrdaoPath) {
+        if let frameworksDir = frameworksDirectory(forToolAt: toolPath) {
             env["DYLD_LIBRARY_PATH"] = frameworksDir
         }
         return env
     }
 
-    private func frameworksDirectory(forCdrdaoAt path: String) -> String? {
-        let frameworksSuffix = "/Contents/Frameworks/cdrdao"
-        guard path.hasSuffix(frameworksSuffix) else { return nil }
-        return String(path.dropLast("/cdrdao".count))
+    private func frameworksDirectory(forToolAt path: String) -> String? {
+        // All bundled tools are in .app/Contents/Frameworks/<toolname>
+        guard path.contains("/Contents/Frameworks/") else { return nil }
+        return (path as NSString).deletingLastPathComponent
     }
 
     // MARK: - Log Helper
@@ -239,43 +239,92 @@ class HelperTool: NSObject, BurnManHelperProtocol {
 
     // MARK: - Validation
 
-    /// Vérifie que le chemin pointe bien vers cdrdao bundled dans l'app
-    private func validateCdrdaoPath(_ path: String) -> Bool {
-        guard path.hasSuffix("/Contents/Frameworks/cdrdao"),
-              path.contains("BurnMan.app") else {
+    /// Validates that the tool path points to a bundled executable or an allowed system tool.
+    private func validateToolPath(_ path: String) -> Bool {
+        // Check allowed system tools (exact path match)
+        if BurnManHelperConstants.allowedSystemToolPaths.contains(path) {
+            return FileManager.default.isExecutableFile(atPath: path)
+        }
+
+        let toolName = (path as NSString).lastPathComponent
+
+        // Must be a known bundled tool
+        guard BurnManHelperConstants.allowedToolNames.contains(toolName) else {
             #if DEBUG
             // Accept DerivedData paths during development
-            if path.contains("DerivedData"), path.hasSuffix("/cdrdao") {
+            if path.contains("DerivedData"), BurnManHelperConstants.allowedToolNames.contains(toolName) {
                 return FileManager.default.isExecutableFile(atPath: path)
             }
             #endif
             return false
         }
+
+        // Must be inside BurnMan.app/Contents/Frameworks/
+        guard path.contains("BurnMan.app"), path.contains("/Contents/Frameworks/") else {
+            #if DEBUG
+            if path.contains("DerivedData") {
+                return FileManager.default.isExecutableFile(atPath: path)
+            }
+            #endif
+            return false
+        }
+
         return FileManager.default.isExecutableFile(atPath: path)
     }
 
-    /// Vérifie que le répertoire de travail est valide
+    /// Validates that the working directory is valid.
     private func validateWorkingDirectory(_ path: String) -> Bool {
         guard !path.isEmpty, !path.contains("..") else { return false }
         var isDir: ObjCBool = false
         return FileManager.default.fileExists(atPath: path, isDirectory: &isDir) && isDir.boolValue
     }
 
-    /// Vérifie que les arguments sont valides (pas d'injection)
-    private func validateArguments(_ args: [String]) -> Bool {
-        let allowedCommands: Set<String> = [
-            "write", "simulate", "copy", "read-toc", "read-cd",
-            "read-test", "show-toc", "scanbus", "disk-info", "blank", "unlock"
-        ]
-        guard let first = args.first, allowedCommands.contains(first) else {
-            return false
-        }
+    /// Validates arguments based on the tool being invoked.
+    private func validateArguments(_ args: [String], toolPath: String) -> Bool {
+        let toolName = (toolPath as NSString).lastPathComponent
 
+        // Check for shell injection characters in all arguments
         let forbidden: [Character] = ["|", ";", "&", "`", "$", ">", "<", "\n", "\r"]
         for arg in args {
             if arg.contains(where: { forbidden.contains($0) }) {
                 return false
             }
+        }
+
+        // Tool-specific validation
+        switch toolName {
+        case "cdrdao":
+            guard let first = args.first,
+                  BurnManHelperConstants.cdrdaoCommands.contains(first) else {
+                return false
+            }
+
+        case "growisofs":
+            // growisofs args start with -Z or -M (device path)
+            guard let first = args.first,
+                  first.hasPrefix("-Z") || first.hasPrefix("-M") || first == "-dry-run" else {
+                return false
+            }
+
+        case "dvd+rw-format":
+            // First arg is the device path, rest are options
+            guard !args.isEmpty else { return false }
+
+        case "dvd+rw-mediainfo", "dvd+rw-booktype":
+            guard !args.isEmpty else { return false }
+
+        case "dd":
+            // dd args must match allowed prefixes (if=/dev/disk*, of=, bs=, etc.)
+            guard !args.isEmpty else { return false }
+            for arg in args {
+                let matchesPrefix = BurnManHelperConstants.ddAllowedPrefixes.contains { arg.hasPrefix($0) }
+                guard matchesPrefix else { return false }
+            }
+            // Must have an if= arg pointing to /dev/disk
+            guard args.contains(where: { $0.hasPrefix("if=/dev/disk") }) else { return false }
+
+        default:
+            return false
         }
 
         return true
