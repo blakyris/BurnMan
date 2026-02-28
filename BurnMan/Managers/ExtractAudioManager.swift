@@ -4,7 +4,7 @@ import Foundation
 /// Pipeline: read TOC → read disc → split tracks → convert to chosen format.
 @MainActor
 @Observable
-class ExtractAudioManager {
+class ExtractAudioManager: Loggable {
     // MARK: - State
 
     var tracks: [CDTrackEntry] = []
@@ -17,7 +17,7 @@ class ExtractAudioManager {
 
     // MARK: - Services
 
-    let compactDiscService: CompactDiscService
+    let discBurningService: DiscBurningService
     let mediaConversionService: MediaConversionService
 
     // MARK: - Private
@@ -28,14 +28,27 @@ class ExtractAudioManager {
     // MARK: - Init
 
     init(
-        compactDiscService: CompactDiscService,
+        discBurningService: DiscBurningService,
         mediaConversionService: MediaConversionService
     ) {
-        self.compactDiscService = compactDiscService
+        self.discBurningService = discBurningService
         self.mediaConversionService = mediaConversionService
     }
 
     var isRunning: Bool { state.isActive }
+
+    // MARK: - Content State
+
+    var hasContent: Bool { !tracks.isEmpty }
+
+    func reset() {
+        cancel()
+        tracks = []
+        outputDirectory = nil
+        state = .idle
+        error = nil
+        log = []
+    }
 
     var selectedTracks: [CDTrackEntry] {
         tracks.filter(\.selected)
@@ -54,16 +67,16 @@ class ExtractAudioManager {
         log = []
         tracks = []
 
-        appendLog("Lecture de la table des matières...")
-        let (output, exitCode) = await compactDiscService.showTOC(device: device)
+        appendLog("Reading table of contents...")
+        let (output, exitCode) = await discBurningService.showTOC(device: device)
 
         guard exitCode == 0 else {
-            fail("Impossible de lire la table des matières (code \(exitCode))")
+            fail("Unable to read table of contents (code \(exitCode))")
             return
         }
 
         tracks = parseTOCOutput(output)
-        appendLog("\(tracks.count) piste(s) détectée(s).")
+        appendLog("\(tracks.count) track(s) found.")
         state = .idle
     }
 
@@ -79,7 +92,7 @@ class ExtractAudioManager {
 
         // Step 1: Read entire disc to temp
         state = .reading
-        appendLog("Lecture du disque...")
+        appendLog("Reading disc...")
 
         let tempDir = FileManager.default.temporaryDirectory
             .appendingPathComponent("BurnMan_Extract_\(UUID().uuidString)")
@@ -87,13 +100,13 @@ class ExtractAudioManager {
         tempDirectory = tempDir
 
         let tocFile = tempDir.appendingPathComponent("disc.toc").path
-        let (_, readExitCode) = await compactDiscService.readCD(
+        let (_, readExitCode) = await discBurningService.readCD(
             device: device,
             outputFile: tocFile
         )
 
         guard readExitCode == 0 else {
-            fail("Erreur de lecture du disque (code \(readExitCode))")
+            fail("Disc read error (code \(readExitCode))")
             cleanup()
             return
         }
@@ -112,7 +125,7 @@ class ExtractAudioManager {
             }
 
             state = .extracting(current: index + 1, total: selected.count)
-            appendLog("Extraction piste \(track.id) : \(track.title)...")
+            appendLog("Extracting track \(track.id): \(track.title)...")
 
             let rawFile = tempDir.appendingPathComponent("data-\(track.id).wav")
             let outputFile = outputDir.appendingPathComponent(
@@ -147,13 +160,13 @@ class ExtractAudioManager {
             }
 
             guard convertExitCode == 0 else {
-                fail("Erreur de conversion piste \(track.id) (code \(convertExitCode))")
+                fail("Track \(track.id) conversion error (code \(convertExitCode))")
                 cleanup()
                 return
             }
         }
 
-        appendLog("Extraction terminée : \(selected.count) piste(s).")
+        appendLog("Extraction completed: \(selected.count) track(s).")
         state = .finished
         cleanup()
     }
@@ -161,10 +174,10 @@ class ExtractAudioManager {
     func cancel() {
         cancelled = true
         Task { @MainActor in
-            _ = await compactDiscService.cancel()
+            discBurningService.cancelCdrdao()
         }
         state = .failed
-        error = "Annulé par l'utilisateur"
+        error = "Cancelled by user"
         cleanup()
     }
 
@@ -189,11 +202,7 @@ class ExtractAudioManager {
     private func fail(_ message: String) {
         state = .failed
         error = message
-        appendLog("Erreur : \(message)")
-    }
-
-    func appendLog(_ message: String) {
-        log.append(message)
+        appendLog("Error: \(message)")
     }
 
     private func cleanup() {
@@ -216,7 +225,7 @@ class ExtractAudioManager {
                 trackNumber += 1
                 let entry = CDTrackEntry(
                     id: trackNumber,
-                    title: "Piste \(trackNumber)",
+                    title: "Track \(trackNumber)",
                     artist: "",
                     durationSeconds: 0
                 )

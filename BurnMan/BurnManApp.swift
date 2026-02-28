@@ -174,18 +174,16 @@ struct BurnManApp: App {
     // Shared context for bottom toolbar / menu commands
     @State private var activeTaskContext = ActiveTaskContext()
 
-    // Old managers (kept until views are fully migrated)
-    @State private var burnManager = BurnManager()
+    // Shared services
     @State private var deviceManager = DeviceManager()
-    @State private var audioCDManager = AudioCDManager()
-    @State private var previewPlayer = AudioPreviewPlayer()
+    @State private var audioCDManager: AudioCDManager
+    @State private var diskImageManager: DiskImageManager
 
     // New architecture: shared services + managers
     @State private var mediaPlayerService = MediaPlayerService()
     @State private var videoDiscManager: VideoDiscManager
     @State private var dataDiscManager: DataDiscManager
     @State private var copyDiscManager: CopyDiscManager
-    @State private var diskImageManager: DiskImageManager
     @State private var eraseDiscManager: EraseDiscManager
     @State private var extractAudioManager: ExtractAudioManager
     @State private var extractVideoManager: ExtractVideoManager
@@ -193,55 +191,55 @@ struct BurnManApp: App {
     init() {
         // Shared infrastructure
         let helperClient = HelperClient()
-        let toolRunner = ToolRunner()
 
-        // Services
-        let compactDiscService = CompactDiscService(helperClient: helperClient)
-        let dvdService = DVDService(helperClient: helperClient)
-        let blurayService = BlurayService(dvdService: dvdService)
-        let mediaProbeService = MediaProbeService(toolRunner: toolRunner)
-        let mediaConversionService = MediaConversionService(toolRunner: toolRunner)
+        // New unified services
+        let discAuthoringService = DiscAuthoringService()
+        let discBurningService = DiscBurningService(helperClient: helperClient)
+
+        // Existing services (not replaced)
+        let mediaProbeService = MediaProbeService()
+        let mediaConversionService = MediaConversionService()
         let mediaPlayerService = MediaPlayerService()
         let discImageService = DiscImageService(
             helperClient: helperClient,
-            toolRunner: toolRunner,
             decryptionService: DecryptionService()
         )
         let decryptionService = discImageService.decryptionService
 
-        // New managers (for new tabs)
+        let audioCDManager = AudioCDManager(
+            mediaProbeService: mediaProbeService,
+            mediaConversionService: mediaConversionService,
+            discBurningService: discBurningService
+        )
+
+        // Managers
         _mediaPlayerService = State(initialValue: mediaPlayerService)
+        _audioCDManager = State(initialValue: audioCDManager)
         _videoDiscManager = State(initialValue: VideoDiscManager(
             mediaProbeService: mediaProbeService,
             mediaConversionService: mediaConversionService,
-            dvdService: dvdService,
-            blurayService: blurayService,
+            discBurningService: discBurningService,
             mediaPlayerService: mediaPlayerService
         ))
         _dataDiscManager = State(initialValue: DataDiscManager(
-            compactDiscService: compactDiscService,
-            dvdService: dvdService,
-            blurayService: blurayService
+            discAuthoringService: discAuthoringService,
+            discBurningService: discBurningService
         ))
         _copyDiscManager = State(initialValue: CopyDiscManager(
-            compactDiscService: compactDiscService,
+            discBurningService: discBurningService,
             discImageService: discImageService,
-            dvdService: dvdService,
-            blurayService: blurayService,
             decryptionService: decryptionService
         ))
         _diskImageManager = State(initialValue: DiskImageManager(
-            compactDiscService: compactDiscService,
+            discBurningService: discBurningService,
             discImageService: discImageService,
             decryptionService: decryptionService
         ))
         _eraseDiscManager = State(initialValue: EraseDiscManager(
-            compactDiscService: compactDiscService,
-            dvdService: dvdService,
-            blurayService: blurayService
+            discBurningService: discBurningService
         ))
         _extractAudioManager = State(initialValue: ExtractAudioManager(
-            compactDiscService: compactDiscService,
+            discBurningService: discBurningService,
             mediaConversionService: mediaConversionService
         ))
         _extractVideoManager = State(initialValue: ExtractVideoManager(
@@ -257,12 +255,9 @@ struct BurnManApp: App {
                 ContentView()
                     // Shared context
                     .environment(activeTaskContext)
-                    // Old managers (existing views)
-                    .environment(burnManager)
+                    // Managers
                     .environment(deviceManager)
                     .environment(audioCDManager)
-                    .environment(previewPlayer)
-                    // New managers (new tabs)
                     .environment(videoDiscManager)
                     .environment(dataDiscManager)
                     .environment(mediaPlayerService)
@@ -273,10 +268,10 @@ struct BurnManApp: App {
                     .environment(extractVideoManager)
                     .frame(minWidth: 720, minHeight: 520)
                     .onAppear {
-                        appDelegate.burnManager = burnManager
-                        appDelegate.audioCDManager = audioCDManager
+                        appDelegate.discBurningService = audioCDManager.discBurningService
                     }
             }
+            .focusEffectDisabled()
         }
         .windowStyle(.automatic)
         .defaultSize(width: 800, height: 600)
@@ -286,7 +281,7 @@ struct BurnManApp: App {
 
         Settings {
             SettingsView()
-                .environment(burnManager)
+                .focusEffectDisabled()
         }
     }
 }
@@ -294,13 +289,11 @@ struct BurnManApp: App {
 // MARK: - App Delegate
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    weak var burnManager: BurnManager?
-    weak var audioCDManager: AudioCDManager?
+    weak var discBurningService: DiscBurningService?
 
     func applicationWillTerminate(_ notification: Notification) {
         ProcessTracker.shared.terminateAll()
-        burnManager?.helperClient.shutdown()
-        audioCDManager?.helperClient.shutdown()
+        discBurningService?.helperClient.shutdown()
     }
 }
 

@@ -22,8 +22,9 @@ Packages/
 # Local config (contains developer Team ID)
 Local.xcconfig
 
-# ffmpeg build artifacts
+# Build artifacts
 .ffmpeg-build/
+.dvda-author-build/
 
 # Internal docs / plans
 docs/

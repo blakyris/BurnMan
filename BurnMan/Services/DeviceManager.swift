@@ -1,6 +1,7 @@
 import Foundation
 import IOKit
 import IOKit.storage
+import os
 import Synchronization
 
 // MARK: - Disc Device
@@ -57,7 +58,7 @@ class DeviceManager {
         let kernResult = IOServiceGetMatchingServices(kIOMainPortDefault, matchingDict, &iterator)
         
         guard kernResult == KERN_SUCCESS else {
-            lastError = "Impossible d'accéder à IOKit (code \(kernResult))"
+            lastError = "Unable to access IOKit (code \(kernResult))"
             // Fallback vers cdrdao en cas d'échec
             await scanDevicesWithCdrdao()
             return
@@ -76,7 +77,7 @@ class DeviceManager {
         
         // Si aucun périphérique trouvé avec IOKit, essayer cdrdao
         if result.isEmpty {
-            print("⚠️ Aucun périphérique trouvé avec IOKit, essai avec cdrdao...")
+            Logger.devices.warning("No devices found via IOKit, falling back to cdrdao")
             await scanDevicesWithCdrdao()
             return
         }
@@ -159,7 +160,10 @@ class DeviceManager {
         }
         
         // Obtenir le nom BSD (/dev/diskX) - optionnel
+        // Le nœud IODVDServices n'a pas toujours le BSD Name directement,
+        // il faut chercher dans les enfants (IOMedia)
         let bsdName = getIOProperty(service: service, key: "BSD Name")
+            ?? findChildProperty(service: service, key: "BSD Name")
         
         let finalVendor = vendor?.trimmingCharacters(in: .whitespaces) ?? "Unknown"
         let finalModel = model?.trimmingCharacters(in: .whitespaces) ?? "CD/DVD Drive"
@@ -227,6 +231,29 @@ class DeviceManager {
         return nil
     }
     
+    /// Cherche récursivement une propriété dans les enfants IOKit (ex: BSD Name sur IOMedia)
+    private func findChildProperty(service: io_service_t, key: String, maxDepth: Int = 5) -> String? {
+        var childIterator: io_iterator_t = 0
+        guard IORegistryEntryGetChildIterator(service, kIOServicePlane, &childIterator) == KERN_SUCCESS else {
+            return nil
+        }
+        defer { IOObjectRelease(childIterator) }
+
+        while case let child = IOIteratorNext(childIterator), child != 0 {
+            defer { IOObjectRelease(child) }
+
+            if let value = getIOProperty(service: child, key: key) {
+                return value
+            }
+
+            // Recurse into children
+            if maxDepth > 0, let value = findChildProperty(service: child, key: key, maxDepth: maxDepth - 1) {
+                return value
+            }
+        }
+        return nil
+    }
+
     // Nouvelle fonction pour chercher dans "Device Characteristics"
     private func getDeviceCharacteristic(service: io_service_t, key: String) -> String? {
         guard let property = IORegistryEntryCreateCFProperty(
@@ -260,7 +287,7 @@ class DeviceManager {
     
     private func scanDevicesWithCdrdao() async {
         do {
-            let output = try await runCommand(CdrdaoConfig.resolvedPath, arguments: ["scanbus"])
+            let output = try await runCommand(ToolPaths.cdrdao, arguments: ["scanbus"])
             let parsedDevices = parseScanbusOutput(output)
 
             devices = parsedDevices
@@ -268,7 +295,7 @@ class DeviceManager {
                 selectedDevice = devices.first
             }
         } catch {
-            lastError = "Impossible de scanner les graveurs : \(error.localizedDescription)"
+            lastError = "Unable to scan drives: \(error.localizedDescription)"
         }
     }
 
@@ -287,7 +314,7 @@ class DeviceManager {
             let path = parts[0].trimmingCharacters(in: .whitespaces)
             let infoParts = parts[1].components(separatedBy: ", ")
 
-            let vendor = infoParts.count > 0 ? infoParts[0].trimmingCharacters(in: .whitespaces) : "Inconnu"
+            let vendor = infoParts.count > 0 ? infoParts[0].trimmingCharacters(in: .whitespaces) : "Unknown"
             let model = infoParts.count > 1 ? infoParts[1].trimmingCharacters(in: .whitespaces) : ""
             let revision = infoParts.count > 2 ? infoParts[2].trimmingCharacters(in: .whitespaces) : ""
 

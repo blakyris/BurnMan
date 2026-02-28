@@ -47,15 +47,11 @@ enum BlurayResolution: String, CaseIterable, Identifiable {
 /// Stateless wrapper around ffmpeg for conversion, encoding, and tag writing.
 /// Executes via ToolRunner (non-root).
 class MediaConversionService: @unchecked Sendable {
-    private let toolRunner: ToolRunner
-
-    init(toolRunner: ToolRunner) {
-        self.toolRunner = toolRunner
-    }
+    private var currentRunner: ToolRunner?
 
     func cancel() {
         Task { @MainActor in
-            toolRunner.cancel()
+            currentRunner?.cancel()
         }
     }
 
@@ -263,7 +259,10 @@ class MediaConversionService: @unchecked Sendable {
 
         let session = FfmpegOutputParser.Session()
 
-        let exitCode = await toolRunner.run(
+        let runner = ToolRunner()
+        self.currentRunner = runner
+
+        let exitCode = await runner.run(
             executablePath: ToolPaths.ffmpeg,
             arguments: fullArgs
         ) { @MainActor line in
@@ -279,6 +278,7 @@ class MediaConversionService: @unchecked Sendable {
             }
         }
 
+        self.currentRunner = nil
         return exitCode
     }
 
@@ -290,7 +290,7 @@ class MediaConversionService: @unchecked Sendable {
             "-show_format",
             url.path,
         ]
-        let result = await toolRunner.collect(
+        let result = await ToolRunner().collect(
             executablePath: ToolPaths.ffprobe,
             arguments: args
         )

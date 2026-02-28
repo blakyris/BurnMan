@@ -23,21 +23,17 @@ struct CopyDiscImageSection: View {
                 statusSection
             }
         }
-        .onAppear { updateTaskContext() }
-        .onChange(of: canCreate) { updateTaskContext() }
-        .onChange(of: diskImageManager.isRunning) { updateTaskContext() }
-    }
-
-    private func updateTaskContext() {
-        taskContext.actionLabel = "Create"
-        taskContext.actionIcon = "opticaldisc"
-        taskContext.canExecute = canCreate
-        taskContext.isRunning = diskImageManager.isRunning
-        taskContext.onExecute = { startCreation() }
-        taskContext.onSimulate = nil
-        taskContext.onCancel = { diskImageManager.cancel() }
-        taskContext.onAddFiles = nil
-        taskContext.statusText = diskImageManager.isRunning ? "Reading disc…" : ""
+        .bindTaskContext(canExecute: canCreate, isRunning: diskImageManager.isRunning) {
+            TaskBinding(
+                actionLabel: "Create",
+                actionIcon: "opticaldisc",
+                canExecute: canCreate,
+                isRunning: diskImageManager.isRunning,
+                onExecute: { startCreation() },
+                onCancel: { diskImageManager.cancel() },
+                statusText: diskImageManager.isRunning ? "Reading disc…" : ""
+            )
+        }
     }
 
     // MARK: - Output
@@ -137,30 +133,11 @@ struct CopyDiscImageSection: View {
     // MARK: - Status
 
     private var statusSection: some View {
-        SectionContainer(title: "Progress", systemImage: "waveform.path") {
-            VStack(spacing: 8) {
-                switch diskImageManager.state {
-                case .reading:
-                    ProgressView()
-                        .controlSize(.small)
-                    Text("Reading disc…")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                case .finished:
-                    CompletionBadge(message: "Disc image created")
-                case .failed:
-                    if let error = diskImageManager.error {
-                        ErrorBadge(message: error)
-                    }
-                default:
-                    ProgressView()
-                        .controlSize(.small)
-                    Text(diskImageManager.state.displayName)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
-        }
+        PipelineStatusView(
+            state: diskImageManager.state,
+            error: diskImageManager.error,
+            completionMessage: "Disc image created"
+        )
     }
 
     // MARK: - Actions

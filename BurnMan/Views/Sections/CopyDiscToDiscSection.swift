@@ -24,21 +24,17 @@ struct CopyDiscToDiscSection: View {
                 statusSection
             }
         }
-        .onAppear { updateTaskContext() }
-        .onChange(of: copyDiscManager.isRunning) { updateTaskContext() }
-    }
-
-    private func updateTaskContext() {
-        let canStart = deviceManager.selectedDevice != nil && !copyDiscManager.isRunning
-        taskContext.actionLabel = "Copy"
-        taskContext.actionIcon = "doc.on.doc"
-        taskContext.canExecute = canStart
-        taskContext.isRunning = copyDiscManager.isRunning
-        taskContext.onExecute = { startCopy() }
-        taskContext.onSimulate = nil
-        taskContext.onCancel = { copyDiscManager.cancel() }
-        taskContext.onAddFiles = nil
-        taskContext.statusText = copyDiscManager.isRunning ? "Copying disc…" : ""
+        .bindTaskContext(id: copyDiscManager.isRunning) {
+            TaskBinding(
+                actionLabel: "Copy",
+                actionIcon: "doc.on.doc",
+                canExecute: deviceManager.selectedDevice != nil && !copyDiscManager.isRunning,
+                isRunning: copyDiscManager.isRunning,
+                onExecute: { startCopy() },
+                onCancel: { copyDiscManager.cancel() },
+                statusText: copyDiscManager.isRunning ? "Copying disc…" : ""
+            )
+        }
     }
 
     // MARK: - Settings
@@ -140,42 +136,11 @@ struct CopyDiscToDiscSection: View {
     // MARK: - Status
 
     private var statusSection: some View {
-        SectionContainer(title: "Progress", systemImage: "waveform.path") {
-            VStack(spacing: 8) {
-                switch copyDiscManager.state {
-                case .reading:
-                    ProgressView()
-                        .controlSize(.small)
-                    Text("Reading source disc…")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                case .copying:
-                    ProgressView()
-                        .controlSize(.small)
-                    Text("Copying…")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                case .burning:
-                    ProgressView()
-                        .controlSize(.small)
-                    Text("Burning…")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                case .finished:
-                    CompletionBadge(message: "Copy complete")
-                case .failed:
-                    if let error = copyDiscManager.error {
-                        ErrorBadge(message: error)
-                    }
-                default:
-                    ProgressView()
-                        .controlSize(.small)
-                    Text(copyDiscManager.state.displayName)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
-        }
+        PipelineStatusView(
+            state: copyDiscManager.state,
+            error: copyDiscManager.error,
+            completionMessage: "Copy complete"
+        )
     }
 
     // MARK: - Actions

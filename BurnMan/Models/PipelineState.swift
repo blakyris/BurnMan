@@ -17,18 +17,18 @@ enum PipelineState: Equatable {
 
     var displayName: String {
         switch self {
-        case .idle:                            return "En attente"
-        case .preparing:                       return "Préparation..."
-        case .reading:                         return "Lecture du disque..."
-        case .extracting(let cur, let tot):    return "Extraction \(cur)/\(tot)..."
-        case .converting(let cur, let tot):    return "Conversion \(cur)/\(tot)..."
-        case .erasing:                         return "Effacement..."
-        case .copying:                         return "Copie..."
-        case .burning:                         return "Gravure..."
-        case .simulating:                      return "Simulation..."
-        case .cancelling:                      return "Annulation..."
-        case .finished:                        return "Terminé !"
-        case .failed:                          return "Erreur"
+        case .idle:                            return "Idle"
+        case .preparing:                       return "Preparing..."
+        case .reading:                         return "Reading disc..."
+        case .extracting(let cur, let tot):    return "Extracting \(cur)/\(tot)..."
+        case .converting(let cur, let tot):    return "Converting \(cur)/\(tot)..."
+        case .erasing:                         return "Erasing..."
+        case .copying:                         return "Copying..."
+        case .burning:                         return "Burning..."
+        case .simulating:                      return "Simulating..."
+        case .cancelling:                      return "Cancelling..."
+        case .finished:                        return "Done!"
+        case .failed:                          return "Error"
         }
     }
 

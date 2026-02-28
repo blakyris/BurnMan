@@ -18,6 +18,7 @@ struct CopyTabView: View {
                 }
             }
             .pickerStyle(.segmented)
+            .labelsHidden()
             .padding(.horizontal, 24)
             .padding(.vertical, 12)
 

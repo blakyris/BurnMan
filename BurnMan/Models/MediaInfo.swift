@@ -44,6 +44,7 @@ struct FfprobeStream: Codable, Identifiable {
     let channels: Int?
     let channelLayout: String?
     let bitsPerSample: Int?
+    let bitsPerRawSample: String?
     let width: Int?
     let height: Int?
     let rFrameRate: String?
@@ -62,6 +63,7 @@ struct FfprobeStream: Codable, Identifiable {
         case channels
         case channelLayout = "channel_layout"
         case bitsPerSample = "bits_per_sample"
+        case bitsPerRawSample = "bits_per_raw_sample"
         case width, height
         case rFrameRate = "r_frame_rate"
         case duration
@@ -71,6 +73,14 @@ struct FfprobeStream: Codable, Identifiable {
 
     var isAudio: Bool { codecType == "audio" }
     var isVideo: Bool { codecType == "video" }
+
+    /// Prefers `bits_per_raw_sample` (accurate for lossless) over `bits_per_sample`.
+    var effectiveBitDepth: Int {
+        if let raw = bitsPerRawSample, let value = Int(raw), value > 0 {
+            return value
+        }
+        return bitsPerSample ?? 0
+    }
 
     var sampleRateHz: Double? {
         sampleRate.flatMap(Double.init)
@@ -157,7 +167,7 @@ extension MediaInfo {
                     codec: s.codecName ?? "unknown",
                     sampleRate: s.sampleRateHz ?? 0,
                     channels: s.channels ?? 0,
-                    bitDepth: s.bitsPerSample ?? 0
+                    bitDepth: s.effectiveBitDepth
                 )
             }
 

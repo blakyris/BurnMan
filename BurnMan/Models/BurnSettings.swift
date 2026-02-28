@@ -27,14 +27,14 @@ struct BurnSettings {
 
     var summary: [(String, String)] {
         var items: [(String, String)] = [
-            ("Vitesse", "\(speed)x"),
-            ("Mode raw", rawMode ? "Oui" : "Non"),
-            ("Swap audio", swapAudio ? "Oui" : "Non"),
-            ("Simulation", simulate ? "Oui" : "Non"),
-            ("Éjection", eject ? "Oui" : "Non"),
+            ("Speed", "\(speed)x"),
+            ("Raw mode", rawMode ? "Yes" : "No"),
+            ("Swap audio", swapAudio ? "Yes" : "No"),
+            ("Simulation", simulate ? "Yes" : "No"),
+            ("Eject", eject ? "Yes" : "No"),
         ]
         if overburn {
-            items.append(("Overburn", "Oui"))
+            items.append(("Overburn", "Yes"))
         }
         return items
     }
@@ -58,18 +58,18 @@ enum BurnPhase: Equatable {
 
     var displayName: String {
         switch self {
-        case .idle: return "En attente"
-        case .preparing: return "Préparation..."
-        case .starting: return "Démarrage..."
-        case .pausing: return "Pause avant gravure..."
-        case .blanking: return "Effacement du disque..."
-        case .calibrating: return "Calibration..."
-        case .writingLeadIn: return "Écriture du lead-in..."
-        case .writingTrack(let n): return "Écriture piste \(n)..."
-        case .writingLeadOut: return "Écriture du lead-out..."
+        case .idle: return "Idle"
+        case .preparing: return "Preparing..."
+        case .starting: return "Starting..."
+        case .pausing: return "Pausing before burn..."
+        case .blanking: return "Erasing disc..."
+        case .calibrating: return "Calibrating..."
+        case .writingLeadIn: return "Writing lead-in..."
+        case .writingTrack(let n): return "Writing track \(n)..."
+        case .writingLeadOut: return "Writing lead-out..."
         case .flushing: return "Flushing..."
-        case .completed: return "Terminé !"
-        case .failed(let msg): return "Erreur : \(msg)"
+        case .completed: return "Done!"
+        case .failed(let msg): return "Error: \(msg)"
         }
     }
 

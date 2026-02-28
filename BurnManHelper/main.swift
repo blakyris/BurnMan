@@ -8,9 +8,10 @@ class HelperDelegate: NSObject, NSXPCListenerDelegate {
         _ listener: NSXPCListener,
         shouldAcceptNewConnection newConnection: NSXPCConnection
     ) -> Bool {
-        // In production, add your Team ID:
-        // "identifier \"org.burnman.app\" and certificate leaf[subject.OU] = \"YOUR_TEAM_ID\""
-        newConnection.setCodeSigningRequirement("identifier \"org.burnman.app\"")
+        // FIXME: Replace YOUR_TEAM_ID with your Apple Developer Team ID
+        newConnection.setCodeSigningRequirement(
+            "identifier \"org.burnman.app\" and anchor apple generic and certificate leaf[subject.OU] = \"YOUR_TEAM_ID\""
+        )
 
         newConnection.exportedInterface = NSXPCInterface(with: BurnManHelperProtocol.self)
         newConnection.exportedObject = HelperTool()
@@ -39,17 +40,17 @@ class HelperTool: NSObject, BurnManHelperProtocol {
         reply: @escaping (String, Int32) -> Void
     ) {
         guard validateToolPath(toolPath) else {
-            reply("Chemin outil non autorisé : \(toolPath)", -1)
+            reply("Unauthorized tool path: \(toolPath)", -1)
             return
         }
 
         guard validateArguments(arguments, toolPath: toolPath) else {
-            reply("Arguments invalides ou caractères interdits", -2)
+            reply("Invalid arguments or forbidden characters", -2)
             return
         }
 
         guard validateWorkingDirectory(workingDirectory) else {
-            reply("Répertoire de travail invalide : \(workingDirectory)", -3)
+            reply("Invalid working directory: \(workingDirectory)", -3)
             return
         }
 
@@ -89,7 +90,7 @@ class HelperTool: NSObject, BurnManHelperProtocol {
         } catch {
             currentProcess.withLock { $0 = nil }
             pipe.fileHandleForReading.readabilityHandler = nil
-            reply("Impossible de lancer l'outil : \(error.localizedDescription)", -5)
+            reply("Unable to launch tool: \(error.localizedDescription)", -5)
         }
     }
 
@@ -101,20 +102,20 @@ class HelperTool: NSObject, BurnManHelperProtocol {
         reply: @escaping (Int32, String) -> Void
     ) {
         guard validateToolPath(toolPath) else {
-            let msg = "Chemin outil non autorisé : \(toolPath)"
+            let msg = "Unauthorized tool path: \(toolPath)"
             reply(-1, msg)
             return
         }
 
         guard validateArguments(arguments, toolPath: toolPath) else {
-            let msg = "Arguments invalides ou caractères interdits"
+            let msg = "Invalid arguments or forbidden characters"
             writeToLog(logPath: logPath, message: "HELPER_ERROR: \(msg)")
             reply(-2, msg)
             return
         }
 
         guard validateWorkingDirectory(workingDirectory) else {
-            let msg = "Répertoire de travail invalide : \(workingDirectory)"
+            let msg = "Invalid working directory: \(workingDirectory)"
             writeToLog(logPath: logPath, message: "HELPER_ERROR: \(msg)")
             reply(-3, msg)
             return
@@ -123,7 +124,7 @@ class HelperTool: NSObject, BurnManHelperProtocol {
         // Valider le chemin du log (doit être dans /tmp, pas de traversal)
         guard !logPath.contains(".."),
               URL(fileURLWithPath: logPath).standardizedFileURL.path.hasPrefix("/tmp/") else {
-            reply(-4, "Chemin de log invalide : \(logPath)")
+            reply(-4, "Invalid log path: \(logPath)")
             return
         }
 
@@ -179,7 +180,7 @@ class HelperTool: NSObject, BurnManHelperProtocol {
             currentProcess.withLock { $0 = nil }
             pipe.fileHandleForReading.readabilityHandler = nil
             logHandle.closeFile()
-            let msg = "Impossible de lancer l'outil : \(error.localizedDescription)"
+            let msg = "Unable to launch tool: \(error.localizedDescription)"
             writeToLog(logPath: logPath, message: "HELPER_ERROR: \(msg)")
             reply(-5, msg)
         }
@@ -299,18 +300,7 @@ class HelperTool: NSObject, BurnManHelperProtocol {
                 return false
             }
 
-        case "growisofs":
-            // growisofs args start with -Z or -M (device path)
-            guard let first = args.first,
-                  first.hasPrefix("-Z") || first.hasPrefix("-M") || first == "-dry-run" else {
-                return false
-            }
-
-        case "dvd+rw-format":
-            // First arg is the device path, rest are options
-            guard !args.isEmpty else { return false }
-
-        case "dvd+rw-mediainfo", "dvd+rw-booktype":
+        case "dvd+rw-booktype":
             guard !args.isEmpty else { return false }
 
         case "dd":
@@ -322,6 +312,14 @@ class HelperTool: NSObject, BurnManHelperProtocol {
             }
             // Must have an if= arg pointing to /dev/disk
             guard args.contains(where: { $0.hasPrefix("if=/dev/disk") }) else { return false }
+
+        case "xorriso":
+            // Native mode: -outdev <dev> -volid <label> ...
+            // cdrecord emulation: -as cdrecord dev=<dev> ...
+            guard !args.isEmpty else { return false }
+            // First arg must be -outdev, -as, or -drive_class (the supported modes)
+            let first = args[0]
+            guard first == "-outdev" || first == "-as" || first == "-drive_class" else { return false }
 
         default:
             return false

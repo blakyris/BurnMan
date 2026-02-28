@@ -103,13 +103,12 @@ done
 ./configure \
     --prefix="${BUILD_DIR}/install" \
     --enable-shared \
-    --disable-static \
+    --enable-static \
     --enable-gpl \
     --enable-version3 \
     --enable-nonfree \
     --enable-pthreads \
     \
-    --enable-ffplay \
     \
     --extra-cflags="${EXTRA_CFLAGS}" \
     --extra-ldflags="${EXTRA_LDFLAGS}" \
@@ -174,7 +173,7 @@ rm -rf "${BUNDLE_DIR:?}"/*
 CDRDAO_PROVIDED=("libvorbis.0" "libogg.0" "libvorbisfile.3")
 
 # Copy ffmpeg binaries
-for bin in ffmpeg ffprobe ffplay; do
+for bin in ffmpeg ffprobe; do
     cp "${BUILD_DIR}/install/bin/${bin}" "${BUNDLE_DIR}/"
     chmod +x "${BUNDLE_DIR}/${bin}"
 done

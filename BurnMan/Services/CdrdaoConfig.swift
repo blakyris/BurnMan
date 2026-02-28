@@ -11,12 +11,4 @@ enum CdrdaoConfig {
     static let cdAudioBytesPerSecond = 176_400  // 44100 * 2 * 2
     static let cd74MaxSeconds = 4440             // 74 min
     static let cd80MaxSeconds = 4800             // 80 min
-
-    static var resolvedPath: String { ToolPaths.cdrdao }
-
-    // Valid cdrdao subcommands (from man page)
-    static let validCommands: Set<String> = [
-        "write", "simulate", "copy", "read-toc", "read-cd",
-        "read-test", "show-toc", "scanbus", "disk-info", "blank", "unlock"
-    ]
 }

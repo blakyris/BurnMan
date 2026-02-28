@@ -1,5 +1,3 @@
-libSDL2-2.0.0.dylib
-libSDL2-2.0.dylib
 libSvtAv1Enc.4.0.1.dylib
 libSvtAv1Enc.4.dylib
 libX11.6.dylib
@@ -51,8 +49,6 @@ libjpeg.8.3.2.dylib
 libjpeg.8.dylib
 liblzma.5.dylib
 libmp3lame.0.dylib
-libogg.0.8.6.dylib
-libogg.0.dylib
 libopenh264.2.6.0.dylib
 libopenh264.2.dylib
 libopenh264.8.dylib
@@ -91,7 +87,6 @@ libtheoraenc.2.dylib
 libudfread.3.dylib
 libunibreak.6.dylib
 libvmaf.3.dylib
-libvorbis.0.dylib
 libvorbisenc.2.dylib
 libvpx.12.dylib
 libwebp.7.2.0.dylib

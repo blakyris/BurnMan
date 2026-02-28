@@ -1,13 +1,17 @@
 import Foundation
 
+/// Result of a full audio file probe (tags + stream info).
+struct AudioFileProbeResult: Sendable {
+    var duration: Double
+    var sampleRate: Double
+    var bitDepth: Int
+    var channels: Int
+    var tags: [String: String]  // keys UPPERCASED
+}
+
 /// Stateless wrapper around ffprobe. Read-only media analysis.
 /// Executes via ToolRunner (non-root).
 class MediaProbeService: @unchecked Sendable {
-    private let toolRunner: ToolRunner
-
-    init(toolRunner: ToolRunner) {
-        self.toolRunner = toolRunner
-    }
 
     // MARK: - Full Analysis
 
@@ -45,7 +49,7 @@ class MediaProbeService: @unchecked Sendable {
             "-an", "-vcodec", "copy",
             "-f", "image2pipe", "-",
         ]
-        let result = await toolRunner.collect(
+        let result = await ToolRunner().collect(
             executablePath: ToolPaths.ffmpeg,
             arguments: args
         )
@@ -72,13 +76,62 @@ class MediaProbeService: @unchecked Sendable {
             "-i", devicePath,
         ]
 
-        let result = await toolRunner.collect(
+        let result = await ToolRunner().collect(
             executablePath: ToolPaths.ffprobe,
             arguments: args
         )
 
         guard result.exitCode == 0 else { return nil }
         return result.data
+    }
+
+    // MARK: - Audio CD Probing
+
+    /// Full audio file probe returning tags + stream info.
+    func probeAudioFile(url: URL) async -> AudioFileProbeResult? {
+        let runner = ToolRunner()
+        let result = await runner.collect(
+            executablePath: ToolPaths.ffprobe,
+            arguments: ["-v", "error", "-print_format", "json",
+                        "-show_format", "-show_streams",
+                        url.path(percentEncoded: false)]
+        )
+
+        guard result.exitCode == 0,
+              let output = try? JSONDecoder().decode(FfprobeOutput.self, from: result.data)
+        else { return nil }
+
+        let format = output.format
+        let audio = (output.streams ?? []).first(where: { $0.isAudio })
+
+        let rawTags = format?.tags ?? [:]
+        let uppercasedTags = Dictionary(uniqueKeysWithValues: rawTags.map { ($0.key.uppercased(), $0.value) })
+
+        return AudioFileProbeResult(
+            duration: format?.durationSeconds ?? 0,
+            sampleRate: audio?.sampleRateHz ?? 0,
+            bitDepth: audio?.effectiveBitDepth ?? 0,
+            channels: audio?.channels ?? 0,
+            tags: uppercasedTags
+        )
+    }
+
+    /// Lightweight WAV bit depth probe.
+    func probeBitDepth(url: URL) async -> Int {
+        let runner = ToolRunner()
+        let result = await runner.collect(
+            executablePath: ToolPaths.ffprobe,
+            arguments: ["-v", "error", "-select_streams", "a:0",
+                        "-show_entries", "stream=bits_per_raw_sample,bits_per_sample",
+                        "-of", "csv=p=0",
+                        url.path(percentEncoded: false)]
+        )
+        guard result.exitCode == 0 else { return 0 }
+        let output = String(data: result.data, encoding: .utf8)?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let values = output.split(separator: ",")
+            .compactMap { Int($0.trimmingCharacters(in: .whitespaces)) }
+        return values.first(where: { $0 > 0 }) ?? 0
     }
 
     // MARK: - Private
@@ -93,7 +146,7 @@ class MediaProbeService: @unchecked Sendable {
             url.path,
         ]
 
-        let result = await toolRunner.collect(
+        let result = await ToolRunner().collect(
             executablePath: ToolPaths.ffprobe,
             arguments: args
         )

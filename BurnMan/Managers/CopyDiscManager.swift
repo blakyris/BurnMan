@@ -1,9 +1,10 @@
+import DiscRecording
 import Foundation
 
 /// Manages disc-to-disc and disc-to-image copy operations.
 @MainActor
 @Observable
-class CopyDiscManager {
+class CopyDiscManager: Loggable {
     // MARK: - State
 
     var state: PipelineState = .idle
@@ -14,36 +15,40 @@ class CopyDiscManager {
 
     // MARK: - Services
 
-    let compactDiscService: CompactDiscService
+    let discBurningService: DiscBurningService
     let discImageService: DiscImageService
-    let dvdService: DVDService
-    let blurayService: BlurayService
     let decryptionService: DecryptionService
 
     // MARK: - Private
 
     private var cancelled = false
     private var tempDirectory: URL?
-    private var logPollTask: Task<Void, Never>?
-    private var lastLogOffset: UInt64 = 0
+    private let logPoller = LogFilePoller()
 
     // MARK: - Init
 
     init(
-        compactDiscService: CompactDiscService,
+        discBurningService: DiscBurningService,
         discImageService: DiscImageService,
-        dvdService: DVDService,
-        blurayService: BlurayService,
         decryptionService: DecryptionService
     ) {
-        self.compactDiscService = compactDiscService
+        self.discBurningService = discBurningService
         self.discImageService = discImageService
-        self.dvdService = dvdService
-        self.blurayService = blurayService
         self.decryptionService = decryptionService
     }
 
     var isRunning: Bool { state.isActive }
+
+    // MARK: - Content State
+
+    var hasContent: Bool { state != .idle }
+
+    func reset() {
+        cancel()
+        state = .idle
+        error = nil
+        log = []
+    }
 
     // MARK: - Copy CD (disc-to-disc)
 
@@ -54,8 +59,8 @@ class CopyDiscManager {
         log = []
         state = .copying
 
-        appendLog("Copie du CD...")
-        let (output, exitCode) = await compactDiscService.copy(
+        appendLog("Copying CD...")
+        let (output, exitCode) = await discBurningService.copyDisc(
             sourceDevice: sourceDevice,
             destDevice: destDevice,
             onTheFly: onTheFly
@@ -66,10 +71,10 @@ class CopyDiscManager {
         }
 
         if exitCode == 0 {
-            appendLog("Copie terminée.")
+            appendLog("Copy completed.")
             state = .finished
         } else {
-            fail("Erreur de copie du CD (code \(exitCode))")
+            fail("CD copy error (code \(exitCode))")
         }
     }
 
@@ -87,13 +92,13 @@ class CopyDiscManager {
         log = []
 
         guard let bsd = sourceBsdName else {
-            fail("Impossible de déterminer le périphérique BSD source.")
+            fail("Unable to determine source BSD device.")
             return
         }
 
         // Step 1: Read to temp ISO
         state = .reading
-        appendLog("Lecture du disque source...")
+        appendLog("Reading source disc...")
 
         let tempDir = FileManager.default.temporaryDirectory
             .appendingPathComponent("BurnMan_Copy_\(UUID().uuidString)")
@@ -101,7 +106,7 @@ class CopyDiscManager {
         tempDirectory = tempDir
 
         let isoPath = tempDir.appendingPathComponent("disc_copy.iso").path
-        let logPath = "/tmp/burnman_copy_\(ProcessInfo.processInfo.processIdentifier).log"
+        let logPath = HelperLogPath.discCopy
         FileManager.default.createFile(atPath: logPath, contents: nil)
         startLogPolling(logPath: logPath)
 
@@ -109,7 +114,7 @@ class CopyDiscManager {
 
         if encrypted {
             guard decryptionService.isDvdCssAvailable else {
-                fail("libdvdcss n'est pas installé. Installez-le avec : brew install libdvdcss")
+                fail("libdvdcss is not installed. Install it with: brew install libdvdcss")
                 stopLogPolling(logPath: logPath)
                 return
             }
@@ -133,7 +138,7 @@ class CopyDiscManager {
         }
 
         guard readExitCode == 0 else {
-            fail("Erreur de lecture du disque source (code \(readExitCode))")
+            fail("Source disc read error (code \(readExitCode))")
             stopLogPolling(logPath: logPath)
             cleanup()
             return
@@ -147,37 +152,36 @@ class CopyDiscManager {
 
         // Step 2: Burn ISO to destination
         state = .burning
-        appendLog("Gravure de l'image vers le disque destination...")
-
-        let burnExitCode: Int32
-        let burnError: String
-
-        switch mediaCategory {
-        case .dvd:
-            (burnExitCode, burnError) = await dvdService.burn(
-                isoPath: isoPath,
-                device: destDevice,
-                dvdCompat: true,
-                logPath: logPath
-            )
-        case .bluray:
-            (burnExitCode, burnError) = await blurayService.burn(
-                isoPath: isoPath,
-                device: destDevice,
-                logPath: logPath
-            )
-        case .cd:
-            // CD copy should use copyCD() instead
-            (burnExitCode, burnError) = (-1, "Utilisez la copie directe pour les CD.")
-        }
+        appendLog("Burning image to destination disc...")
 
         stopLogPolling(logPath: logPath)
 
-        if burnExitCode == 0 {
-            appendLog("Copie terminée avec succès.")
+        guard mediaCategory != .cd else {
+            fail("Use direct copy for CDs.")
+            cleanup()
+            return
+        }
+
+        // Burn via DiscRecording
+        guard let drDevice = discBurningService.findDevice(bsdName: destDevice)
+                ?? discBurningService.allDevices().first else {
+            fail("Unable to find DiscRecording drive.")
+            cleanup()
+            return
+        }
+
+        nonisolated(unsafe) let safeDevice = drDevice
+        let result = await discBurningService.burnISO(
+            isoPath: isoPath,
+            device: safeDevice,
+            options: BurnOptions(eject: true)
+        )
+
+        if result.success {
+            appendLog("Copy completed successfully.")
             state = .finished
         } else {
-            fail(burnError.isEmpty ? "Erreur de gravure (code \(burnExitCode))" : burnError)
+            fail(result.errorMessage)
         }
 
         cleanup()
@@ -186,12 +190,10 @@ class CopyDiscManager {
     func cancel() {
         cancelled = true
         discImageService.cancel()
-        Task { @MainActor in
-            _ = await compactDiscService.cancel()
-            _ = await dvdService.cancel()
-        }
+        discBurningService.cancelBurn()
+        discBurningService.cancelCdrdao()
         state = .failed
-        error = "Annulé par l'utilisateur"
+        error = "Cancelled by user"
         cleanup()
     }
 
@@ -200,11 +202,7 @@ class CopyDiscManager {
     private func fail(_ message: String) {
         state = .failed
         error = message
-        appendLog("Erreur : \(message)")
-    }
-
-    func appendLog(_ message: String) {
-        log.append(message)
+        appendLog("Error: \(message)")
     }
 
     private func cleanup() {
@@ -217,35 +215,14 @@ class CopyDiscManager {
     // MARK: - Log Polling
 
     private func startLogPolling(logPath: String) {
-        lastLogOffset = 0
-        logPollTask = Task {
-            while !Task.isCancelled {
-                try? await Task.sleep(for: .milliseconds(300))
-                readNewLogLines(logPath: logPath)
-            }
+        logPoller.start(logPath: logPath, interval: .milliseconds(300)) { [weak self] lines in
+            for line in lines { self?.appendLog(line) }
         }
     }
 
     private func stopLogPolling(logPath: String) {
-        logPollTask?.cancel()
-        logPollTask = nil
-        readNewLogLines(logPath: logPath)
-    }
-
-    private func readNewLogLines(logPath: String) {
-        guard let handle = FileHandle(forReadingAtPath: logPath) else { return }
-        defer { handle.closeFile() }
-
-        handle.seek(toFileOffset: lastLogOffset)
-        let data = handle.readDataToEndOfFile()
-        lastLogOffset = handle.offsetInFile
-
-        guard !data.isEmpty,
-              let text = String(data: data, encoding: .utf8) else { return }
-
-        let lines = text.components(separatedBy: "\n").filter { !$0.isEmpty }
-        for line in lines {
-            appendLog(line)
+        logPoller.stop(logPath: logPath) { [weak self] lines in
+            for line in lines { self?.appendLog(line) }
         }
     }
 }

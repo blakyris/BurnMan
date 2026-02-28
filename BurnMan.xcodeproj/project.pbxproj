@@ -7,92 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07416A4FD460019C885AA68C /* BurnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6F78585BC8BA4D870D4181 /* BurnManager.swift */; };
-		1769BBE68FF829C9329DA901 /* DVDService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8C8FCF94D5B24253FB9B5D /* DVDService.swift */; };
-		212056397D5318079E281310 /* BlurayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4141982FBEF0854EC3915C4 /* BlurayService.swift */; };
-		2200C1503E76DFB7ABDF9DD4 /* CueGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A17587E346AA19BD69EB9FC /* CueGeneratorView.swift */; };
-		288391EEB2747A648F396357 /* MediaConversionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8A31C9D0B3DCF569F5CBC6 /* MediaConversionService.swift */; };
-		2BD0956D684F20F51E4239CB /* MediaInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DDD994F5D8E5784A23B3F9 /* MediaInfo.swift */; };
-		3675D5757B505110CCDFDC43 /* DvdRwError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A428D4C620F09057A9AF9F09 /* DvdRwError.swift */; };
-		3EF87F4043FEC7C155FEC7F5 /* CdrdaoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30792FE6F6E500E06C8BF7C /* CdrdaoError.swift */; };
-		407E987AAF2A81B6128F125B /* MediaPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3224B57641A61C81BDDAC307 /* MediaPlayerService.swift */; };
-		409546B57FC2DC73E6CA6C6C /* GrowisofsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605D854361A1551B42E34AF6 /* GrowisofsError.swift */; };
-		42EAE11C7B3910398744028A /* TrackInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7C25EA6172B64A2A52D83 /* TrackInfo.swift */; };
-		4729E664B8F926C73EDECD42 /* PipelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BA41BA94BE46CF77CE6E84 /* PipelineState.swift */; };
-		4755C0C57DB065EE72C46E61 /* CueGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652560F91AEF803309C2D415 /* CueGenerator.swift */; };
-		524851AD8D7AFA76FA50332D /* FfmpegError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3847B09170F74B46E7CD3E /* FfmpegError.swift */; };
-		5F33D9ED19941C5D16248C28 /* AudioDiscManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C631E6AF7BE182AFCE3D3E /* AudioDiscManager.swift */; };
-		656B279AE0D078CC2F3E3BDD /* BurnProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F899C9F702E4D885FF66F5 /* BurnProgressView.swift */; };
-		6DFE22B1FE720BDD72B959D4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C546D6684E81440554504DF1 /* SettingsView.swift */; };
-		6EEA06F49F829B75ABC37C48 /* ImageDiscManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A62200201EB92A517EA6A1 /* ImageDiscManager.swift */; };
-		852BE1CE0A71697F561CFCE5 /* DataDiscManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0F1ACB0C44650C04D8A25E /* DataDiscManager.swift */; };
-		8A612C85E036B05F3740A0F3 /* BurnSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63ADEB2293F5EB7A9FD5F50 /* BurnSettings.swift */; };
 		9189BA6F3F92EC552DFF8948 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FB34039A02CF01C8AA74A /* main.swift */; };
-		92BAD2A2E66B48C58A54770E /* CompactDiscService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4074CA607FC11C6C9925E979 /* CompactDiscService.swift */; };
-		94EABC8E3B4F188AC99A4E60 /* BurnManApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B478953EB6039ABF4E2DB6B /* BurnManApp.swift */; };
 		A1B2C3D4E5F60718293A4B5C /* org.burnman.helper.plist in Copy Helper LaunchDaemon plist */ = {isa = PBXBuildFile; fileRef = F1A2B3C4D5E6F7890A1B2C3D /* org.burnman.helper.plist */; };
-		A75B1B07A148A0ABF5E399E3 /* DiscTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F583C5623022A02A7C353340 /* DiscTypes.swift */; };
-		AA1BC2A3D7E8F1234ABCD301 /* AudioCDModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD201 /* AudioCDModels.swift */; };
-		AA1BC2A3D7E8F1234ABCD302 /* AudioCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD202 /* AudioCDManager.swift */; };
-		AA1BC2A3D7E8F1234ABCD303 /* AudioTrackRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD203 /* AudioTrackRowView.swift */; };
-		AA1BC2A3D7E8F1234ABCD304 /* AudioCDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC2A3D7E8F1234ABCD204 /* AudioCDProgressView.swift */; };
-		AAED005F80D295C656783E5E /* ToolPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8C3AA98C0D5DC26FCE169 /* ToolPaths.swift */; };
-		B2AE436837DDF44ED469AC97 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963F83B8A7FE984E1CA8F916 /* DeviceManager.swift */; };
-		B9D956B322F5D7F8023A9A0E /* VideoDiscManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2300699A81C383A12A0619D0 /* VideoDiscManager.swift */; };
-		BB67759C283969A20A8D15EC /* BurnManHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA957ACA1AFAE5F32D6931 /* BurnManHelperProtocol.swift */; };
-		BE58022D2F4D03C3008B3C66 /* CdrdaoOutputParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE58022C2F4D03C3008B3C66 /* CdrdaoOutputParser.swift */; };
-		BE58022F2F4D0E51008B3C66 /* ToolRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE58022E2F4D0E51008B3C66 /* ToolRunner.swift */; };
-		BE5802312F4D0E51008B3C66 /* FfmpegConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5802302F4D0E51008B3C66 /* FfmpegConfig.swift */; };
-		BE5802332F4D0E52008B3C66 /* FfmpegOutputParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5802322F4D0E52008B3C66 /* FfmpegOutputParser.swift */; };
-		BE58023D2F4D3B70008B3C66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE58023C2F4D3B70008B3C66 /* Assets.xcassets */; };
-		BE58023F2F4D454D008B3C66 /* AudioPreviewPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE58023E2F4D454D008B3C66 /* AudioPreviewPlayer.swift */; };
+		BEBF611E2F4FBCC0000A3F8E /* VLCKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBF611D2F4FBCC0000A3F8E /* VLCKit.xcframework */; };
+		BEBF611F2F4FBCC0000A3F8E /* VLCKit.xcframework in Copy cdrdao */ = {isa = PBXBuildFile; fileRef = BEBF611D2F4FBCC0000A3F8E /* VLCKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BEF805562F4DD32400509E59 /* BurnManHelper in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6A79634F977874AFC393286A /* BurnManHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		BEF805582F4DFCAE00509E59 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BEF805572F4DFCAE00509E59 /* Credits.rtf */; };
-		BF4FB28985C554614625A8EF /* HelperClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E65B67EEF0E46083D4E379 /* HelperClient.swift */; };
-		CC01BB01CC01BB01CC01BB01 /* ExtractModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB01AA01BB01AA01BB01AA01 /* ExtractModels.swift */; };
-		CC02BB02CC02BB02CC02BB02 /* CopyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02AA02BB02AA02BB02AA02 /* CopyModels.swift */; };
-		CC03BB03CC03BB03CC03BB03 /* DecryptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03AA03BB03AA03BB03AA03 /* DecryptionService.swift */; };
-		CC04BB04CC04BB04CC04BB04 /* DiscImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04AA04BB04AA04BB04AA04 /* DiscImageService.swift */; };
-		CC05BB05CC05BB05CC05BB05 /* CopyDiscManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB05AA05BB05AA05BB05AA05 /* CopyDiscManager.swift */; };
-		CC06BB06CC06BB06CC06BB06 /* DiskImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB06AA06BB06AA06BB06AA06 /* DiskImageManager.swift */; };
-		CC07BB07CC07BB07CC07BB07 /* EraseDiscManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07AA07BB07AA07BB07AA07 /* EraseDiscManager.swift */; };
-		CC08BB08CC08BB08CC08BB08 /* ExtractAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB08AA08BB08AA08BB08AA08 /* ExtractAudioManager.swift */; };
-		CC09BB09CC09BB09CC09BB09 /* ExtractVideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09AA09BB09AA09BB09AA09 /* ExtractVideoManager.swift */; };
-		DFB50DCF345CCABB89AD2532 /* ToolError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AAFCC4BB57A9E5E1C70113 /* ToolError.swift */; };
-		E45F76E37D128E266D0A35B2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FC3717BDB89BFDF09B47A /* ContentView.swift */; };
-		F5825620B1F96D467D7603B5 /* MediaProbeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DB4BBBFDFC3677FF2EB50B /* MediaProbeService.swift */; };
-		FA1BC2A3D7E8F1234ABCD001 /* CdrdaoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD101 /* CdrdaoConfig.swift */; };
-		FA1BC2A3D7E8F1234ABCD002 /* TrackRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD102 /* TrackRowView.swift */; };
-		FA1BC2A3D7E8F1234ABCD003 /* GlassModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD103 /* GlassModifiers.swift */; };
-		FA1BC2A3D7E8F1234ABCD005 /* DevicePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD105 /* DevicePickerView.swift */; };
-		FA1BC2A3D7E8F1234ABCD006 /* LogSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1BC2A3D7E8F1234ABCD106 /* LogSheetView.swift */; };
-		FC06FF917E8A964FFA323CC6 /* OpticalDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA941471163FD163A19FF9A8 /* OpticalDevice.swift */; };
-		FC7DB3D5DBB505089C70776A /* BurnManHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA957ACA1AFAE5F32D6931 /* BurnManHelperProtocol.swift */; };
-		D10200A1B2C3D4E5F6A7B8C9 /* ActiveTaskContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10100A1B2C3D4E5F6A7B8C9 /* ActiveTaskContext.swift */; };
-		D10400A1B2C3D4E5F6A7B8C9 /* BottomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10300A1B2C3D4E5F6A7B8C9 /* BottomToolbar.swift */; };
-		D10600A1B2C3D4E5F6A7B8C9 /* BurnTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10500A1B2C3D4E5F6A7B8C9 /* BurnTabView.swift */; };
-		D10800A1B2C3D4E5F6A7B8C9 /* CopyTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10700A1B2C3D4E5F6A7B8C9 /* CopyTabView.swift */; };
-		D10A00A1B2C3D4E5F6A7B8C9 /* ExtractTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10900A1B2C3D4E5F6A7B8C9 /* ExtractTabView.swift */; };
-		D10C00A1B2C3D4E5F6A7B8C9 /* ConvertTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B00A1B2C3D4E5F6A7B8C9 /* ConvertTabView.swift */; };
-		D10E00A1B2C3D4E5F6A7B8C9 /* ToolsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D00A1B2C3D4E5F6A7B8C9 /* ToolsTabView.swift */; };
-		D11100A1B2C3D4E5F6A7B8C9 /* AudioCDSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11000A1B2C3D4E5F6A7B8C9 /* AudioCDSection.swift */; };
-		D11300A1B2C3D4E5F6A7B8C9 /* DataCDSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11200A1B2C3D4E5F6A7B8C9 /* DataCDSection.swift */; };
-		D11500A1B2C3D4E5F6A7B8C9 /* DiscImageBurnSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11400A1B2C3D4E5F6A7B8C9 /* DiscImageBurnSection.swift */; };
-		D11700A1B2C3D4E5F6A7B8C9 /* DVDVideoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11600A1B2C3D4E5F6A7B8C9 /* DVDVideoSection.swift */; };
-		D11900A1B2C3D4E5F6A7B8C9 /* DVDAudioSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11800A1B2C3D4E5F6A7B8C9 /* DVDAudioSection.swift */; };
-		D11B00A1B2C3D4E5F6A7B8C9 /* DataDVDSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11A00A1B2C3D4E5F6A7B8C9 /* DataDVDSection.swift */; };
-		D11D00A1B2C3D4E5F6A7B8C9 /* BlurayVideoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11C00A1B2C3D4E5F6A7B8C9 /* BlurayVideoSection.swift */; };
-		D11F00A1B2C3D4E5F6A7B8C9 /* DataBluraySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11E00A1B2C3D4E5F6A7B8C9 /* DataBluraySection.swift */; };
-		D12100A1B2C3D4E5F6A7B8C9 /* CopyDiscToDiscSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12000A1B2C3D4E5F6A7B8C9 /* CopyDiscToDiscSection.swift */; };
-		D12300A1B2C3D4E5F6A7B8C9 /* CopyDiscImageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12200A1B2C3D4E5F6A7B8C9 /* CopyDiscImageSection.swift */; };
-		D12500A1B2C3D4E5F6A7B8C9 /* ExtractMusicSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12400A1B2C3D4E5F6A7B8C9 /* ExtractMusicSection.swift */; };
-		D12700A1B2C3D4E5F6A7B8C9 /* ExtractVideoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12600A1B2C3D4E5F6A7B8C9 /* ExtractVideoSection.swift */; };
-		D12900A1B2C3D4E5F6A7B8C9 /* ConvertFileSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12800A1B2C3D4E5F6A7B8C9 /* ConvertFileSection.swift */; };
-		D12B00A1B2C3D4E5F6A7B8C9 /* ConvertAudioSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12A00A1B2C3D4E5F6A7B8C9 /* ConvertAudioSection.swift */; };
-		D12D00A1B2C3D4E5F6A7B8C9 /* ConvertVideoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12C00A1B2C3D4E5F6A7B8C9 /* ConvertVideoSection.swift */; };
-		D12F00A1B2C3D4E5F6A7B8C9 /* ConvertDiscImageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12E00A1B2C3D4E5F6A7B8C9 /* ConvertDiscImageSection.swift */; };
-		D13100A1B2C3D4E5F6A7B8C9 /* EraseDiscSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13000A1B2C3D4E5F6A7B8C9 /* EraseDiscSection.swift */; };
-		D13300A1B2C3D4E5F6A7B8C9 /* MetadataEditorSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13200A1B2C3D4E5F6A7B8C9 /* MetadataEditorSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,12 +25,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		02E5C01EA776ABA874190B0E /* Copy xorriso */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Copy xorriso";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE5801EA2F4CF432008B3C66 /* Copy cdrdao */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				BEBF611F2F4FBCC0000A3F8E /* VLCKit.xcframework in Copy cdrdao */,
 			);
 			name = "Copy cdrdao";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,6 +64,26 @@
 			files = (
 			);
 			name = "Copy dvdrwtools";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE5803012F50A001008B3C66 /* Copy dvda-author */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Copy dvda-author";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE5803AA2F60A001008B3C66 /* Copy cdrtools */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Copy cdrtools";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		BEF805552F4DD2E500509E59 /* CopyFiles */ = {
@@ -160,714 +110,722 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		03A62200201EB92A517EA6A1 /* ImageDiscManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDiscManager.swift; sourceTree = "<group>"; };
 		0A3FB34039A02CF01C8AA74A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		10DDD994F5D8E5784A23B3F9 /* MediaInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaInfo.swift; sourceTree = "<group>"; };
-		17AAFCC4BB57A9E5E1C70113 /* ToolError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolError.swift; sourceTree = "<group>"; };
-		2300699A81C383A12A0619D0 /* VideoDiscManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDiscManager.swift; sourceTree = "<group>"; };
-		2A17587E346AA19BD69EB9FC /* CueGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueGeneratorView.swift; sourceTree = "<group>"; };
-		3224B57641A61C81BDDAC307 /* MediaPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerService.swift; sourceTree = "<group>"; };
-		3B9FC3717BDB89BFDF09B47A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3DF3BF8AC9DE3286A6C48293 /* BurnMan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BurnMan.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DFA957ACA1AFAE5F32D6931 /* BurnManHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnManHelperProtocol.swift; sourceTree = "<group>"; };
-		3E0F1ACB0C44650C04D8A25E /* DataDiscManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDiscManager.swift; sourceTree = "<group>"; };
-		4074CA607FC11C6C9925E979 /* CompactDiscService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactDiscService.swift; sourceTree = "<group>"; };
-		4B8C8FCF94D5B24253FB9B5D /* DVDService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDService.swift; sourceTree = "<group>"; };
-		4FA8C3AA98C0D5DC26FCE169 /* ToolPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolPaths.swift; sourceTree = "<group>"; };
-		53F7C25EA6172B64A2A52D83 /* TrackInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfo.swift; sourceTree = "<group>"; };
-		57C631E6AF7BE182AFCE3D3E /* AudioDiscManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDiscManager.swift; sourceTree = "<group>"; };
-		5B478953EB6039ABF4E2DB6B /* BurnManApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnManApp.swift; sourceTree = "<group>"; };
-		605D854361A1551B42E34AF6 /* GrowisofsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowisofsError.swift; sourceTree = "<group>"; };
-		652560F91AEF803309C2D415 /* CueGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueGenerator.swift; sourceTree = "<group>"; };
 		6A79634F977874AFC393286A /* BurnManHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BurnManHelper; sourceTree = BUILT_PRODUCTS_DIR; };
-		89DB4BBBFDFC3677FF2EB50B /* MediaProbeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaProbeService.swift; sourceTree = "<group>"; };
-		8F6F78585BC8BA4D870D4181 /* BurnManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnManager.swift; sourceTree = "<group>"; };
-		963F83B8A7FE984E1CA8F916 /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
-		A4141982FBEF0854EC3915C4 /* BlurayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurayService.swift; sourceTree = "<group>"; };
-		A428D4C620F09057A9AF9F09 /* DvdRwError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvdRwError.swift; sourceTree = "<group>"; };
-		AA1BC2A3D7E8F1234ABCD201 /* AudioCDModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDModels.swift; sourceTree = "<group>"; };
-		AA1BC2A3D7E8F1234ABCD202 /* AudioCDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDManager.swift; sourceTree = "<group>"; };
-		AA1BC2A3D7E8F1234ABCD203 /* AudioTrackRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrackRowView.swift; sourceTree = "<group>"; };
-		AA1BC2A3D7E8F1234ABCD204 /* AudioCDProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDProgressView.swift; sourceTree = "<group>"; };
-		AA941471163FD163A19FF9A8 /* OpticalDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpticalDevice.swift; sourceTree = "<group>"; };
+		AA22BB33CC44DD55EE66FF04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AABB0001AABB0001AABB0001 /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
-		AB3847B09170F74B46E7CD3E /* FfmpegError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FfmpegError.swift; sourceTree = "<group>"; };
-		B4BA41BA94BE46CF77CE6E84 /* PipelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipelineState.swift; sourceTree = "<group>"; };
-		B63ADEB2293F5EB7A9FD5F50 /* BurnSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnSettings.swift; sourceTree = "<group>"; };
-		B7E65B67EEF0E46083D4E379 /* HelperClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperClient.swift; sourceTree = "<group>"; };
-		BB01AA01BB01AA01BB01AA01 /* ExtractModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractModels.swift; sourceTree = "<group>"; };
-		BB02AA02BB02AA02BB02AA02 /* CopyModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyModels.swift; sourceTree = "<group>"; };
-		BB03AA03BB03AA03BB03AA03 /* DecryptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecryptionService.swift; sourceTree = "<group>"; };
-		BB04AA04BB04AA04BB04AA04 /* DiscImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscImageService.swift; sourceTree = "<group>"; };
-		BB05AA05BB05AA05BB05AA05 /* CopyDiscManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyDiscManager.swift; sourceTree = "<group>"; };
-		BB06AA06BB06AA06BB06AA06 /* DiskImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskImageManager.swift; sourceTree = "<group>"; };
-		BB07AA07BB07AA07BB07AA07 /* EraseDiscManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseDiscManager.swift; sourceTree = "<group>"; };
-		BB08AA08BB08AA08BB08AA08 /* ExtractAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractAudioManager.swift; sourceTree = "<group>"; };
-		BB09AA09BB09AA09BB09AA09 /* ExtractVideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractVideoManager.swift; sourceTree = "<group>"; };
-		BE58022C2F4D03C3008B3C66 /* CdrdaoOutputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdrdaoOutputParser.swift; sourceTree = "<group>"; };
-		BE58022E2F4D0E51008B3C66 /* ToolRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolRunner.swift; sourceTree = "<group>"; };
-		BE5802302F4D0E51008B3C66 /* FfmpegConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FfmpegConfig.swift; sourceTree = "<group>"; };
-		BE5802322F4D0E52008B3C66 /* FfmpegOutputParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FfmpegOutputParser.swift; sourceTree = "<group>"; };
-		BE58023C2F4D3B70008B3C66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BE58023E2F4D454D008B3C66 /* AudioPreviewPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreviewPlayer.swift; sourceTree = "<group>"; };
-		BEF805572F4DFCAE00509E59 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
-		C30792FE6F6E500E06C8BF7C /* CdrdaoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdrdaoError.swift; sourceTree = "<group>"; };
-		C546D6684E81440554504DF1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		CD8A31C9D0B3DCF569F5CBC6 /* MediaConversionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaConversionService.swift; sourceTree = "<group>"; };
-		E0F899C9F702E4D885FF66F5 /* BurnProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnProgressView.swift; sourceTree = "<group>"; };
+		BEBF611D2F4FBCC0000A3F8E /* VLCKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = VLCKit.xcframework; path = Carthage/Build/VLCKit.xcframework; sourceTree = "<group>"; };
 		F1A2B3C4D5E6F7890A1B2C3D /* org.burnman.helper.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = org.burnman.helper.plist; sourceTree = "<group>"; };
-		F583C5623022A02A7C353340 /* DiscTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscTypes.swift; sourceTree = "<group>"; };
-		FA1BC2A3D7E8F1234ABCD101 /* CdrdaoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdrdaoConfig.swift; sourceTree = "<group>"; };
-		FA1BC2A3D7E8F1234ABCD102 /* TrackRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRowView.swift; sourceTree = "<group>"; };
-		FA1BC2A3D7E8F1234ABCD103 /* GlassModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassModifiers.swift; sourceTree = "<group>"; };
-		FA1BC2A3D7E8F1234ABCD105 /* DevicePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicePickerView.swift; sourceTree = "<group>"; };
-		FA1BC2A3D7E8F1234ABCD106 /* LogSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogSheetView.swift; sourceTree = "<group>"; };
-		D10100A1B2C3D4E5F6A7B8C9 /* ActiveTaskContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTaskContext.swift; sourceTree = "<group>"; };
-		D10300A1B2C3D4E5F6A7B8C9 /* BottomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomToolbar.swift; sourceTree = "<group>"; };
-		D10500A1B2C3D4E5F6A7B8C9 /* BurnTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BurnTabView.swift; sourceTree = "<group>"; };
-		D10700A1B2C3D4E5F6A7B8C9 /* CopyTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyTabView.swift; sourceTree = "<group>"; };
-		D10900A1B2C3D4E5F6A7B8C9 /* ExtractTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractTabView.swift; sourceTree = "<group>"; };
-		D10B00A1B2C3D4E5F6A7B8C9 /* ConvertTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertTabView.swift; sourceTree = "<group>"; };
-		D10D00A1B2C3D4E5F6A7B8C9 /* ToolsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsTabView.swift; sourceTree = "<group>"; };
-		D11000A1B2C3D4E5F6A7B8C9 /* AudioCDSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCDSection.swift; sourceTree = "<group>"; };
-		D11200A1B2C3D4E5F6A7B8C9 /* DataCDSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCDSection.swift; sourceTree = "<group>"; };
-		D11400A1B2C3D4E5F6A7B8C9 /* DiscImageBurnSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscImageBurnSection.swift; sourceTree = "<group>"; };
-		D11600A1B2C3D4E5F6A7B8C9 /* DVDVideoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDVideoSection.swift; sourceTree = "<group>"; };
-		D11800A1B2C3D4E5F6A7B8C9 /* DVDAudioSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDAudioSection.swift; sourceTree = "<group>"; };
-		D11A00A1B2C3D4E5F6A7B8C9 /* DataDVDSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDVDSection.swift; sourceTree = "<group>"; };
-		D11C00A1B2C3D4E5F6A7B8C9 /* BlurayVideoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurayVideoSection.swift; sourceTree = "<group>"; };
-		D11E00A1B2C3D4E5F6A7B8C9 /* DataBluraySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBluraySection.swift; sourceTree = "<group>"; };
-		D12000A1B2C3D4E5F6A7B8C9 /* CopyDiscToDiscSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyDiscToDiscSection.swift; sourceTree = "<group>"; };
-		D12200A1B2C3D4E5F6A7B8C9 /* CopyDiscImageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyDiscImageSection.swift; sourceTree = "<group>"; };
-		D12400A1B2C3D4E5F6A7B8C9 /* ExtractMusicSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractMusicSection.swift; sourceTree = "<group>"; };
-		D12600A1B2C3D4E5F6A7B8C9 /* ExtractVideoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractVideoSection.swift; sourceTree = "<group>"; };
-		D12800A1B2C3D4E5F6A7B8C9 /* ConvertFileSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertFileSection.swift; sourceTree = "<group>"; };
-		D12A00A1B2C3D4E5F6A7B8C9 /* ConvertAudioSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertAudioSection.swift; sourceTree = "<group>"; };
-		D12C00A1B2C3D4E5F6A7B8C9 /* ConvertVideoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertVideoSection.swift; sourceTree = "<group>"; };
-		D12E00A1B2C3D4E5F6A7B8C9 /* ConvertDiscImageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertDiscImageSection.swift; sourceTree = "<group>"; };
-		D13000A1B2C3D4E5F6A7B8C9 /* EraseDiscSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseDiscSection.swift; sourceTree = "<group>"; };
-		D13200A1B2C3D4E5F6A7B8C9 /* MetadataEditorSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataEditorSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BE5801F22F4CF4DE008B3C66 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		BE6C640F2F5065C6005536D8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				cdrdao,
-			);
-			target = 341F60379F353726252BFECF /* BurnMan */;
-		};
-		BE58021B2F4CFAE1008B3C66 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				ffmpeg,
-				ffplay,
-				ffprobe,
-			);
-			target = 341F60379F353726252BFECF /* BurnMan */;
-		};
-		BE5802262F4CFBD9008B3C66 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"dvd+rw-booktype",
-				"dvd+rw-format",
-				"dvd+rw-mediainfo",
-				growisofs,
+				Info.plist,
+				"Resources/cdrdao-bundle/cdrdao",
+				"Resources/cdrdao-bundle/libao.4.dylib",
+				"Resources/cdrdao-bundle/libmad.0.dylib",
+				"Resources/cdrdao-bundle/libogg.0.dylib",
+				"Resources/cdrdao-bundle/libvorbis.0.dylib",
+				"Resources/cdrdao-bundle/libvorbisfile.3.dylib",
+				"Resources/cdrtools-bundle/mkisofs",
+				"Resources/dvda-author-bundle/dvda-author",
+				"Resources/dvdrwtools-bundle/dvd+rw-booktype",
+				"Resources/dvdrwtools-bundle/dvd+rw-format",
+				"Resources/dvdrwtools-bundle/dvd+rw-mediainfo",
+				"Resources/dvdrwtools-bundle/growisofs",
+				"Resources/ffmpeg-bundle/ffmpeg",
+				"Resources/ffmpeg-bundle/ffprobe",
+				"Resources/ffmpeg-bundle/libaom.3.13.1.dylib",
+				"Resources/ffmpeg-bundle/libaom.3.dylib",
+				"Resources/ffmpeg-bundle/libass.9.dylib",
+				"Resources/ffmpeg-bundle/libavcodec.62.11.100.dylib",
+				"Resources/ffmpeg-bundle/libavcodec.62.dylib",
+				"Resources/ffmpeg-bundle/libavdevice.62.1.100.dylib",
+				"Resources/ffmpeg-bundle/libavdevice.62.dylib",
+				"Resources/ffmpeg-bundle/libavfilter.11.4.100.dylib",
+				"Resources/ffmpeg-bundle/libavfilter.11.dylib",
+				"Resources/ffmpeg-bundle/libavformat.62.3.100.dylib",
+				"Resources/ffmpeg-bundle/libavformat.62.dylib",
+				"Resources/ffmpeg-bundle/libavutil.60.8.100.dylib",
+				"Resources/ffmpeg-bundle/libavutil.60.dylib",
+				"Resources/ffmpeg-bundle/libbluray.3.dylib",
+				"Resources/ffmpeg-bundle/libcairo-gobject.2.dylib",
+				"Resources/ffmpeg-bundle/libcairo.2.dylib",
+				"Resources/ffmpeg-bundle/libcrypto.3.dylib",
+				"Resources/ffmpeg-bundle/libdatrie.1.dylib",
+				"Resources/ffmpeg-bundle/libdav1d.7.dylib",
+				"Resources/ffmpeg-bundle/libdvdcss.2.dylib",
+				"Resources/ffmpeg-bundle/libdvdnav.4.dylib",
+				"Resources/ffmpeg-bundle/libdvdread.8.dylib",
+				"Resources/ffmpeg-bundle/libfdk-aac.2.dylib",
+				"Resources/ffmpeg-bundle/libfontconfig.1.dylib",
+				"Resources/ffmpeg-bundle/libfreetype.6.dylib",
+				"Resources/ffmpeg-bundle/libfribidi.0.dylib",
+				"Resources/ffmpeg-bundle/libgdk_pixbuf-2.0.0.dylib",
+				"Resources/ffmpeg-bundle/libgdk_pixbuf-2.0.dylib",
+				"Resources/ffmpeg-bundle/libgio-2.0.0.dylib",
+				"Resources/ffmpeg-bundle/libgio-2.0.dylib",
+				"Resources/ffmpeg-bundle/libglib-2.0.0.dylib",
+				"Resources/ffmpeg-bundle/libglib-2.0.dylib",
+				"Resources/ffmpeg-bundle/libgmodule-2.0.0.dylib",
+				"Resources/ffmpeg-bundle/libgmodule-2.0.dylib",
+				"Resources/ffmpeg-bundle/libgobject-2.0.0.dylib",
+				"Resources/ffmpeg-bundle/libgobject-2.0.dylib",
+				"Resources/ffmpeg-bundle/libgraphite2.3.2.1.dylib",
+				"Resources/ffmpeg-bundle/libgraphite2.3.dylib",
+				"Resources/ffmpeg-bundle/libharfbuzz.0.dylib",
+				"Resources/ffmpeg-bundle/libintl.8.dylib",
+				"Resources/ffmpeg-bundle/libjpeg.8.3.2.dylib",
+				"Resources/ffmpeg-bundle/libjpeg.8.dylib",
+				"Resources/ffmpeg-bundle/liblzma.5.dylib",
+				"Resources/ffmpeg-bundle/libmp3lame.0.dylib",
+				"Resources/ffmpeg-bundle/libopenh264.2.6.0.dylib",
+				"Resources/ffmpeg-bundle/libopenh264.2.dylib",
+				"Resources/ffmpeg-bundle/libopenh264.8.dylib",
+				"Resources/ffmpeg-bundle/libopenjp2.2.5.4.dylib",
+				"Resources/ffmpeg-bundle/libopenjp2.2.dylib",
+				"Resources/ffmpeg-bundle/libopenjp2.7.dylib",
+				"Resources/ffmpeg-bundle/libopus.0.dylib",
+				"Resources/ffmpeg-bundle/libpango-1.0.0.dylib",
+				"Resources/ffmpeg-bundle/libpango-1.0.dylib",
+				"Resources/ffmpeg-bundle/libpangocairo-1.0.0.dylib",
+				"Resources/ffmpeg-bundle/libpangocairo-1.0.dylib",
+				"Resources/ffmpeg-bundle/libpangoft2-1.0.0.dylib",
+				"Resources/ffmpeg-bundle/libpangoft2-1.0.dylib",
+				"Resources/ffmpeg-bundle/libpcre2-8.0.dylib",
+				"Resources/ffmpeg-bundle/libpixman-1.0.dylib",
+				"Resources/ffmpeg-bundle/libpng16.16.dylib",
+				"Resources/ffmpeg-bundle/librav1e.0.8.1.dylib",
+				"Resources/ffmpeg-bundle/librav1e.0.8.dylib",
+				"Resources/ffmpeg-bundle/librav1e.0.dylib",
+				"Resources/ffmpeg-bundle/librsvg-2.2.dylib",
+				"Resources/ffmpeg-bundle/libsharpyuv.0.1.2.dylib",
+				"Resources/ffmpeg-bundle/libsharpyuv.0.dylib",
+				"Resources/ffmpeg-bundle/libsnappy.1.2.2.dylib",
+				"Resources/ffmpeg-bundle/libsnappy.1.dylib",
+				"Resources/ffmpeg-bundle/libsoxr.0.1.2.dylib",
+				"Resources/ffmpeg-bundle/libsoxr.0.dylib",
+				"Resources/ffmpeg-bundle/libspeex.1.dylib",
+				"Resources/ffmpeg-bundle/libssl.3.dylib",
+				"Resources/ffmpeg-bundle/libSvtAv1Enc.4.0.1.dylib",
+				"Resources/ffmpeg-bundle/libSvtAv1Enc.4.dylib",
+				"Resources/ffmpeg-bundle/libswresample.6.1.100.dylib",
+				"Resources/ffmpeg-bundle/libswresample.6.dylib",
+				"Resources/ffmpeg-bundle/libswscale.9.1.100.dylib",
+				"Resources/ffmpeg-bundle/libswscale.9.dylib",
+				"Resources/ffmpeg-bundle/libthai.0.dylib",
+				"Resources/ffmpeg-bundle/libtheoradec.2.dylib",
+				"Resources/ffmpeg-bundle/libtheoraenc.2.dylib",
+				"Resources/ffmpeg-bundle/libudfread.3.dylib",
+				"Resources/ffmpeg-bundle/libunibreak.6.dylib",
+				"Resources/ffmpeg-bundle/libvmaf.3.dylib",
+				"Resources/ffmpeg-bundle/libvorbisenc.2.dylib",
+				"Resources/ffmpeg-bundle/libvpx.12.dylib",
+				"Resources/ffmpeg-bundle/libwebp.7.2.0.dylib",
+				"Resources/ffmpeg-bundle/libwebp.7.dylib",
+				"Resources/ffmpeg-bundle/libwebpmux.3.1.2.dylib",
+				"Resources/ffmpeg-bundle/libwebpmux.3.dylib",
+				"Resources/ffmpeg-bundle/libX11.6.dylib",
+				"Resources/ffmpeg-bundle/libx264.165.dylib",
+				"Resources/ffmpeg-bundle/libx265.215.dylib",
+				"Resources/ffmpeg-bundle/libXau.6.dylib",
+				"Resources/ffmpeg-bundle/libxcb-render.0.0.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-render.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-shape.0.0.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-shape.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-shm.0.0.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-shm.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-xfixes.0.0.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-xfixes.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb.1.1.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb.1.dylib",
+				"Resources/ffmpeg-bundle/libXdmcp.6.dylib",
+				"Resources/ffmpeg-bundle/libXext.6.dylib",
+				"Resources/ffmpeg-bundle/libxml2.16.dylib",
+				"Resources/ffmpeg-bundle/libXrender.1.dylib",
+				"Resources/ffmpeg-bundle/libzimg.2.dylib",
+				"Resources/xorriso-bundle/xorriso",
 			);
 			target = 341F60379F353726252BFECF /* BurnMan */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		BE5801F12F4CF473008B3C66 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+		BE6C64102F5065C6005536D8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			attributesByRelativePath = {
-				cdrdao = (
+				"Resources/cdrdao-bundle/cdrdao" = (
 					CodeSignOnCopy,
 				);
-				libao.4.dylib = (
+				"Resources/cdrdao-bundle/libao.4.dylib" = (
 					CodeSignOnCopy,
 				);
-				libmad.0.dylib = (
+				"Resources/cdrdao-bundle/libmad.0.dylib" = (
 					CodeSignOnCopy,
 				);
-				libogg.0.dylib = (
+				"Resources/cdrdao-bundle/libogg.0.dylib" = (
 					CodeSignOnCopy,
 				);
-				libvorbis.0.dylib = (
+				"Resources/cdrdao-bundle/libvorbis.0.dylib" = (
 					CodeSignOnCopy,
 				);
-				libvorbisfile.3.dylib = (
+				"Resources/cdrdao-bundle/libvorbisfile.3.dylib" = (
 					CodeSignOnCopy,
 				);
 			};
 			buildPhase = BE5801EA2F4CF432008B3C66 /* Copy cdrdao */;
 			membershipExceptions = (
-				cdrdao,
-				libao.4.dylib,
-				libmad.0.dylib,
-				libogg.0.dylib,
-				libvorbis.0.dylib,
-				libvorbisfile.3.dylib,
+				"Resources/cdrdao-bundle/cdrdao",
+				"Resources/cdrdao-bundle/libao.4.dylib",
+				"Resources/cdrdao-bundle/libmad.0.dylib",
+				"Resources/cdrdao-bundle/libogg.0.dylib",
+				"Resources/cdrdao-bundle/libvorbis.0.dylib",
+				"Resources/cdrdao-bundle/libvorbisfile.3.dylib",
 			);
 		};
-		BE58021A2F4CFAA8008B3C66 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+		BE6C64112F5065C6005536D8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			attributesByRelativePath = {
-				ffmpeg = (
-					CodeSignOnCopy,
-				);
-				ffplay = (
-					CodeSignOnCopy,
-				);
-				ffprobe = (
-					CodeSignOnCopy,
-				);
-				"libSDL2-2.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libSDL2-2.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				libSvtAv1Enc.4.0.1.dylib = (
-					CodeSignOnCopy,
-				);
-				libSvtAv1Enc.4.dylib = (
-					CodeSignOnCopy,
-				);
-				libX11.6.dylib = (
-					CodeSignOnCopy,
-				);
-				libXau.6.dylib = (
-					CodeSignOnCopy,
-				);
-				libXdmcp.6.dylib = (
-					CodeSignOnCopy,
-				);
-				libXext.6.dylib = (
-					CodeSignOnCopy,
-				);
-				libXrender.1.dylib = (
-					CodeSignOnCopy,
-				);
-				libaom.3.13.1.dylib = (
-					CodeSignOnCopy,
-				);
-				libaom.3.dylib = (
-					CodeSignOnCopy,
-				);
-				libass.9.dylib = (
-					CodeSignOnCopy,
-				);
-				libavcodec.62.11.100.dylib = (
-					CodeSignOnCopy,
-				);
-				libavcodec.62.dylib = (
-					CodeSignOnCopy,
-				);
-				libavdevice.62.1.100.dylib = (
-					CodeSignOnCopy,
-				);
-				libavdevice.62.dylib = (
-					CodeSignOnCopy,
-				);
-				libavfilter.11.4.100.dylib = (
-					CodeSignOnCopy,
-				);
-				libavfilter.11.dylib = (
-					CodeSignOnCopy,
-				);
-				libavformat.62.3.100.dylib = (
-					CodeSignOnCopy,
-				);
-				libavformat.62.dylib = (
-					CodeSignOnCopy,
-				);
-				libavutil.60.8.100.dylib = (
-					CodeSignOnCopy,
-				);
-				libavutil.60.dylib = (
-					CodeSignOnCopy,
-				);
-				libbluray.3.dylib = (
-					CodeSignOnCopy,
-				);
-				"libcairo-gobject.2.dylib" = (
-					CodeSignOnCopy,
-				);
-				libcairo.2.dylib = (
-					CodeSignOnCopy,
-				);
-				libcrypto.3.dylib = (
-					CodeSignOnCopy,
-				);
-				libdatrie.1.dylib = (
-					CodeSignOnCopy,
-				);
-				libdav1d.7.dylib = (
-					CodeSignOnCopy,
-				);
-				libdvdcss.2.dylib = (
-					CodeSignOnCopy,
-				);
-				libdvdnav.4.dylib = (
-					CodeSignOnCopy,
-				);
-				libdvdread.8.dylib = (
-					CodeSignOnCopy,
-				);
-				"libfdk-aac.2.dylib" = (
-					CodeSignOnCopy,
-				);
-				libfontconfig.1.dylib = (
-					CodeSignOnCopy,
-				);
-				libfreetype.6.dylib = (
-					CodeSignOnCopy,
-				);
-				libfribidi.0.dylib = (
-					CodeSignOnCopy,
-				);
-				"libgdk_pixbuf-2.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libgdk_pixbuf-2.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libgio-2.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libgio-2.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libglib-2.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libglib-2.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libgmodule-2.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libgmodule-2.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libgobject-2.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libgobject-2.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				libgraphite2.3.2.1.dylib = (
-					CodeSignOnCopy,
-				);
-				libgraphite2.3.dylib = (
-					CodeSignOnCopy,
-				);
-				libharfbuzz.0.dylib = (
-					CodeSignOnCopy,
-				);
-				libintl.8.dylib = (
-					CodeSignOnCopy,
-				);
-				libjpeg.8.3.2.dylib = (
-					CodeSignOnCopy,
-				);
-				libjpeg.8.dylib = (
-					CodeSignOnCopy,
-				);
-				liblzma.5.dylib = (
-					CodeSignOnCopy,
-				);
-				libmp3lame.0.dylib = (
-					CodeSignOnCopy,
-				);
-				libopenh264.2.6.0.dylib = (
-					CodeSignOnCopy,
-				);
-				libopenh264.2.dylib = (
-					CodeSignOnCopy,
-				);
-				libopenh264.8.dylib = (
-					CodeSignOnCopy,
-				);
-				libopenjp2.2.5.4.dylib = (
-					CodeSignOnCopy,
-				);
-				libopenjp2.2.dylib = (
-					CodeSignOnCopy,
-				);
-				libopenjp2.7.dylib = (
-					CodeSignOnCopy,
-				);
-				libopus.0.dylib = (
-					CodeSignOnCopy,
-				);
-				"libpango-1.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libpango-1.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libpangocairo-1.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libpangocairo-1.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libpangoft2-1.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libpangoft2-1.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libpcre2-8.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libpixman-1.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				libpng16.16.dylib = (
-					CodeSignOnCopy,
-				);
-				librav1e.0.8.1.dylib = (
-					CodeSignOnCopy,
-				);
-				librav1e.0.8.dylib = (
-					CodeSignOnCopy,
-				);
-				librav1e.0.dylib = (
-					CodeSignOnCopy,
-				);
-				"librsvg-2.2.dylib" = (
-					CodeSignOnCopy,
-				);
-				libsharpyuv.0.1.2.dylib = (
-					CodeSignOnCopy,
-				);
-				libsharpyuv.0.dylib = (
-					CodeSignOnCopy,
-				);
-				libsnappy.1.2.2.dylib = (
-					CodeSignOnCopy,
-				);
-				libsnappy.1.dylib = (
-					CodeSignOnCopy,
-				);
-				libsoxr.0.1.2.dylib = (
-					CodeSignOnCopy,
-				);
-				libsoxr.0.dylib = (
-					CodeSignOnCopy,
-				);
-				libspeex.1.dylib = (
-					CodeSignOnCopy,
-				);
-				libssl.3.dylib = (
-					CodeSignOnCopy,
-				);
-				libswresample.6.1.100.dylib = (
-					CodeSignOnCopy,
-				);
-				libswresample.6.dylib = (
-					CodeSignOnCopy,
-				);
-				libswscale.9.1.100.dylib = (
-					CodeSignOnCopy,
-				);
-				libswscale.9.dylib = (
-					CodeSignOnCopy,
-				);
-				libthai.0.dylib = (
-					CodeSignOnCopy,
-				);
-				libtheoradec.2.dylib = (
-					CodeSignOnCopy,
-				);
-				libtheoraenc.2.dylib = (
-					CodeSignOnCopy,
-				);
-				libudfread.3.dylib = (
-					CodeSignOnCopy,
-				);
-				libunibreak.6.dylib = (
-					CodeSignOnCopy,
-				);
-				libvmaf.3.dylib = (
-					CodeSignOnCopy,
-				);
-				libvorbisenc.2.dylib = (
-					CodeSignOnCopy,
-				);
-				libvpx.12.dylib = (
-					CodeSignOnCopy,
-				);
-				libwebp.7.2.0.dylib = (
-					CodeSignOnCopy,
-				);
-				libwebp.7.dylib = (
-					CodeSignOnCopy,
-				);
-				libwebpmux.3.1.2.dylib = (
-					CodeSignOnCopy,
-				);
-				libwebpmux.3.dylib = (
-					CodeSignOnCopy,
-				);
-				libx264.165.dylib = (
-					CodeSignOnCopy,
-				);
-				libx265.215.dylib = (
-					CodeSignOnCopy,
-				);
-				"libxcb-render.0.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libxcb-render.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libxcb-shape.0.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libxcb-shape.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libxcb-shm.0.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libxcb-shm.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libxcb-xfixes.0.0.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				"libxcb-xfixes.0.dylib" = (
-					CodeSignOnCopy,
-				);
-				libxcb.1.1.0.dylib = (
-					CodeSignOnCopy,
-				);
-				libxcb.1.dylib = (
-					CodeSignOnCopy,
-				);
-				libxml2.16.dylib = (
-					CodeSignOnCopy,
-				);
-				libzimg.2.dylib = (
+				"Resources/xorriso-bundle/xorriso" = (
 					CodeSignOnCopy,
 				);
 			};
-			buildPhase = BE5802082F4CFA8E008B3C66 /* Copy ffmpeg */;
+			buildPhase = 02E5C01EA776ABA874190B0E /* Copy xorriso */;
 			membershipExceptions = (
-				ffmpeg,
-				ffplay,
-				ffprobe,
-				libaom.3.13.1.dylib,
-				libaom.3.dylib,
-				libass.9.dylib,
-				libavcodec.62.11.100.dylib,
-				libavcodec.62.dylib,
-				libavdevice.62.1.100.dylib,
-				libavdevice.62.dylib,
-				libavfilter.11.4.100.dylib,
-				libavfilter.11.dylib,
-				libavformat.62.3.100.dylib,
-				libavformat.62.dylib,
-				libavutil.60.8.100.dylib,
-				libavutil.60.dylib,
-				libbluray.3.dylib,
-				"libcairo-gobject.2.dylib",
-				libcairo.2.dylib,
-				libcrypto.3.dylib,
-				libdatrie.1.dylib,
-				libdav1d.7.dylib,
-				libdvdcss.2.dylib,
-				libdvdnav.4.dylib,
-				libdvdread.8.dylib,
-				"libfdk-aac.2.dylib",
-				libfontconfig.1.dylib,
-				libfreetype.6.dylib,
-				libfribidi.0.dylib,
-				"libgdk_pixbuf-2.0.0.dylib",
-				"libgdk_pixbuf-2.0.dylib",
-				"libgio-2.0.0.dylib",
-				"libgio-2.0.dylib",
-				"libglib-2.0.0.dylib",
-				"libglib-2.0.dylib",
-				"libgmodule-2.0.0.dylib",
-				"libgmodule-2.0.dylib",
-				"libgobject-2.0.0.dylib",
-				"libgobject-2.0.dylib",
-				libgraphite2.3.2.1.dylib,
-				libgraphite2.3.dylib,
-				libharfbuzz.0.dylib,
-				libintl.8.dylib,
-				libjpeg.8.3.2.dylib,
-				libjpeg.8.dylib,
-				liblzma.5.dylib,
-				libmp3lame.0.dylib,
-				libopenh264.2.6.0.dylib,
-				libopenh264.2.dylib,
-				libopenh264.8.dylib,
-				libopenjp2.2.5.4.dylib,
-				libopenjp2.2.dylib,
-				libopenjp2.7.dylib,
-				libopus.0.dylib,
-				"libpango-1.0.0.dylib",
-				"libpango-1.0.dylib",
-				"libpangocairo-1.0.0.dylib",
-				"libpangocairo-1.0.dylib",
-				"libpangoft2-1.0.0.dylib",
-				"libpangoft2-1.0.dylib",
-				"libpcre2-8.0.dylib",
-				"libpixman-1.0.dylib",
-				libpng16.16.dylib,
-				librav1e.0.8.1.dylib,
-				librav1e.0.8.dylib,
-				librav1e.0.dylib,
-				"librsvg-2.2.dylib",
-				"libSDL2-2.0.0.dylib",
-				"libSDL2-2.0.dylib",
-				libsharpyuv.0.1.2.dylib,
-				libsharpyuv.0.dylib,
-				libsnappy.1.2.2.dylib,
-				libsnappy.1.dylib,
-				libsoxr.0.1.2.dylib,
-				libsoxr.0.dylib,
-				libspeex.1.dylib,
-				libssl.3.dylib,
-				libSvtAv1Enc.4.0.1.dylib,
-				libSvtAv1Enc.4.dylib,
-				libswresample.6.1.100.dylib,
-				libswresample.6.dylib,
-				libswscale.9.1.100.dylib,
-				libswscale.9.dylib,
-				libthai.0.dylib,
-				libtheoradec.2.dylib,
-				libtheoraenc.2.dylib,
-				libudfread.3.dylib,
-				libunibreak.6.dylib,
-				libvmaf.3.dylib,
-				libvorbisenc.2.dylib,
-				libvpx.12.dylib,
-				libwebp.7.2.0.dylib,
-				libwebp.7.dylib,
-				libwebpmux.3.1.2.dylib,
-				libwebpmux.3.dylib,
-				libX11.6.dylib,
-				libx264.165.dylib,
-				libx265.215.dylib,
-				libXau.6.dylib,
-				"libxcb-render.0.0.0.dylib",
-				"libxcb-render.0.dylib",
-				"libxcb-shape.0.0.0.dylib",
-				"libxcb-shape.0.dylib",
-				"libxcb-shm.0.0.0.dylib",
-				"libxcb-shm.0.dylib",
-				"libxcb-xfixes.0.0.0.dylib",
-				"libxcb-xfixes.0.dylib",
-				libxcb.1.1.0.dylib,
-				libxcb.1.dylib,
-				libXdmcp.6.dylib,
-				libXext.6.dylib,
-				libxml2.16.dylib,
-				libXrender.1.dylib,
-				libzimg.2.dylib,
+				"Resources/xorriso-bundle/xorriso",
 			);
 		};
-		BE58022B2F4CFBEC008B3C66 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+		BE6C64122F5065C6005536D8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			attributesByRelativePath = {
-				"dvd+rw-booktype" = (
+				"Resources/dvda-author-bundle/dvda-author" = (
 					CodeSignOnCopy,
 				);
-				"dvd+rw-format" = (
+			};
+			buildPhase = BE5803012F50A001008B3C66 /* Copy dvda-author */;
+			membershipExceptions = (
+				"Resources/dvda-author-bundle/dvda-author",
+			);
+		};
+		BE6C64132F5065C6005536D8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			attributesByRelativePath = {
+				"Resources/dvdrwtools-bundle/dvd+rw-booktype" = (
 					CodeSignOnCopy,
 				);
-				"dvd+rw-mediainfo" = (
+				"Resources/dvdrwtools-bundle/dvd+rw-format" = (
 					CodeSignOnCopy,
 				);
-				growisofs = (
+				"Resources/dvdrwtools-bundle/dvd+rw-mediainfo" = (
+					CodeSignOnCopy,
+				);
+				"Resources/dvdrwtools-bundle/growisofs" = (
 					CodeSignOnCopy,
 				);
 			};
 			buildPhase = BE58021C2F4CFB5B008B3C66 /* Copy dvdrwtools */;
 			membershipExceptions = (
-				"dvd+rw-booktype",
-				"dvd+rw-format",
-				"dvd+rw-mediainfo",
-				growisofs,
+				"Resources/dvdrwtools-bundle/dvd+rw-booktype",
+				"Resources/dvdrwtools-bundle/dvd+rw-format",
+				"Resources/dvdrwtools-bundle/dvd+rw-mediainfo",
+				"Resources/dvdrwtools-bundle/growisofs",
+			);
+		};
+		BE6C64142F5065C6005536D8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			attributesByRelativePath = {
+				"Resources/ffmpeg-bundle/ffmpeg" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/ffprobe" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libSvtAv1Enc.4.0.1.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libSvtAv1Enc.4.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libX11.6.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libXau.6.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libXdmcp.6.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libXext.6.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libXrender.1.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libaom.3.13.1.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libaom.3.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libass.9.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libavcodec.62.11.100.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libavcodec.62.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libavdevice.62.1.100.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libavdevice.62.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libavfilter.11.4.100.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libavfilter.11.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libavformat.62.3.100.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libavformat.62.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libavutil.60.8.100.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libavutil.60.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libbluray.3.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libcairo-gobject.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libcairo.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libcrypto.3.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libdatrie.1.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libdav1d.7.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libdvdcss.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libdvdnav.4.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libdvdread.8.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libfdk-aac.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libfontconfig.1.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libfreetype.6.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libfribidi.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libgdk_pixbuf-2.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libgdk_pixbuf-2.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libgio-2.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libgio-2.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libglib-2.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libglib-2.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libgmodule-2.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libgmodule-2.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libgobject-2.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libgobject-2.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libgraphite2.3.2.1.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libgraphite2.3.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libharfbuzz.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libintl.8.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libjpeg.8.3.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libjpeg.8.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/liblzma.5.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libmp3lame.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libopenh264.2.6.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libopenh264.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libopenh264.8.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libopenjp2.2.5.4.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libopenjp2.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libopenjp2.7.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libopus.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libpango-1.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libpango-1.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libpangocairo-1.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libpangocairo-1.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libpangoft2-1.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libpangoft2-1.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libpcre2-8.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libpixman-1.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libpng16.16.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/librav1e.0.8.1.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/librav1e.0.8.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/librav1e.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/librsvg-2.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libsharpyuv.0.1.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libsharpyuv.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libsnappy.1.2.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libsnappy.1.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libsoxr.0.1.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libsoxr.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libspeex.1.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libssl.3.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libswresample.6.1.100.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libswresample.6.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libswscale.9.1.100.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libswscale.9.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libthai.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libtheoradec.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libtheoraenc.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libudfread.3.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libunibreak.6.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libvmaf.3.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libvorbisenc.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libvpx.12.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libwebp.7.2.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libwebp.7.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libwebpmux.3.1.2.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libwebpmux.3.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libx264.165.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libx265.215.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libxcb-render.0.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libxcb-render.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libxcb-shape.0.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libxcb-shape.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libxcb-shm.0.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libxcb-shm.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libxcb-xfixes.0.0.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libxcb-xfixes.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libxcb.1.1.0.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libxcb.1.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libxml2.16.dylib" = (
+					CodeSignOnCopy,
+				);
+				"Resources/ffmpeg-bundle/libzimg.2.dylib" = (
+					CodeSignOnCopy,
+				);
+			};
+			buildPhase = BE5802082F4CFA8E008B3C66 /* Copy ffmpeg */;
+			membershipExceptions = (
+				"Resources/ffmpeg-bundle/ffmpeg",
+				"Resources/ffmpeg-bundle/ffprobe",
+				"Resources/ffmpeg-bundle/libaom.3.13.1.dylib",
+				"Resources/ffmpeg-bundle/libaom.3.dylib",
+				"Resources/ffmpeg-bundle/libass.9.dylib",
+				"Resources/ffmpeg-bundle/libavcodec.62.11.100.dylib",
+				"Resources/ffmpeg-bundle/libavcodec.62.dylib",
+				"Resources/ffmpeg-bundle/libavdevice.62.1.100.dylib",
+				"Resources/ffmpeg-bundle/libavdevice.62.dylib",
+				"Resources/ffmpeg-bundle/libavfilter.11.4.100.dylib",
+				"Resources/ffmpeg-bundle/libavfilter.11.dylib",
+				"Resources/ffmpeg-bundle/libavformat.62.3.100.dylib",
+				"Resources/ffmpeg-bundle/libavformat.62.dylib",
+				"Resources/ffmpeg-bundle/libavutil.60.8.100.dylib",
+				"Resources/ffmpeg-bundle/libavutil.60.dylib",
+				"Resources/ffmpeg-bundle/libbluray.3.dylib",
+				"Resources/ffmpeg-bundle/libcairo-gobject.2.dylib",
+				"Resources/ffmpeg-bundle/libcairo.2.dylib",
+				"Resources/ffmpeg-bundle/libcrypto.3.dylib",
+				"Resources/ffmpeg-bundle/libdatrie.1.dylib",
+				"Resources/ffmpeg-bundle/libdav1d.7.dylib",
+				"Resources/ffmpeg-bundle/libdvdcss.2.dylib",
+				"Resources/ffmpeg-bundle/libdvdnav.4.dylib",
+				"Resources/ffmpeg-bundle/libdvdread.8.dylib",
+				"Resources/ffmpeg-bundle/libfdk-aac.2.dylib",
+				"Resources/ffmpeg-bundle/libfontconfig.1.dylib",
+				"Resources/ffmpeg-bundle/libfreetype.6.dylib",
+				"Resources/ffmpeg-bundle/libfribidi.0.dylib",
+				"Resources/ffmpeg-bundle/libgdk_pixbuf-2.0.0.dylib",
+				"Resources/ffmpeg-bundle/libgdk_pixbuf-2.0.dylib",
+				"Resources/ffmpeg-bundle/libgio-2.0.0.dylib",
+				"Resources/ffmpeg-bundle/libgio-2.0.dylib",
+				"Resources/ffmpeg-bundle/libglib-2.0.0.dylib",
+				"Resources/ffmpeg-bundle/libglib-2.0.dylib",
+				"Resources/ffmpeg-bundle/libgmodule-2.0.0.dylib",
+				"Resources/ffmpeg-bundle/libgmodule-2.0.dylib",
+				"Resources/ffmpeg-bundle/libgobject-2.0.0.dylib",
+				"Resources/ffmpeg-bundle/libgobject-2.0.dylib",
+				"Resources/ffmpeg-bundle/libgraphite2.3.2.1.dylib",
+				"Resources/ffmpeg-bundle/libgraphite2.3.dylib",
+				"Resources/ffmpeg-bundle/libharfbuzz.0.dylib",
+				"Resources/ffmpeg-bundle/libintl.8.dylib",
+				"Resources/ffmpeg-bundle/libjpeg.8.3.2.dylib",
+				"Resources/ffmpeg-bundle/libjpeg.8.dylib",
+				"Resources/ffmpeg-bundle/liblzma.5.dylib",
+				"Resources/ffmpeg-bundle/libmp3lame.0.dylib",
+				"Resources/ffmpeg-bundle/libopenh264.2.6.0.dylib",
+				"Resources/ffmpeg-bundle/libopenh264.2.dylib",
+				"Resources/ffmpeg-bundle/libopenh264.8.dylib",
+				"Resources/ffmpeg-bundle/libopenjp2.2.5.4.dylib",
+				"Resources/ffmpeg-bundle/libopenjp2.2.dylib",
+				"Resources/ffmpeg-bundle/libopenjp2.7.dylib",
+				"Resources/ffmpeg-bundle/libopus.0.dylib",
+				"Resources/ffmpeg-bundle/libpango-1.0.0.dylib",
+				"Resources/ffmpeg-bundle/libpango-1.0.dylib",
+				"Resources/ffmpeg-bundle/libpangocairo-1.0.0.dylib",
+				"Resources/ffmpeg-bundle/libpangocairo-1.0.dylib",
+				"Resources/ffmpeg-bundle/libpangoft2-1.0.0.dylib",
+				"Resources/ffmpeg-bundle/libpangoft2-1.0.dylib",
+				"Resources/ffmpeg-bundle/libpcre2-8.0.dylib",
+				"Resources/ffmpeg-bundle/libpixman-1.0.dylib",
+				"Resources/ffmpeg-bundle/libpng16.16.dylib",
+				"Resources/ffmpeg-bundle/librav1e.0.8.1.dylib",
+				"Resources/ffmpeg-bundle/librav1e.0.8.dylib",
+				"Resources/ffmpeg-bundle/librav1e.0.dylib",
+				"Resources/ffmpeg-bundle/librsvg-2.2.dylib",
+				"Resources/ffmpeg-bundle/libsharpyuv.0.1.2.dylib",
+				"Resources/ffmpeg-bundle/libsharpyuv.0.dylib",
+				"Resources/ffmpeg-bundle/libsnappy.1.2.2.dylib",
+				"Resources/ffmpeg-bundle/libsnappy.1.dylib",
+				"Resources/ffmpeg-bundle/libsoxr.0.1.2.dylib",
+				"Resources/ffmpeg-bundle/libsoxr.0.dylib",
+				"Resources/ffmpeg-bundle/libspeex.1.dylib",
+				"Resources/ffmpeg-bundle/libssl.3.dylib",
+				"Resources/ffmpeg-bundle/libSvtAv1Enc.4.0.1.dylib",
+				"Resources/ffmpeg-bundle/libSvtAv1Enc.4.dylib",
+				"Resources/ffmpeg-bundle/libswresample.6.1.100.dylib",
+				"Resources/ffmpeg-bundle/libswresample.6.dylib",
+				"Resources/ffmpeg-bundle/libswscale.9.1.100.dylib",
+				"Resources/ffmpeg-bundle/libswscale.9.dylib",
+				"Resources/ffmpeg-bundle/libthai.0.dylib",
+				"Resources/ffmpeg-bundle/libtheoradec.2.dylib",
+				"Resources/ffmpeg-bundle/libtheoraenc.2.dylib",
+				"Resources/ffmpeg-bundle/libudfread.3.dylib",
+				"Resources/ffmpeg-bundle/libunibreak.6.dylib",
+				"Resources/ffmpeg-bundle/libvmaf.3.dylib",
+				"Resources/ffmpeg-bundle/libvorbisenc.2.dylib",
+				"Resources/ffmpeg-bundle/libvpx.12.dylib",
+				"Resources/ffmpeg-bundle/libwebp.7.2.0.dylib",
+				"Resources/ffmpeg-bundle/libwebp.7.dylib",
+				"Resources/ffmpeg-bundle/libwebpmux.3.1.2.dylib",
+				"Resources/ffmpeg-bundle/libwebpmux.3.dylib",
+				"Resources/ffmpeg-bundle/libX11.6.dylib",
+				"Resources/ffmpeg-bundle/libx264.165.dylib",
+				"Resources/ffmpeg-bundle/libx265.215.dylib",
+				"Resources/ffmpeg-bundle/libXau.6.dylib",
+				"Resources/ffmpeg-bundle/libxcb-render.0.0.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-render.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-shape.0.0.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-shape.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-shm.0.0.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-shm.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-xfixes.0.0.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb-xfixes.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb.1.1.0.dylib",
+				"Resources/ffmpeg-bundle/libxcb.1.dylib",
+				"Resources/ffmpeg-bundle/libXdmcp.6.dylib",
+				"Resources/ffmpeg-bundle/libXext.6.dylib",
+				"Resources/ffmpeg-bundle/libxml2.16.dylib",
+				"Resources/ffmpeg-bundle/libXrender.1.dylib",
+				"Resources/ffmpeg-bundle/libzimg.2.dylib",
+			);
+		};
+		BE6C64AA2F60A002005536D8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			attributesByRelativePath = {
+				"Resources/cdrtools-bundle/mkisofs" = (
+					CodeSignOnCopy,
+				);
+			};
+			buildPhase = BE5803AA2F60A001008B3C66 /* Copy cdrtools */;
+			membershipExceptions = (
+				"Resources/cdrtools-bundle/mkisofs",
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		BE5801E82F4CF243008B3C66 /* cdrdao-bundle */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (BE5801F22F4CF4DE008B3C66 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, BE5801F12F4CF473008B3C66 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); name = "cdrdao-bundle"; path = "Resources/cdrdao-bundle"; sourceTree = "<group>"; };
-		BE5802062F4CFA7F008B3C66 /* ffmpeg-bundle */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (BE58021B2F4CFAE1008B3C66 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, BE58021A2F4CFAA8008B3C66 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); name = "ffmpeg-bundle"; path = "Resources/ffmpeg-bundle"; sourceTree = "<group>"; };
-		BE5802212F4CFBD2008B3C66 /* dvdrwtools-bundle */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (BE5802262F4CFBD9008B3C66 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, BE58022B2F4CFBEC008B3C66 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); name = "dvdrwtools-bundle"; path = "Resources/dvdrwtools-bundle"; sourceTree = "<group>"; };
+		BE6C62C52F5065C5005536D8 /* BurnMan */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (BE6C640F2F5065C6005536D8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, BE6C64102F5065C6005536D8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, BE6C64112F5065C6005536D8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, BE6C64AA2F60A002005536D8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, BE6C64122F5065C6005536D8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, BE6C64132F5065C6005536D8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, BE6C64142F5065C6005536D8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = BurnMan; sourceTree = "<group>"; };
+		BE6C64162F506648005536D8 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		BEBF61202F4FBCC0000A3F8E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEBF611E2F4FBCC0000A3F8E /* VLCKit.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
-		276A430DF6E20921633564F8 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				B4BA41BA94BE46CF77CE6E84 /* PipelineState.swift */,
-				F583C5623022A02A7C353340 /* DiscTypes.swift */,
-				AA941471163FD163A19FF9A8 /* OpticalDevice.swift */,
-				10DDD994F5D8E5784A23B3F9 /* MediaInfo.swift */,
-				AA1BC2A3D7E8F1234ABCD201 /* AudioCDModels.swift */,
-				B63ADEB2293F5EB7A9FD5F50 /* BurnSettings.swift */,
-				53F7C25EA6172B64A2A52D83 /* TrackInfo.swift */,
-				BB01AA01BB01AA01BB01AA01 /* ExtractModels.swift */,
-				BB02AA02BB02AA02BB02AA02 /* CopyModels.swift */,
-				D10100A1B2C3D4E5F6A7B8C9 /* ActiveTaskContext.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		30D0393D07A583C9B0C93DB4 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				57C631E6AF7BE182AFCE3D3E /* AudioDiscManager.swift */,
-				2300699A81C383A12A0619D0 /* VideoDiscManager.swift */,
-				3E0F1ACB0C44650C04D8A25E /* DataDiscManager.swift */,
-				03A62200201EB92A517EA6A1 /* ImageDiscManager.swift */,
-				BB05AA05BB05AA05BB05AA05 /* CopyDiscManager.swift */,
-				BB06AA06BB06AA06BB06AA06 /* DiskImageManager.swift */,
-				BB07AA07BB07AA07BB07AA07 /* EraseDiscManager.swift */,
-				BB08AA08BB08AA08BB08AA08 /* ExtractAudioManager.swift */,
-				BB09AA09BB09AA09BB09AA09 /* ExtractVideoManager.swift */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		528BF59E406F18F4326C2F52 /* BurnMan */ = {
-			isa = PBXGroup;
-			children = (
-				30D0393D07A583C9B0C93DB4 /* Managers */,
-				BD13AA3ACFF3D0C2ED6E4720 /* Config */,
-				DF0CCAC77B0A3811C4668F3C /* Errors */,
-				BE5802212F4CFBD2008B3C66 /* dvdrwtools-bundle */,
-				BE5802062F4CFA7F008B3C66 /* ffmpeg-bundle */,
-				BE5801E82F4CF243008B3C66 /* cdrdao-bundle */,
-				5B478953EB6039ABF4E2DB6B /* BurnManApp.swift */,
-				276A430DF6E20921633564F8 /* Models */,
-				F8EFAAD9C8757B9F4826AA18 /* Services */,
-				CC4CB299119194A0CD080DBF /* Views */,
-				BE58023C2F4D3B70008B3C66 /* Assets.xcassets */,
-				BEF805572F4DFCAE00509E59 /* Credits.rtf */,
-			);
-			path = BurnMan;
-			sourceTree = "<group>";
-		};
 		936EEADEAC72B2488A834929 = {
 			isa = PBXGroup;
 			children = (
 				AABB0001AABB0001AABB0001 /* Local.xcconfig */,
-				528BF59E406F18F4326C2F52 /* BurnMan */,
+				BE6C62C52F5065C5005536D8 /* BurnMan */,
 				C40FC2A9FA1A8E29F19374D8 /* BurnManHelper */,
-				9A6298D3B07670404972D367 /* Shared */,
+				BE6C64162F506648005536D8 /* Shared */,
 				98911039BB04C211DDB511C3 /* Products */,
+				BEBF611C2F4FBC55000A3F8E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -880,20 +838,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9A6298D3B07670404972D367 /* Shared */ = {
+		BEBF611C2F4FBC55000A3F8E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3DFA957ACA1AFAE5F32D6931 /* BurnManHelperProtocol.swift */,
+				BEBF611D2F4FBCC0000A3F8E /* VLCKit.xcframework */,
 			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		BD13AA3ACFF3D0C2ED6E4720 /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				4FA8C3AA98C0D5DC26FCE169 /* ToolPaths.swift */,
-			);
-			path = Config;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C40FC2A9FA1A8E29F19374D8 /* BurnManHelper */ = {
@@ -901,111 +851,9 @@
 			children = (
 				F1A2B3C4D5E6F7890A1B2C3D /* org.burnman.helper.plist */,
 				0A3FB34039A02CF01C8AA74A /* main.swift */,
+				AA22BB33CC44DD55EE66FF04 /* Info.plist */,
 			);
 			path = BurnManHelper;
-			sourceTree = "<group>";
-		};
-		CC4CB299119194A0CD080DBF /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				D14000A1B2C3D4E5F6A7B8C9 /* Components */,
-				D14100A1B2C3D4E5F6A7B8C9 /* Tabs */,
-				D14200A1B2C3D4E5F6A7B8C9 /* Sections */,
-				AA1BC2A3D7E8F1234ABCD204 /* AudioCDProgressView.swift */,
-				AA1BC2A3D7E8F1234ABCD203 /* AudioTrackRowView.swift */,
-				E0F899C9F702E4D885FF66F5 /* BurnProgressView.swift */,
-				3B9FC3717BDB89BFDF09B47A /* ContentView.swift */,
-				2A17587E346AA19BD69EB9FC /* CueGeneratorView.swift */,
-				FA1BC2A3D7E8F1234ABCD105 /* DevicePickerView.swift */,
-				FA1BC2A3D7E8F1234ABCD103 /* GlassModifiers.swift */,
-				FA1BC2A3D7E8F1234ABCD106 /* LogSheetView.swift */,
-				C546D6684E81440554504DF1 /* SettingsView.swift */,
-				FA1BC2A3D7E8F1234ABCD102 /* TrackRowView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		DF0CCAC77B0A3811C4668F3C /* Errors */ = {
-			isa = PBXGroup;
-			children = (
-				17AAFCC4BB57A9E5E1C70113 /* ToolError.swift */,
-				C30792FE6F6E500E06C8BF7C /* CdrdaoError.swift */,
-				605D854361A1551B42E34AF6 /* GrowisofsError.swift */,
-				AB3847B09170F74B46E7CD3E /* FfmpegError.swift */,
-				A428D4C620F09057A9AF9F09 /* DvdRwError.swift */,
-			);
-			path = Errors;
-			sourceTree = "<group>";
-		};
-		F8EFAAD9C8757B9F4826AA18 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				4074CA607FC11C6C9925E979 /* CompactDiscService.swift */,
-				4B8C8FCF94D5B24253FB9B5D /* DVDService.swift */,
-				A4141982FBEF0854EC3915C4 /* BlurayService.swift */,
-				89DB4BBBFDFC3677FF2EB50B /* MediaProbeService.swift */,
-				CD8A31C9D0B3DCF569F5CBC6 /* MediaConversionService.swift */,
-				3224B57641A61C81BDDAC307 /* MediaPlayerService.swift */,
-				AA1BC2A3D7E8F1234ABCD202 /* AudioCDManager.swift */,
-				8F6F78585BC8BA4D870D4181 /* BurnManager.swift */,
-				FA1BC2A3D7E8F1234ABCD101 /* CdrdaoConfig.swift */,
-				652560F91AEF803309C2D415 /* CueGenerator.swift */,
-				963F83B8A7FE984E1CA8F916 /* DeviceManager.swift */,
-				B7E65B67EEF0E46083D4E379 /* HelperClient.swift */,
-				BE58022C2F4D03C3008B3C66 /* CdrdaoOutputParser.swift */,
-				BE58022E2F4D0E51008B3C66 /* ToolRunner.swift */,
-				BE5802302F4D0E51008B3C66 /* FfmpegConfig.swift */,
-				BE5802322F4D0E52008B3C66 /* FfmpegOutputParser.swift */,
-				BE58023E2F4D454D008B3C66 /* AudioPreviewPlayer.swift */,
-				BB03AA03BB03AA03BB03AA03 /* DecryptionService.swift */,
-				BB04AA04BB04AA04BB04AA04 /* DiscImageService.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		D14000A1B2C3D4E5F6A7B8C9 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				D10300A1B2C3D4E5F6A7B8C9 /* BottomToolbar.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		D14100A1B2C3D4E5F6A7B8C9 /* Tabs */ = {
-			isa = PBXGroup;
-			children = (
-				D10500A1B2C3D4E5F6A7B8C9 /* BurnTabView.swift */,
-				D10700A1B2C3D4E5F6A7B8C9 /* CopyTabView.swift */,
-				D10900A1B2C3D4E5F6A7B8C9 /* ExtractTabView.swift */,
-				D10B00A1B2C3D4E5F6A7B8C9 /* ConvertTabView.swift */,
-				D10D00A1B2C3D4E5F6A7B8C9 /* ToolsTabView.swift */,
-			);
-			path = Tabs;
-			sourceTree = "<group>";
-		};
-		D14200A1B2C3D4E5F6A7B8C9 /* Sections */ = {
-			isa = PBXGroup;
-			children = (
-				D11000A1B2C3D4E5F6A7B8C9 /* AudioCDSection.swift */,
-				D11200A1B2C3D4E5F6A7B8C9 /* DataCDSection.swift */,
-				D11400A1B2C3D4E5F6A7B8C9 /* DiscImageBurnSection.swift */,
-				D11600A1B2C3D4E5F6A7B8C9 /* DVDVideoSection.swift */,
-				D11800A1B2C3D4E5F6A7B8C9 /* DVDAudioSection.swift */,
-				D11A00A1B2C3D4E5F6A7B8C9 /* DataDVDSection.swift */,
-				D11C00A1B2C3D4E5F6A7B8C9 /* BlurayVideoSection.swift */,
-				D11E00A1B2C3D4E5F6A7B8C9 /* DataBluraySection.swift */,
-				D12000A1B2C3D4E5F6A7B8C9 /* CopyDiscToDiscSection.swift */,
-				D12200A1B2C3D4E5F6A7B8C9 /* CopyDiscImageSection.swift */,
-				D12400A1B2C3D4E5F6A7B8C9 /* ExtractMusicSection.swift */,
-				D12600A1B2C3D4E5F6A7B8C9 /* ExtractVideoSection.swift */,
-				D12800A1B2C3D4E5F6A7B8C9 /* ConvertFileSection.swift */,
-				D12A00A1B2C3D4E5F6A7B8C9 /* ConvertAudioSection.swift */,
-				D12C00A1B2C3D4E5F6A7B8C9 /* ConvertVideoSection.swift */,
-				D12E00A1B2C3D4E5F6A7B8C9 /* ConvertDiscImageSection.swift */,
-				D13000A1B2C3D4E5F6A7B8C9 /* EraseDiscSection.swift */,
-				D13200A1B2C3D4E5F6A7B8C9 /* MetadataEditorSection.swift */,
-			);
-			path = Sections;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1019,10 +867,14 @@
 				042F76450663D6E16F932A5A /* Resources */,
 				BEF805552F4DD2E500509E59 /* CopyFiles */,
 				BE5801EA2F4CF432008B3C66 /* Copy cdrdao */,
+				02E5C01EA776ABA874190B0E /* Copy xorriso */,
+				BE5803AA2F60A001008B3C66 /* Copy cdrtools */,
+				BE5803012F50A001008B3C66 /* Copy dvda-author */,
 				BE58021C2F4CFB5B008B3C66 /* Copy dvdrwtools */,
 				BE5802082F4CFA8E008B3C66 /* Copy ffmpeg */,
 				BE5802402F4E0A01008B3C66 /* Sign Bundled Tools */,
 				FDA461BDA4901F638EC757A2 /* Copy Helper LaunchDaemon plist */,
+				BEBF61202F4FBCC0000A3F8E /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1030,9 +882,8 @@
 				E69C7E9753EC6BACE94A0976 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				BE5801E82F4CF243008B3C66 /* cdrdao-bundle */,
-				BE5802062F4CFA7F008B3C66 /* ffmpeg-bundle */,
-				BE5802212F4CFBD2008B3C66 /* dvdrwtools-bundle */,
+				BE6C62C52F5065C5005536D8 /* BurnMan */,
+				BE6C64162F506648005536D8 /* Shared */,
 			);
 			name = BurnMan;
 			packageProductDependencies = (
@@ -1050,6 +901,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				BE6C64162F506648005536D8 /* Shared */,
 			);
 			name = BurnManHelper;
 			packageProductDependencies = (
@@ -1091,8 +945,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE58023D2F4D3B70008B3C66 /* Assets.xcassets in Resources */,
-				BEF805582F4DFCAE00509E59 /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1121,7 +973,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC7DB3D5DBB505089C70776A /* BurnManHelperProtocol.swift in Sources */,
 				9189BA6F3F92EC552DFF8948 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1130,86 +981,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F33D9ED19941C5D16248C28 /* AudioDiscManager.swift in Sources */,
-				B9D956B322F5D7F8023A9A0E /* VideoDiscManager.swift in Sources */,
-				852BE1CE0A71697F561CFCE5 /* DataDiscManager.swift in Sources */,
-				6EEA06F49F829B75ABC37C48 /* ImageDiscManager.swift in Sources */,
-				92BAD2A2E66B48C58A54770E /* CompactDiscService.swift in Sources */,
-				1769BBE68FF829C9329DA901 /* DVDService.swift in Sources */,
-				212056397D5318079E281310 /* BlurayService.swift in Sources */,
-				F5825620B1F96D467D7603B5 /* MediaProbeService.swift in Sources */,
-				288391EEB2747A648F396357 /* MediaConversionService.swift in Sources */,
-				407E987AAF2A81B6128F125B /* MediaPlayerService.swift in Sources */,
-				4729E664B8F926C73EDECD42 /* PipelineState.swift in Sources */,
-				A75B1B07A148A0ABF5E399E3 /* DiscTypes.swift in Sources */,
-				FC06FF917E8A964FFA323CC6 /* OpticalDevice.swift in Sources */,
-				2BD0956D684F20F51E4239CB /* MediaInfo.swift in Sources */,
-				AAED005F80D295C656783E5E /* ToolPaths.swift in Sources */,
-				DFB50DCF345CCABB89AD2532 /* ToolError.swift in Sources */,
-				3EF87F4043FEC7C155FEC7F5 /* CdrdaoError.swift in Sources */,
-				409546B57FC2DC73E6CA6C6C /* GrowisofsError.swift in Sources */,
-				524851AD8D7AFA76FA50332D /* FfmpegError.swift in Sources */,
-				3675D5757B505110CCDFDC43 /* DvdRwError.swift in Sources */,
-				AA1BC2A3D7E8F1234ABCD301 /* AudioCDModels.swift in Sources */,
-				BE58022D2F4D03C3008B3C66 /* CdrdaoOutputParser.swift in Sources */,
-				AA1BC2A3D7E8F1234ABCD302 /* AudioCDManager.swift in Sources */,
-				AA1BC2A3D7E8F1234ABCD303 /* AudioTrackRowView.swift in Sources */,
-				BE5802332F4D0E52008B3C66 /* FfmpegOutputParser.swift in Sources */,
-				AA1BC2A3D7E8F1234ABCD304 /* AudioCDProgressView.swift in Sources */,
-				07416A4FD460019C885AA68C /* BurnManager.swift in Sources */,
-				656B279AE0D078CC2F3E3BDD /* BurnProgressView.swift in Sources */,
-				8A612C85E036B05F3740A0F3 /* BurnSettings.swift in Sources */,
-				94EABC8E3B4F188AC99A4E60 /* BurnManApp.swift in Sources */,
-				BB67759C283969A20A8D15EC /* BurnManHelperProtocol.swift in Sources */,
-				FA1BC2A3D7E8F1234ABCD001 /* CdrdaoConfig.swift in Sources */,
-				E45F76E37D128E266D0A35B2 /* ContentView.swift in Sources */,
-				4755C0C57DB065EE72C46E61 /* CueGenerator.swift in Sources */,
-				2200C1503E76DFB7ABDF9DD4 /* CueGeneratorView.swift in Sources */,
-				B2AE436837DDF44ED469AC97 /* DeviceManager.swift in Sources */,
-				BF4FB28985C554614625A8EF /* HelperClient.swift in Sources */,
-				BE5802312F4D0E51008B3C66 /* FfmpegConfig.swift in Sources */,
-				6DFE22B1FE720BDD72B959D4 /* SettingsView.swift in Sources */,
-				BE58022F2F4D0E51008B3C66 /* ToolRunner.swift in Sources */,
-				42EAE11C7B3910398744028A /* TrackInfo.swift in Sources */,
-				FA1BC2A3D7E8F1234ABCD002 /* TrackRowView.swift in Sources */,
-				BE58023F2F4D454D008B3C66 /* AudioPreviewPlayer.swift in Sources */,
-				FA1BC2A3D7E8F1234ABCD003 /* GlassModifiers.swift in Sources */,
-				FA1BC2A3D7E8F1234ABCD005 /* DevicePickerView.swift in Sources */,
-				FA1BC2A3D7E8F1234ABCD006 /* LogSheetView.swift in Sources */,
-				CC01BB01CC01BB01CC01BB01 /* ExtractModels.swift in Sources */,
-				CC02BB02CC02BB02CC02BB02 /* CopyModels.swift in Sources */,
-				CC03BB03CC03BB03CC03BB03 /* DecryptionService.swift in Sources */,
-				CC04BB04CC04BB04CC04BB04 /* DiscImageService.swift in Sources */,
-				CC05BB05CC05BB05CC05BB05 /* CopyDiscManager.swift in Sources */,
-				CC06BB06CC06BB06CC06BB06 /* DiskImageManager.swift in Sources */,
-				CC07BB07CC07BB07CC07BB07 /* EraseDiscManager.swift in Sources */,
-				CC08BB08CC08BB08CC08BB08 /* ExtractAudioManager.swift in Sources */,
-				CC09BB09CC09BB09CC09BB09 /* ExtractVideoManager.swift in Sources */,
-				D10200A1B2C3D4E5F6A7B8C9 /* ActiveTaskContext.swift in Sources */,
-				D10400A1B2C3D4E5F6A7B8C9 /* BottomToolbar.swift in Sources */,
-				D10600A1B2C3D4E5F6A7B8C9 /* BurnTabView.swift in Sources */,
-				D10800A1B2C3D4E5F6A7B8C9 /* CopyTabView.swift in Sources */,
-				D10A00A1B2C3D4E5F6A7B8C9 /* ExtractTabView.swift in Sources */,
-				D10C00A1B2C3D4E5F6A7B8C9 /* ConvertTabView.swift in Sources */,
-				D10E00A1B2C3D4E5F6A7B8C9 /* ToolsTabView.swift in Sources */,
-				D11100A1B2C3D4E5F6A7B8C9 /* AudioCDSection.swift in Sources */,
-				D11300A1B2C3D4E5F6A7B8C9 /* DataCDSection.swift in Sources */,
-				D11500A1B2C3D4E5F6A7B8C9 /* DiscImageBurnSection.swift in Sources */,
-				D11700A1B2C3D4E5F6A7B8C9 /* DVDVideoSection.swift in Sources */,
-				D11900A1B2C3D4E5F6A7B8C9 /* DVDAudioSection.swift in Sources */,
-				D11B00A1B2C3D4E5F6A7B8C9 /* DataDVDSection.swift in Sources */,
-				D11D00A1B2C3D4E5F6A7B8C9 /* BlurayVideoSection.swift in Sources */,
-				D11F00A1B2C3D4E5F6A7B8C9 /* DataBluraySection.swift in Sources */,
-				D12100A1B2C3D4E5F6A7B8C9 /* CopyDiscToDiscSection.swift in Sources */,
-				D12300A1B2C3D4E5F6A7B8C9 /* CopyDiscImageSection.swift in Sources */,
-				D12500A1B2C3D4E5F6A7B8C9 /* ExtractMusicSection.swift in Sources */,
-				D12700A1B2C3D4E5F6A7B8C9 /* ExtractVideoSection.swift in Sources */,
-				D12900A1B2C3D4E5F6A7B8C9 /* ConvertFileSection.swift in Sources */,
-				D12B00A1B2C3D4E5F6A7B8C9 /* ConvertAudioSection.swift in Sources */,
-				D12D00A1B2C3D4E5F6A7B8C9 /* ConvertVideoSection.swift in Sources */,
-				D12F00A1B2C3D4E5F6A7B8C9 /* ConvertDiscImageSection.swift in Sources */,
-				D13100A1B2C3D4E5F6A7B8C9 /* EraseDiscSection.swift in Sources */,
-				D13300A1B2C3D4E5F6A7B8C9 /* MetadataEditorSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1407,11 +1178,17 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BurnMan/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BurnMan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BurnMan/Resources/ffmpeg-bundle",
+					"$(PROJECT_DIR)/BurnMan/Resources/cdrdao-bundle",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.burnman.app;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1424,7 +1201,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "BurnMan/BurnMan-Dev.entitlements";
+				CODE_SIGN_ENTITLEMENTS = BurnMan/BurnMan.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1433,11 +1210,17 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BurnMan/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BurnMan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BurnMan/Resources/ffmpeg-bundle",
+					"$(PROJECT_DIR)/BurnMan/Resources/cdrdao-bundle",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.burnman.app;
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -26,27 +26,19 @@ struct ExtractVideoSection: View {
                 statusSection
             }
         }
-        .onAppear { updateTaskContext() }
-        .onChange(of: extractVideoManager.isRunning) { updateTaskContext() }
-        .onChange(of: extractVideoManager.titles.count) { updateTaskContext() }
-    }
-
-    private func updateTaskContext() {
-        taskContext.actionLabel = "Extract"
-        taskContext.actionIcon = "arrow.down.circle"
-        taskContext.canExecute = extractVideoManager.canExtract
-        taskContext.isRunning = extractVideoManager.isRunning
-        taskContext.onExecute = { startExtraction() }
-        taskContext.onSimulate = nil
-        taskContext.onCancel = { extractVideoManager.cancel() }
-        taskContext.onAddFiles = nil
-
-        if extractVideoManager.isRunning {
-            taskContext.progress = extractVideoManager.progress
-            taskContext.statusText = "Extracting video…"
-        } else {
-            taskContext.progress = nil
-            taskContext.statusText = ""
+        .bindTaskContext(canExecute: extractVideoManager.canExtract, isRunning: extractVideoManager.isRunning) {
+            TaskBinding(
+                actionLabel: "Extract",
+                actionIcon: "arrow.down.circle",
+                canExecute: extractVideoManager.canExtract,
+                isRunning: extractVideoManager.isRunning,
+                onExecute: { startExtraction() },
+                onCancel: { extractVideoManager.cancel() },
+                statusText: extractVideoManager.isRunning ? "Extracting video…" : ""
+            )
+        }
+        .onChange(of: extractVideoManager.isRunning) {
+            taskContext.progress = extractVideoManager.isRunning ? extractVideoManager.progress : nil
         }
     }
 
@@ -221,35 +213,19 @@ struct ExtractVideoSection: View {
     // MARK: - Status
 
     private var statusSection: some View {
-        SectionContainer(title: "Progress", systemImage: "waveform.path") {
-            VStack(spacing: 8) {
-                switch extractVideoManager.state {
-                case .preparing:
-                    ProgressView()
-                        .controlSize(.small)
-                    Text("Analyzing…")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                case .extracting:
-                    ProgressView(value: extractVideoManager.progress)
-                    Text("Extracting…")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                case .finished:
-                    CompletionBadge(message: "Extraction complete")
-                case .failed:
-                    if let error = extractVideoManager.error {
-                        ErrorBadge(message: error)
-                    }
-                default:
-                    ProgressView()
-                        .controlSize(.small)
-                    Text(extractVideoManager.state.displayName)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
+        PipelineStatusView(
+            state: extractVideoManager.state,
+            error: extractVideoManager.error,
+            completionMessage: "Extraction complete",
+            progress: extractingProgress
+        )
+    }
+
+    private var extractingProgress: Double? {
+        if case .extracting = extractVideoManager.state {
+            return extractVideoManager.progress
         }
+        return nil
     }
 
     // MARK: - Actions

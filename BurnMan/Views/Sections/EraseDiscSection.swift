@@ -5,8 +5,6 @@ struct EraseDiscSection: View {
     @Environment(DeviceManager.self) private var deviceManager
     @Environment(ActiveTaskContext.self) private var taskContext
 
-    @State private var selectedMediaType: MediaType = .cdRW
-
     private var canErase: Bool {
         deviceManager.selectedDevice != nil && !eraseDiscManager.isRunning
     }
@@ -20,20 +18,17 @@ struct EraseDiscSection: View {
                 statusSection
             }
         }
-        .onAppear { updateTaskContext() }
-        .onChange(of: eraseDiscManager.isRunning) { updateTaskContext() }
-    }
-
-    private func updateTaskContext() {
-        taskContext.actionLabel = "Erase"
-        taskContext.actionIcon = "eraser"
-        taskContext.canExecute = canErase
-        taskContext.isRunning = eraseDiscManager.isRunning
-        taskContext.onExecute = { startErase() }
-        taskContext.onSimulate = nil
-        taskContext.onCancel = { eraseDiscManager.cancel() }
-        taskContext.onAddFiles = nil
-        taskContext.statusText = eraseDiscManager.isRunning ? "Erasing disc…" : ""
+        .bindTaskContext(id: eraseDiscManager.isRunning) {
+            TaskBinding(
+                actionLabel: "Erase",
+                actionIcon: "eraser",
+                canExecute: canErase,
+                isRunning: eraseDiscManager.isRunning,
+                onExecute: { startErase() },
+                onCancel: { eraseDiscManager.cancel() },
+                statusText: eraseDiscManager.isRunning ? "Erasing disc…" : ""
+            )
+        }
     }
 
     // MARK: - Info
@@ -62,36 +57,17 @@ struct EraseDiscSection: View {
         @Bindable var eraseDiscManager = eraseDiscManager
 
         return SectionContainer(title: "Options", systemImage: "gearshape") {
-            VStack(spacing: 16) {
-                SettingRow(
-                    title: "Disc Type",
-                    systemImage: "opticaldisc",
-                    description: "Select the type of disc inserted."
-                ) {
-                    Picker("", selection: $selectedMediaType) {
-                        Text("CD-RW").tag(MediaType.cdRW)
-                        Text("DVD+RW").tag(MediaType.dvdPlusRW)
-                        Text("DVD-RW").tag(MediaType.dvdMinusRW)
-                        Text("BD-RE").tag(MediaType.bdRE)
-                    }
-                    .pickerStyle(.segmented)
-                    .fixedSize()
+            SettingRow(
+                title: "Erase Mode",
+                systemImage: "eraser",
+                description: "Full: erases everything. Fast: erases TOC only."
+            ) {
+                Picker("", selection: $eraseDiscManager.blankMode) {
+                    Text("Full").tag(BlankMode.full)
+                    Text("Fast").tag(BlankMode.minimal)
                 }
-
-                if selectedMediaType == .cdRW {
-                    SettingRow(
-                        title: "Erase Mode",
-                        systemImage: "eraser",
-                        description: "Full: erases everything. Fast: erases TOC only."
-                    ) {
-                        Picker("", selection: $eraseDiscManager.blankMode) {
-                            Text("Full").tag(BlankMode.full)
-                            Text("Fast").tag(BlankMode.minimal)
-                        }
-                        .pickerStyle(.segmented)
-                        .fixedSize()
-                    }
-                }
+                .pickerStyle(.segmented)
+                .fixedSize()
             }
         }
     }
@@ -99,30 +75,11 @@ struct EraseDiscSection: View {
     // MARK: - Status
 
     private var statusSection: some View {
-        SectionContainer(title: "Progress", systemImage: "waveform.path") {
-            VStack(spacing: 8) {
-                switch eraseDiscManager.state {
-                case .erasing:
-                    ProgressView()
-                        .controlSize(.small)
-                    Text("Erasing…")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                case .finished:
-                    CompletionBadge(message: "Disc erased successfully")
-                case .failed:
-                    if let error = eraseDiscManager.error {
-                        ErrorBadge(message: error)
-                    }
-                default:
-                    ProgressView()
-                        .controlSize(.small)
-                    Text(eraseDiscManager.state.displayName)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
-        }
+        PipelineStatusView(
+            state: eraseDiscManager.state,
+            error: eraseDiscManager.error,
+            completionMessage: "Disc erased successfully"
+        )
     }
 
     // MARK: - Actions
@@ -130,7 +87,7 @@ struct EraseDiscSection: View {
     private func startErase() {
         guard let device = deviceManager.selectedDevice else { return }
         Task {
-            await eraseDiscManager.erase(device: device.path, mediaType: selectedMediaType)
+            await eraseDiscManager.erase(device: device)
         }
     }
 }

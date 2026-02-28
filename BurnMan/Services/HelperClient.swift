@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import os
 import ServiceManagement
 import Synchronization
 
@@ -64,7 +65,7 @@ class HelperClient {
         var errorDescription: String? {
             switch self {
             case .requiresApproval:
-                return "Activez BurnMan dans Réglages Système > Général > Ouverture, puis réessayez."
+                return "Enable BurnMan in System Settings > General > Login Items, then try again."
             }
         }
     }
@@ -121,7 +122,7 @@ class HelperClient {
     ) -> BurnManHelperProtocol? {
         let conn = getConnection()
         let proxy = conn.remoteObjectProxyWithErrorHandler { @Sendable error in
-            print("XPC error: \(error)")
+            Logger.helper.error("XPC error: \(error.localizedDescription)")
             safe.resume(returning: fallback)
         } as? BurnManHelperProtocol
 

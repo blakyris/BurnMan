@@ -22,21 +22,17 @@ struct ExtractMusicSection: View {
                 statusSection
             }
         }
-        .onAppear { updateTaskContext() }
-        .onChange(of: extractAudioManager.isRunning) { updateTaskContext() }
-        .onChange(of: extractAudioManager.tracks.count) { updateTaskContext() }
-    }
-
-    private func updateTaskContext() {
-        taskContext.actionLabel = "Extract"
-        taskContext.actionIcon = "arrow.down.circle"
-        taskContext.canExecute = extractAudioManager.canExtract
-        taskContext.isRunning = extractAudioManager.isRunning
-        taskContext.onExecute = { startExtraction() }
-        taskContext.onSimulate = nil
-        taskContext.onCancel = { extractAudioManager.cancel() }
-        taskContext.onAddFiles = nil
-        taskContext.statusText = extractAudioManager.isRunning ? "Extracting audio…" : ""
+        .bindTaskContext(canExecute: extractAudioManager.canExtract, isRunning: extractAudioManager.isRunning) {
+            TaskBinding(
+                actionLabel: "Extract",
+                actionIcon: "arrow.down.circle",
+                canExecute: extractAudioManager.canExtract,
+                isRunning: extractAudioManager.isRunning,
+                onExecute: { startExtraction() },
+                onCancel: { extractAudioManager.cancel() },
+                statusText: extractAudioManager.isRunning ? "Extracting audio…" : ""
+            )
+        }
     }
 
     // MARK: - TOC
@@ -218,35 +214,19 @@ struct ExtractMusicSection: View {
     // MARK: - Status
 
     private var statusSection: some View {
-        SectionContainer(title: "Progress", systemImage: "waveform.path") {
-            VStack(spacing: 8) {
-                switch extractAudioManager.state {
-                case .reading:
-                    ProgressView()
-                        .controlSize(.small)
-                    Text("Reading disc…")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                case .extracting(let current, let total):
-                    ProgressView(value: Double(current), total: Double(total))
-                    Text("Extracting track \(current)/\(total)…")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                case .finished:
-                    CompletionBadge(message: "Extraction complete")
-                case .failed:
-                    if let error = extractAudioManager.error {
-                        ErrorBadge(message: error)
-                    }
-                default:
-                    ProgressView()
-                        .controlSize(.small)
-                    Text(extractAudioManager.state.displayName)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
+        PipelineStatusView(
+            state: extractAudioManager.state,
+            error: extractAudioManager.error,
+            completionMessage: "Extraction complete",
+            progress: extractingProgress
+        )
+    }
+
+    private var extractingProgress: Double? {
+        if case .extracting(let current, let total) = extractAudioManager.state, total > 0 {
+            return Double(current) / Double(total)
         }
+        return nil
     }
 
     // MARK: - Actions

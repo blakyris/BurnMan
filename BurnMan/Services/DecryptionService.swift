@@ -13,13 +13,18 @@ class DecryptionService: @unchecked Sendable {
 
     // MARK: - Search Paths
 
-    private static let dvdCssSearchPaths = [
-        (ToolPaths.frameworksDirectory as NSString)
-            .appendingPathComponent("libdvdcss.2.dylib"),
-        "/usr/local/lib/libdvdcss.2.dylib",
-        "/opt/homebrew/lib/libdvdcss.2.dylib",
-        "/usr/lib/libdvdcss.2.dylib",
-    ]
+    private static let dvdCssSearchPaths: [String] = {
+        var paths: [String] = []
+        if let dir = ToolPaths.frameworksDirectory {
+            paths.append((dir as NSString).appendingPathComponent("libdvdcss.2.dylib"))
+        }
+        paths += [
+            "/usr/local/lib/libdvdcss.2.dylib",
+            "/opt/homebrew/lib/libdvdcss.2.dylib",
+            "/usr/lib/libdvdcss.2.dylib",
+        ]
+        return paths
+    }()
 
     // MARK: - State
 

@@ -4,7 +4,7 @@ import Foundation
 /// Pipeline: probe titles → select title → extract with chosen format.
 @MainActor
 @Observable
-class ExtractVideoManager {
+class ExtractVideoManager: Loggable {
     // MARK: - State
 
     var titles: [DVDTitle] = []
@@ -40,6 +40,21 @@ class ExtractVideoManager {
 
     var isRunning: Bool { state.isActive }
 
+    // MARK: - Content State
+
+    var hasContent: Bool { !titles.isEmpty || outputURL != nil }
+
+    func reset() {
+        cancel()
+        titles = []
+        selectedTitleId = nil
+        outputURL = nil
+        state = .idle
+        error = nil
+        log = []
+        progress = 0
+    }
+
     var selectedTitle: DVDTitle? {
         titles.first { $0.id == selectedTitleId }
     }
@@ -58,7 +73,7 @@ class ExtractVideoManager {
         titles = []
         selectedTitleId = nil
 
-        appendLog("Analyse du disque...")
+        appendLog("Scanning disc...")
 
         // Probe titles 1-99 via MediaProbeService
         var found: [DVDTitle] = []
@@ -82,14 +97,14 @@ class ExtractVideoManager {
         titles = found
 
         if titles.isEmpty {
-            fail("Aucun titre trouvé sur le disque.")
+            fail("No titles found on the disc.")
             return
         }
 
         // Auto-select the longest title (likely the main feature)
         selectedTitleId = titles.max(by: { $0.duration < $1.duration })?.id
 
-        appendLog("\(titles.count) titre(s) détecté(s).")
+        appendLog("\(titles.count) title(s) found.")
         state = .idle
     }
 
@@ -105,7 +120,7 @@ class ExtractVideoManager {
         error = nil
         progress = 0
         state = .extracting(current: 1, total: 1)
-        appendLog("Extraction du titre \(titleId)...")
+        appendLog("Extracting title \(titleId)...")
 
         let exitCode = await mediaConversionService.extractDVDTitle(
             devicePath: devicePath,
@@ -117,11 +132,11 @@ class ExtractVideoManager {
         }
 
         guard exitCode == 0 else {
-            fail("Erreur d'extraction (code \(exitCode))")
+            fail("Extraction error (code \(exitCode))")
             return
         }
 
-        appendLog("Extraction terminée.")
+        appendLog("Extraction completed.")
         state = .finished
     }
 
@@ -129,7 +144,7 @@ class ExtractVideoManager {
         cancelled = true
         mediaConversionService.cancel()
         state = .failed
-        error = "Annulé par l'utilisateur"
+        error = "Cancelled by user"
     }
 
     // MARK: - Private
@@ -137,11 +152,7 @@ class ExtractVideoManager {
     private func fail(_ message: String) {
         state = .failed
         error = message
-        appendLog("Erreur : \(message)")
-    }
-
-    func appendLog(_ message: String) {
-        log.append(message)
+        appendLog("Error: \(message)")
     }
 
     private func parseTitleInfo(data: Data, titleNumber: Int) -> DVDTitle? {

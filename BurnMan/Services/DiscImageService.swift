@@ -4,19 +4,17 @@ import Foundation
 ///
 /// - Unencrypted DVD/BD: raw read via `dd` (requires root, runs through HelperClient)
 /// - Encrypted DVD (CSS): read via ffmpeg's `dvdvideo` demuxer (uses libdvdnav → libdvdread → libdvdcss)
-/// - CD: delegates to CompactDiscService (cdrdao read-cd)
+/// - CD: read via DiscBurningService (cdrdao read-cd)
 class DiscImageService: @unchecked Sendable {
     private let helperClient: HelperClient
-    private let toolRunner: ToolRunner
+    private var currentRunner: ToolRunner?
     let decryptionService: DecryptionService
 
     init(
         helperClient: HelperClient,
-        toolRunner: ToolRunner,
         decryptionService: DecryptionService
     ) {
         self.helperClient = helperClient
-        self.toolRunner = toolRunner
         self.decryptionService = decryptionService
     }
 
@@ -68,18 +66,24 @@ class DiscImageService: @unchecked Sendable {
             "-y", outputPath,
         ]
 
-        return await toolRunner.run(
+        let runner = ToolRunner()
+        self.currentRunner = runner
+
+        let exitCode = await runner.run(
             executablePath: ToolPaths.ffmpeg,
             arguments: args,
             onLine: onLine
         )
+
+        self.currentRunner = nil
+        return exitCode
     }
 
     // MARK: - Cancel
 
     func cancel() {
         Task { @MainActor in
-            toolRunner.cancel()
+            currentRunner?.cancel()
         }
     }
 }

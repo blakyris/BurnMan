@@ -1,5 +1,6 @@
-import AVFoundation
+import DiscRecording
 import Foundation
+import VLCKit
 
 /// Manages DVD-Video and Blu-ray disc creation pipeline.
 @MainActor
@@ -16,8 +17,7 @@ class VideoDiscManager {
 
     let mediaProbeService: MediaProbeService
     let mediaConversionService: MediaConversionService
-    let dvdService: DVDService
-    let blurayService: BlurayService
+    let discBurningService: DiscBurningService
     let mediaPlayerService: MediaPlayerService
 
     // MARK: - Private
@@ -30,18 +30,27 @@ class VideoDiscManager {
     init(
         mediaProbeService: MediaProbeService,
         mediaConversionService: MediaConversionService,
-        dvdService: DVDService,
-        blurayService: BlurayService,
+        discBurningService: DiscBurningService,
         mediaPlayerService: MediaPlayerService
     ) {
         self.mediaProbeService = mediaProbeService
         self.mediaConversionService = mediaConversionService
-        self.dvdService = dvdService
-        self.blurayService = blurayService
+        self.discBurningService = discBurningService
         self.mediaPlayerService = mediaPlayerService
     }
 
     var isRunning: Bool { state.isActive }
+
+    // MARK: - Content State
+
+    var hasContent: Bool { !files.isEmpty }
+
+    func reset() {
+        cancel()
+        files = []
+        state = .idle
+        error = nil
+    }
 
     // MARK: - File Management
 
@@ -73,7 +82,7 @@ class VideoDiscManager {
 
     // MARK: - Preview
 
-    func preview(url: URL) -> AVPlayer {
+    func preview(url: URL) -> VLCMediaPlayer {
         mediaPlayerService.playVideo(url: url)
     }
 
@@ -85,7 +94,7 @@ class VideoDiscManager {
         state = .preparing
 
         guard !files.isEmpty else {
-            fail("Aucun fichier vidéo ajouté.")
+            fail("No video files added.")
             return
         }
 
@@ -118,38 +127,33 @@ class VideoDiscManager {
             }
 
             guard exitCode == 0 else {
-                fail("Erreur de transcodage pour \(file.name)")
+                fail("Transcoding error for \(file.name)")
                 return
             }
         }
 
         guard !cancelled else { return }
 
-        // Burn
+        // Burn via DiscRecording
         state = .burning
 
-        let logPath = "/tmp/burnman_video_\(ProcessInfo.processInfo.processIdentifier).log"
-        FileManager.default.createFile(atPath: logPath, contents: nil)
-
-        // For now, burn the first transcoded file as ISO
-        // Full DVD/BD structure building will be added later
-        let (exitCode, errorMessage) = switch discType {
-        case .dvd:
-            await dvdService.burn(
-                isoPath: tempDir.path,
-                device: device,
-                logPath: logPath
-            )
-        case .bluray:
-            await blurayService.burn(
-                isoPath: tempDir.path,
-                device: device,
-                logPath: logPath
-            )
+        guard let drDevice = discBurningService.findDevice(bsdName: device)
+                ?? discBurningService.allDevices().first else {
+            fail("Unable to find DiscRecording drive.")
+            return
         }
 
-        if exitCode != 0 {
-            fail(errorMessage.isEmpty ? "Erreur de gravure (code \(exitCode))" : errorMessage)
+        // For now, burn the temp directory as ISO
+        // Full DVD/BD structure building will be added later
+        nonisolated(unsafe) let safeDevice = drDevice
+        let result = await discBurningService.burnISO(
+            isoPath: tempDir.path,
+            device: safeDevice,
+            options: BurnOptions(eject: true)
+        )
+
+        if !result.success {
+            fail(result.errorMessage)
             return
         }
 
@@ -159,14 +163,9 @@ class VideoDiscManager {
 
     func cancel() {
         cancelled = true
-        Task { @MainActor in
-            switch discType {
-            case .dvd: _ = await dvdService.cancel()
-            case .bluray: _ = await blurayService.cancel()
-            }
-        }
+        discBurningService.cancelBurn()
         state = .failed
-        error = "Annulé par l'utilisateur"
+        error = "Cancelled by user"
     }
 
     // MARK: - Private

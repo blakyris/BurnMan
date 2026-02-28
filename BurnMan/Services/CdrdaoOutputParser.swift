@@ -22,31 +22,31 @@ enum CdrdaoEvent: Equatable {
 /// All regex patterns are compiled once as static constants.
 enum CdrdaoOutputParser {
 
-    // MARK: - French Message Mappings
+    // MARK: - User-Facing Message Mappings
 
     private static let errorMappings: [(pattern: String, message: String)] = [
-        ("Cannot open disk",             "Fichier introuvable ou inaccessible."),
-        ("Cannot open",                  "Impossible d'ouvrir le fichier."),
-        ("Cannot determine length",      "Fichier audio corrompu ou format invalide."),
-        ("Unit not ready",               "Le graveur n'est pas prêt (vérifiez qu'un disque est inséré)."),
-        ("Medium not present",           "Aucun disque dans le graveur."),
-        ("Write data failed",            "Échec d'écriture — le disque est peut-être défectueux ou la vitesse trop élevée."),
-        ("Cannot open SCSI",             "Graveur non trouvé ou occupé par une autre application."),
-        ("Illegal cue sheet",            "Le fichier TOC/CUE est malformé."),
-        ("Power calibration",            "Zone de calibration du disque défectueuse — essayez un autre disque."),
-        ("Medium write protected",       "Ce disque est protégé en écriture (déjà gravé)."),
-        ("Incompatible medium",          "Disque incompatible avec ce graveur."),
-        ("Could not read disk",          "Erreur de lecture du disque source."),
-        ("Invalid track mode",           "Mode de piste incompatible."),
-        ("Blanking failed",              "Échec de l'effacement du disque."),
-        ("exceeds",                      "La durée totale dépasse la capacité du disque. Réduisez le nombre de pistes ou activez l'option Overburn."),
-        ("Cannot setup device",          "Impossible d'initialiser le graveur. Débranchez et rebranchez le lecteur, ou redémarrez."),
-        ("giving up",                    "Le graveur ne répond pas. Débranchez et rebranchez le lecteur."),
+        ("Cannot open disk",             "File not found or inaccessible."),
+        ("Cannot open",                  "Unable to open file."),
+        ("Cannot determine length",      "Corrupted audio file or invalid format."),
+        ("Unit not ready",               "Drive not ready (check that a disc is inserted)."),
+        ("Medium not present",           "No disc in the drive."),
+        ("Write data failed",            "Write failed — the disc may be defective or speed too high."),
+        ("Cannot open SCSI",             "Drive not found or in use by another application."),
+        ("Illegal cue sheet",            "Malformed TOC/CUE file."),
+        ("Power calibration",            "Defective disc calibration area — try another disc."),
+        ("Medium write protected",       "Disc is write-protected (already burned)."),
+        ("Incompatible medium",          "Incompatible disc for this drive."),
+        ("Could not read disk",          "Source disc read error."),
+        ("Invalid track mode",           "Incompatible track mode."),
+        ("Blanking failed",              "Disc erase failed."),
+        ("exceeds",                      "Total duration exceeds disc capacity. Reduce the number of tracks or enable Overburn."),
+        ("Cannot setup device",          "Unable to initialize drive. Unplug and reconnect the drive, or restart."),
+        ("giving up",                    "Drive not responding. Unplug and reconnect the drive."),
     ]
 
     private static let warningMappings: [(pattern: String, message: String)] = [
-        ("seems to be written",          "Ce disque semble déjà gravé."),
-        ("Speed value not supported",    "Vitesse de gravure non supportée par le graveur."),
+        ("seems to be written",          "This disc appears to already be burned."),
+        ("Speed value not supported",    "Burn speed not supported by the drive."),
     ]
 
     private static func humanReadableMessage(
@@ -101,6 +101,30 @@ enum CdrdaoOutputParser {
             case .pausing, .blanking, .writingFinished, .error:
                 break
             }
+        }
+    }
+
+    // MARK: - Exit Code Description
+
+    /// Translates a cdrdao/helper exit code into a user-facing message.
+    static func describeExitCode(_ code: Int32, helperMessage: String) -> String {
+        if !helperMessage.isEmpty { return helperMessage }
+        switch code {
+        case 0: return "Success"
+        case 1: return "General cdrdao error"
+        case 2: return "cdrdao usage error"
+        case -1: return "Invalid cdrdao path"
+        case -2: return "Invalid arguments"
+        case -3: return "Invalid working directory"
+        case -4: return "Invalid log path"
+        case -5: return "Unable to launch cdrdao"
+        default:
+            if code > 128 {
+                let signal = code - 128
+                if signal == 15 { return "cdrdao interrupted (cancelled)" }
+                return "cdrdao killed by signal \(signal)"
+            }
+            return "cdrdao code \(code)"
         }
     }
 
@@ -192,7 +216,7 @@ enum CdrdaoOutputParser {
             let friendlyError = humanReadableMessage(
                 from: line,
                 mappings: errorMappings,
-                fallback: "Erreur cdrdao : \(line)"
+                fallback: "cdrdao error: \(line)"
             )
             events.append(.error(line))
             events.append(.phaseChanged(.failed(friendlyError)))

@@ -40,19 +40,19 @@ enum CdrdaoError: ToolError {
 
     var errorDescription: String? {
         switch self {
-        case .deviceNotFound:      return "Le graveur n'a pas été trouvé."
-        case .noDisc:              return "Aucun disque dans le lecteur."
-        case .discNotEmpty:        return "Le disque n'est pas vide."
-        case .cannotReadDisc:      return "Impossible de lire le disque."
-        case .writeError:          return "Erreur d'écriture."
-        case .bufferUnderrun:      return "Buffer underrun — essayez une vitesse plus basse."
-        case .incompatibleMedium:  return "Média incompatible avec ce graveur."
-        case .tocNotFound:         return "Fichier TOC introuvable."
-        case .tocInvalid:          return "Fichier TOC invalide."
-        case .blankFailed:         return "Échec de l'effacement du disque."
-        case .scsiError:           return "Erreur de communication SCSI."
-        case .capacityExceeded:    return "La durée totale dépasse la capacité du disque."
-        case .deviceSetupFailed:   return "Impossible d'initialiser le graveur. Débranchez et rebranchez le lecteur."
+        case .deviceNotFound:      return "Drive not found."
+        case .noDisc:              return "No disc in the drive."
+        case .discNotEmpty:        return "Disc is not empty."
+        case .cannotReadDisc:      return "Unable to read disc."
+        case .writeError:          return "Write error."
+        case .bufferUnderrun:      return "Buffer underrun — try a lower speed."
+        case .incompatibleMedium:  return "Incompatible media for this drive."
+        case .tocNotFound:         return "TOC file not found."
+        case .tocInvalid:          return "Invalid TOC file."
+        case .blankFailed:         return "Disc erase failed."
+        case .scsiError:           return "SCSI communication error."
+        case .capacityExceeded:    return "Total duration exceeds disc capacity."
+        case .deviceSetupFailed:   return "Unable to initialize drive. Unplug and reconnect the drive."
         case .genericError(let msg): return msg
         }
     }
@@ -87,6 +87,6 @@ enum CdrdaoError: ToolError {
                 return error
             }
         }
-        return .genericError("Erreur cdrdao (code \(exitCode))")
+        return .genericError("cdrdao error (code \(exitCode))")
     }
 }

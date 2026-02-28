@@ -30,7 +30,7 @@ enum VideoDiscType: String, CaseIterable, Identifiable {
 
     var displayName: String {
         switch self {
-        case .dvd:     return "DVD-Vidéo"
+        case .dvd:     return "DVD-Video"
         case .bluray:  return "Blu-ray"
         }
     }
@@ -84,7 +84,7 @@ enum FileSystemType: String, CaseIterable, Identifiable {
         case .iso9660: return "ISO 9660"
         case .udf:     return "UDF"
         case .hybrid:  return "ISO 9660 + UDF"
-        case .auto:    return "Automatique"
+        case .auto:    return "Auto"
         }
     }
 }
@@ -114,7 +114,7 @@ enum MediaType: String, CaseIterable, Identifiable {
         case .dvdRam:       return "DVD-RAM"
         case .bdR:          return "BD-R"
         case .bdRE:         return "BD-RE"
-        case .unknown:      return "Inconnu"
+        case .unknown:      return "Unknown"
         }
     }
 

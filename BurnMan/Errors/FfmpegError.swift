@@ -26,12 +26,12 @@ enum FfmpegError: ToolError {
 
     var errorDescription: String? {
         switch self {
-        case .fileNotFound:      return "Fichier introuvable."
-        case .invalidData:       return "Données invalides."
-        case .codecNotFound:     return "Codec introuvable."
-        case .outputExists:      return "Le fichier de sortie existe déjà."
-        case .permissionDenied:  return "Permission refusée."
-        case .unsupportedFormat: return "Format non supporté."
+        case .fileNotFound:      return "File not found."
+        case .invalidData:       return "Invalid data."
+        case .codecNotFound:     return "Codec not found."
+        case .outputExists:      return "Output file already exists."
+        case .permissionDenied:  return "Permission denied."
+        case .unsupportedFormat: return "Unsupported format."
         case .genericError(let msg): return msg
         }
     }
@@ -55,6 +55,6 @@ enum FfmpegError: ToolError {
                 return error
             }
         }
-        return .genericError("Erreur ffmpeg (code \(exitCode))")
+        return .genericError("ffmpeg error (code \(exitCode))")
     }
 }

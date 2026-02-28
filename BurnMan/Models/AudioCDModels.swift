@@ -1,4 +1,6 @@
+import CoreTransferable
 import Foundation
+import UniformTypeIdentifiers
 
 // MARK: - Audio Track
 
@@ -41,6 +43,20 @@ struct AudioTrack: Identifiable, Hashable {
     var fileName: String {
         sourceURL.deletingPathExtension().lastPathComponent
     }
+}
+
+// MARK: - Audio Track Transfer (for drag-and-drop reorder)
+
+struct AudioTrackTransfer: Codable, Transferable {
+    let id: UUID
+
+    static var transferRepresentation: some TransferRepresentation {
+        CodableRepresentation(contentType: .audioTrackID)
+    }
+}
+
+extension UTType {
+    static let audioTrackID = UTType(exportedAs: "org.burnman.audiotrack-id")
 }
 
 // MARK: - CD-Text Metadata
@@ -95,14 +111,14 @@ enum AudioCDPhase: Equatable {
 
     var displayName: String {
         switch self {
-        case .idle: return "En attente"
-        case .validating: return "Préparation..."
-        case .converting(let cur, let tot): return "Préparation \(cur)/\(tot)..."
-        case .generatingTOC: return "Préparation..."
-        case .burning: return "Gravure..."
-        case .cleaningUp: return "Finalisation..."
-        case .completed: return "Terminé !"
-        case .failed(let msg): return "Erreur : \(msg)"
+        case .idle: return "Idle"
+        case .validating: return "Preparing..."
+        case .converting(let cur, let tot): return "Converting \(cur)/\(tot)..."
+        case .generatingTOC: return "Generating TOC..."
+        case .burning: return "Burning..."
+        case .cleaningUp: return "Cleaning up..."
+        case .completed: return "Done!"
+        case .failed(let msg): return "Error: \(msg)"
         }
     }
 

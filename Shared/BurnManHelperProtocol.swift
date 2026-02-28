@@ -48,11 +48,11 @@ import Foundation
 
 enum BurnManHelperConstants {
     static let machServiceName = "org.burnman.helper"
-    static let helperVersion = "2.1.0"
+    static let helperVersion = "2.2.0"
 
     /// Tool names allowed to be executed by the helper (bundled tools).
     static let allowedToolNames: Set<String> = [
-        "cdrdao", "growisofs", "dvd+rw-format", "dvd+rw-mediainfo", "dvd+rw-booktype",
+        "cdrdao", "xorriso", "dvd+rw-booktype",
     ]
 
     /// System tool paths allowed to be executed by the helper.
@@ -71,14 +71,10 @@ enum BurnManHelperConstants {
         "read-test", "show-toc", "scanbus", "disk-info", "blank", "unlock",
     ]
 
-    /// Valid growisofs option prefixes.
-    static let growisofsAllowedPrefixes: [String] = [
-        "-Z", "-M", "-speed=", "-dvd-compat", "-overburn",
-        "-use-the-force-luke", "-dry-run",
-    ]
-
-    /// Valid dvd+rw-format options.
-    static let dvdRwFormatOptions: Set<String> = [
-        "-force", "-lead-out", "-blank", "-ssa=none",
+    /// Valid xorriso option prefixes (native mode + cdrecord emulation).
+    static let xorrisoAllowedArgs: Set<String> = [
+        "-outdev", "-volid", "-speed", "-joliet", "-rockridge",
+        "-dummy", "-close", "-map", "-commit", "-eject",
+        "-as", "-v", "-multi",
     ]
 }
